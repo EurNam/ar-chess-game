@@ -8,12 +8,25 @@ public class TileManager : MonoBehaviour
     private Vector3 position3D;
     private bool isOccupied = false;
     private PieceManager pieceManager = null;
+    private Renderer moveGuideRenderer;
+    private Transform moveGuideTransform;
 
-    // Start is called before the first frame update
     void Awake()
     {
         this.SetPosition2D(new Vector2Int((int)transform.position.x, (int)transform.position.z));
         this.SetPosition3D(transform.position);
+
+        // Find the move guide using the MoveGuide script
+        MoveGuide moveGuide = GetComponentInChildren<MoveGuide>();
+        if (moveGuide != null)
+        {
+            moveGuideRenderer = moveGuide.GetComponent<Renderer>();
+            moveGuideTransform = moveGuide.transform;
+            // Set initial scale
+            moveGuideTransform.localScale = new Vector3(0.5f, moveGuideTransform.localScale.y, 0.5f);
+        }
+
+        SetMoveGuideShown(false);
     }
 
     // Update is called once per frame
@@ -55,7 +68,40 @@ public class TileManager : MonoBehaviour
     public void SetOccupied(bool occupied, PieceManager piece = null)
     {
         isOccupied = occupied;
-
         pieceManager = piece;
+    }
+
+    public void SetMoveGuideShown(bool shown)
+    {
+        if (moveGuideRenderer != null)
+        {
+            moveGuideRenderer.enabled = shown;
+        }
+    }
+
+    public void SetMoveGuideColor(BoardManager.MoveType moveType)
+    {
+        if (moveGuideRenderer != null)
+        {
+            switch (moveType)
+            {
+                case BoardManager.MoveType.Allowed:
+                    moveGuideRenderer.material.color = Color.green;
+                    moveGuideTransform.localScale = new Vector3(0.5f, moveGuideTransform.localScale.y, 0.5f);
+                    break;
+                case BoardManager.MoveType.Capture:
+                    moveGuideRenderer.material.color = Color.green;
+                    moveGuideTransform.localScale = new Vector3(0.8f, moveGuideTransform.localScale.y, 0.8f);
+                    break;
+                case BoardManager.MoveType.Stay:
+                    moveGuideRenderer.material.color = Color.yellow;
+                    moveGuideTransform.localScale = new Vector3(0.5f, moveGuideTransform.localScale.y, 0.5f);
+                    break;
+                default:
+                    moveGuideRenderer.material.color = Color.clear;
+                    moveGuideTransform.localScale = new Vector3(0.5f, moveGuideTransform.localScale.y, 0.5f);
+                    break;
+            }
+        }
     }
 }

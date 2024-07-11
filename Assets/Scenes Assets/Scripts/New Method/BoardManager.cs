@@ -7,7 +7,7 @@ public class BoardManager : MonoBehaviour
     public static BoardManager Instance;
     public GameObject board;
     private TileManager[,] boardState;
-    private MoveGuideManager[,] moveGuideState;
+
     public enum MoveType
     {
         Invalid,
@@ -19,13 +19,12 @@ public class BoardManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        InitializeBoardState();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        InitializeBoardState();
     }
 
     // Update is called once per frame
@@ -38,29 +37,17 @@ public class BoardManager : MonoBehaviour
     {
         int boardSize = 9;
         boardState = new TileManager[boardSize, boardSize];
-        moveGuideState = new MoveGuideManager[boardSize, boardSize];
 
         // Find all tiles with the "Tile" tag
-        GameObject[] tileObjects = GameObject.FindGameObjectsWithTag("Tile");
+        TileManager[] tileObjects = FindObjectsOfType<TileManager>();
         Debug.Log("Tile objects: " + tileObjects.Length);
-        foreach (GameObject tileObject in tileObjects)
+        foreach (TileManager tileObject in tileObjects)
         {
-            TileManager tile = tileObject.GetComponent<TileManager>();
-            if (tile != null)
+            if (tileObject != null)
             {
-                Vector2Int position = tile.GetPosition2D();
-                boardState[position.x, position.y] = tile;
+                Vector2Int position = tileObject.GetPosition2D();
+                boardState[position.x, position.y] = tileObject;
             }
-        }
-
-        // Find all move guides with the MoveGuideManager script and hide them
-        MoveGuideManager[] moveGuideObjects = FindObjectsOfType<MoveGuideManager>();
-        Debug.Log("Move guide objects: " + moveGuideObjects.Length);
-        foreach (MoveGuideManager moveGuide in moveGuideObjects)
-        {
-            Vector2Int position = moveGuide.GetPosition2D();
-            moveGuideState[position.x, position.y] = moveGuide;
-            moveGuide.SetShown(false);
         }
     }
 
@@ -68,20 +55,20 @@ public class BoardManager : MonoBehaviour
     {
         if (boardState[position.x, position.y].GetPieceManager() == null)
         {
-            moveGuideState[position.x, position.y].SetShown(true);
-            moveGuideState[position.x, position.y].SetColor(MoveType.Allowed);
+            boardState[position.x, position.y].SetMoveGuideShown(true);
+            boardState[position.x, position.y].SetMoveGuideColor(MoveType.Allowed);
             return MoveType.Allowed;
         }
         else if (boardState[position.x, position.y].GetPieceManager().colorWhite() != piece.colorWhite())
         {
-            moveGuideState[position.x, position.y].SetShown(true);
-            moveGuideState[position.x, position.y].SetColor(MoveType.Capture);
+            boardState[position.x, position.y].SetMoveGuideShown(true);
+            boardState[position.x, position.y].SetMoveGuideColor(MoveType.Capture);
             return MoveType.Capture;
         }
         else if (boardState[position.x, position.y].GetPieceManager() == piece)
         {
-            moveGuideState[position.x, position.y].SetShown(true);
-            moveGuideState[position.x, position.y].SetColor(MoveType.Stay);
+            boardState[position.x, position.y].SetMoveGuideShown(true);
+            boardState[position.x, position.y].SetMoveGuideColor(MoveType.Stay);
             return MoveType.Stay;
         }
         return MoveType.Invalid;
@@ -91,7 +78,7 @@ public class BoardManager : MonoBehaviour
     {
         foreach (Vector2Int position in positions)
         {
-            moveGuideState[position.x, position.y].SetShown(false);
+            boardState[position.x, position.y].SetMoveGuideShown(false);
         }
     }
 }

@@ -256,18 +256,6 @@ void RegisterAllStrippedInternalCalls()
 
 	//End Registrations for type : UnityEngine.Application
 
-	//Start Registrations for type : UnityEngine.AudioSettings
-
-		//System.Boolean UnityEngine.AudioSettings::StartAudioOutput()
-		void Register_UnityEngine_AudioSettings_StartAudioOutput();
-		Register_UnityEngine_AudioSettings_StartAudioOutput();
-
-		//System.Boolean UnityEngine.AudioSettings::StopAudioOutput()
-		void Register_UnityEngine_AudioSettings_StopAudioOutput();
-		Register_UnityEngine_AudioSettings_StopAudioOutput();
-
-	//End Registrations for type : UnityEngine.AudioSettings
-
 	//Start Registrations for type : UnityEngine.Behaviour
 
 		//System.Boolean UnityEngine.Behaviour::get_enabled()
@@ -393,10 +381,6 @@ void RegisterAllStrippedInternalCalls()
 		//System.Void UnityEngine.Camera::ScreenToViewportPoint_Injected(UnityEngine.Vector3&,UnityEngine.Vector3&)
 		void Register_UnityEngine_Camera_ScreenToViewportPoint_Injected();
 		Register_UnityEngine_Camera_ScreenToViewportPoint_Injected();
-
-		//System.Void UnityEngine.Camera::ScreenToWorldPoint_Injected(UnityEngine.Vector3&,UnityEngine.Camera/MonoOrStereoscopicEye,UnityEngine.Vector3&)
-		void Register_UnityEngine_Camera_ScreenToWorldPoint_Injected();
-		Register_UnityEngine_Camera_ScreenToWorldPoint_Injected();
 
 		//System.Void UnityEngine.Camera::SetStereoProjectionMatrix_Injected(UnityEngine.Camera/StereoscopicEye,UnityEngine.Matrix4x4&)
 		void Register_UnityEngine_Camera_SetStereoProjectionMatrix_Injected();
@@ -1273,6 +1257,10 @@ void RegisterAllStrippedInternalCalls()
 		//UnityEngine.Component UnityEngine.GameObject::Internal_AddComponentWithType(System.Type)
 		void Register_UnityEngine_GameObject_Internal_AddComponentWithType();
 		Register_UnityEngine_GameObject_Internal_AddComponentWithType();
+
+		//UnityEngine.GameObject[] UnityEngine.GameObject::FindGameObjectsWithTag(System.String)
+		void Register_UnityEngine_GameObject_FindGameObjectsWithTag();
+		Register_UnityEngine_GameObject_FindGameObjectsWithTag();
 
 		//UnityEngine.Transform UnityEngine.GameObject::get_transform()
 		void Register_UnityEngine_GameObject_get_transform();
@@ -2438,14 +2426,6 @@ void RegisterAllStrippedInternalCalls()
 		void Register_UnityEngine_Object_Internal_CloneSingleWithParent();
 		Register_UnityEngine_Object_Internal_CloneSingleWithParent();
 
-		//UnityEngine.Object UnityEngine.Object::Internal_InstantiateSingleWithParent_Injected(UnityEngine.Object,UnityEngine.Transform,UnityEngine.Vector3&,UnityEngine.Quaternion&)
-		void Register_UnityEngine_Object_Internal_InstantiateSingleWithParent_Injected();
-		Register_UnityEngine_Object_Internal_InstantiateSingleWithParent_Injected();
-
-		//UnityEngine.Object UnityEngine.Object::Internal_InstantiateSingle_Injected(UnityEngine.Object,UnityEngine.Vector3&,UnityEngine.Quaternion&)
-		void Register_UnityEngine_Object_Internal_InstantiateSingle_Injected();
-		Register_UnityEngine_Object_Internal_InstantiateSingle_Injected();
-
 		//UnityEngine.Object[] UnityEngine.Object::FindObjectsOfType(System.Type,System.Boolean)
 		void Register_UnityEngine_Object_FindObjectsOfType();
 		Register_UnityEngine_Object_FindObjectsOfType();
@@ -2829,6 +2809,10 @@ void RegisterAllStrippedInternalCalls()
 		//System.Void UnityEngine.Renderer::get_bounds_Injected(UnityEngine.Bounds&)
 		void Register_UnityEngine_Renderer_get_bounds_Injected();
 		Register_UnityEngine_Renderer_get_bounds_Injected();
+
+		//System.Void UnityEngine.Renderer::set_enabled(System.Boolean)
+		void Register_UnityEngine_Renderer_set_enabled();
+		Register_UnityEngine_Renderer_set_enabled();
 
 		//UnityEngine.Material UnityEngine.Renderer::GetMaterial()
 		void Register_UnityEngine_Renderer_GetMaterial();
