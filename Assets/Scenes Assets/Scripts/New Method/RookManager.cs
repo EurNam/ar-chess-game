@@ -25,22 +25,19 @@ public class RookManager : PieceManager
         {
             if (position.x+x<=8){
                 Vector2Int newPosition = new Vector2Int(position.x+x, position.y);
-                Debug.Log("Checking move: " + newPosition);
-                if (BoardManager.Instance.ValidMove(newPosition, this))
+                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newPosition, this);
+                if (moveType != BoardManager.MoveType.Invalid)
                 {
                     if (!possibleMoves.Contains(newPosition)){
                         possibleMoves.Add(newPosition);
+                        if (moveType == BoardManager.MoveType.Capture)
+                        {
+                            break;
+                        }
                     }
                 } else {
                     break;
                 }
-                // if (BoardManager.Instance.ValidMove(newPosition, this)){
-                //     if (!possibleMoves.Contains(newPosition)){
-                //         possibleMoves.Add(newPosition);
-                //     }
-                // } else {
-                //     break;
-                // }
             } else {
                 break;
             }
@@ -51,22 +48,19 @@ public class RookManager : PieceManager
         {
             if (position.x-x>=1){
                 Vector2Int newPosition = new Vector2Int(position.x-x, position.y);
-                Debug.Log("Checking move: " + newPosition);
-                if (BoardManager.Instance.ValidMove(newPosition, this))
+                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newPosition, this);
+                if (moveType != BoardManager.MoveType.Invalid)
                 {
                     if (!possibleMoves.Contains(newPosition)){
                         possibleMoves.Add(newPosition);
+                        if (moveType == BoardManager.MoveType.Capture)
+                        {
+                            break;
+                        }
                     }
                 } else {
                     break;
                 }
-                // if (BoardManager.Instance.ValidMove(newPosition, this)){
-                //     if (!possibleMoves.Contains(newPosition)){
-                //         possibleMoves.Add(newPosition);
-                //     }
-                // } else {
-                //     break;
-                // }
             } else {
                 break;
             }
@@ -77,22 +71,19 @@ public class RookManager : PieceManager
         {
             if (position.y+y<=8){
                 Vector2Int newPosition = new Vector2Int(position.x, position.y+y);
-                Debug.Log("Checking move: " + newPosition);
-                if (BoardManager.Instance.ValidMove(newPosition, this))
+                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newPosition, this);
+                if (moveType != BoardManager.MoveType.Invalid)
                 {
                     if (!possibleMoves.Contains(newPosition)){
                         possibleMoves.Add(newPosition);
+                        if (moveType == BoardManager.MoveType.Capture)
+                        {
+                            break;
+                        }
                     }
                 } else {
                     break;
                 }
-                // if (BoardManager.Instance.ValidMove(newPosition, this)){
-                //     if (!possibleMoves.Contains(newPosition)){
-                //         possibleMoves.Add(newPosition);
-                //     }
-                // } else {
-                //     break;
-                // }
             } else {
                 break;
             }
@@ -103,31 +94,23 @@ public class RookManager : PieceManager
         {
             if (position.y-y>=1){
                 Vector2Int newPosition = new Vector2Int(position.x, position.y-y);
-                Debug.Log("Checking move: " + newPosition);
-                if (BoardManager.Instance.ValidMove(newPosition, this))
+                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newPosition, this);
+                if (moveType != BoardManager.MoveType.Invalid)
                 {
                     if (!possibleMoves.Contains(newPosition)){
                         possibleMoves.Add(newPosition);
+                        if (moveType == BoardManager.MoveType.Capture)
+                        {
+                            break;
+                        }
                     }
                 } else {
                     break;
                 }
-                // if (BoardManager.Instance.ValidMove(newPosition, this)){
-                //     if (!possibleMoves.Contains(newPosition)){
-                //         possibleMoves.Add(newPosition);
-                //     }
-                // } else {
-                //     break;
-                // }
             } else {
                 break;
             }
         }
-        Debug.Log(this.name + " has possible moves: " + possibleMoves.Count);
         this.SetPossibleMoves(possibleMoves);
-        for (int i = 0; i < possibleMoves.Count; i++)
-        {
-            Debug.Log(this.name + " has possible move: " + possibleMoves[i]);
-        }
     }
 }

@@ -74,21 +74,7 @@ public class PieceManager : MonoBehaviour
         {
             currentTile = nearestTile;
             currentTile.SetOccupied(true, this);
-            Debug.Log(this.name + " is now on tile " + currentTile.name);
         }
-        // foreach (TileManager tile in tiles)
-        // {
-        //     Debug.Log("Ran");
-        //     Vector3 piecePosition = transform.localPosition;
-        //     Vector3 tilePosition = tile.GetPosition3D();
-        //     if (Mathf.Approximately(piecePosition.x, tilePosition.x) && Mathf.Approximately(piecePosition.z, tilePosition.z))
-        //     {
-        //         currentTile = tile;
-        //         Debug.Log("Tile" + currentTile.name + "is now occupied");
-        //         currentTile.SetOccupied(true, this);
-        //         break;
-        //     }
-        // }
     }
 
     private void OnMouseDown()
@@ -97,6 +83,7 @@ public class PieceManager : MonoBehaviour
         dragPlane = new Plane(Vector3.up, transform.position);
         mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         GeneratePossibleMoves(currentTile.GetPosition2D());
+
     }
     
     private void DragPiece()
@@ -114,6 +101,7 @@ public class PieceManager : MonoBehaviour
     {
         isDragging = false;
         SnapToNearestTile();
+        BoardManager.Instance.HideMoveGuides(possibleMoves);
     }
 
     private void SnapToNearestTile()
@@ -131,12 +119,14 @@ public class PieceManager : MonoBehaviour
             }
         }
 
-        if (nearestTile != null)
+        if (possibleMoves.Contains(nearestTile.GetPosition2D()) && minDistance < 1.3f)
         {
             transform.position = nearestTile.GetPosition3D() + Vector3.up;
             currentTile.SetOccupied(false);
             currentTile = nearestTile;
             currentTile.SetOccupied(true, this);
+        } else {
+            transform.position = currentTile.GetPosition3D() + Vector3.up;
         }
     }
 }
