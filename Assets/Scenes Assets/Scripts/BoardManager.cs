@@ -6,7 +6,7 @@ public class BoardManager : MonoBehaviour
 {
     public static BoardManager Instance;
     public GameObject board;
-    private TileManager[,] boardState;
+    private Tile[,] boardState;
 
     public enum MoveType
     {
@@ -36,12 +36,12 @@ public class BoardManager : MonoBehaviour
     private void InitializeBoardState()
     {
         int boardSize = 9;
-        boardState = new TileManager[boardSize, boardSize];
+        boardState = new Tile[boardSize, boardSize];
 
         // Find all tiles with the "Tile" tag
-        TileManager[] tileObjects = FindObjectsOfType<TileManager>();
+        Tile[] tileObjects = FindObjectsOfType<Tile>();
         Debug.Log("Tile objects: " + tileObjects.Length);
-        foreach (TileManager tileObject in tileObjects)
+        foreach (Tile tileObject in tileObjects)
         {
             if (tileObject != null)
             {
@@ -51,21 +51,26 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public MoveType ValidMove(Vector2Int boardPosition, PieceManager piece)
+    public Tile GetTile(Vector2Int boardPosition)
     {
-        if (boardState[boardPosition.x, boardPosition.y].GetPieceManager() == null)
+        return boardState[boardPosition.x, boardPosition.y];
+    }
+
+    public MoveType ValidMove(Vector2Int boardPosition, Piece piece)
+    {
+        if (boardState[boardPosition.x, boardPosition.y].GetPiece() == null)
         {
             boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
             boardState[boardPosition.x, boardPosition.y].SetMoveGuideColor(MoveType.Allowed);
             return MoveType.Allowed;
         }
-        else if (boardState[boardPosition.x, boardPosition.y].GetPieceManager().colorWhite() != piece.colorWhite())
+        else if (boardState[boardPosition.x, boardPosition.y].GetPiece().colorWhite() != piece.colorWhite())
         {
             boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
             boardState[boardPosition.x, boardPosition.y].SetMoveGuideColor(MoveType.Capture);
             return MoveType.Capture;
         }
-        else if (boardState[boardPosition.x, boardPosition.y].GetPieceManager() == piece)
+        else if (boardState[boardPosition.x, boardPosition.y].GetPiece() == piece)
         {
             boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
             boardState[boardPosition.x, boardPosition.y].SetMoveGuideColor(MoveType.Stay);

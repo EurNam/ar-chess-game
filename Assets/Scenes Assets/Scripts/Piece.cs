@@ -2,23 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PieceManager : MonoBehaviour
+public class Piece : MonoBehaviour
 {
-    public PieceManager pieceManager;
+    public Piece piece;
     public bool isWhite;
-    private TileManager currentTile;
-    private TileManager nearestTile;
+    private Tile currentTile;
+    private Tile nearestTile;
     private Vector3 mousePosition;
     private Plane dragPlane;
-    private TileManager[] tiles;
+    private Tile[] tiles;
     private bool isDragging = false;
     private Vector3 new3DPosition;
+    private bool firstMove = true;
     private List<Vector2Int> possibleMoves = new List<Vector2Int>();
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
         FindCurrentTile();
+        this.SetFirstMove(true);
     }
 
     // Update is called once per frame
@@ -35,6 +37,11 @@ public class PieceManager : MonoBehaviour
         return possibleMoves;
     }
 
+    public bool isFirstMove()
+    {
+        return firstMove;
+    }
+
     public bool colorWhite()
     {
         return isWhite;
@@ -45,9 +52,14 @@ public class PieceManager : MonoBehaviour
         possibleMoves = moves;
     }
 
-    public void SetCurrentTile(TileManager tile)
+    public void SetCurrentTile(Tile tile)
     {
         currentTile = tile;
+    }
+
+    public void SetFirstMove(bool move)
+    {
+        firstMove = move;
     }
 
     protected virtual void GeneratePossibleMoves(Vector2Int currentBoardPosition)
@@ -57,11 +69,11 @@ public class PieceManager : MonoBehaviour
 
     private void FindCurrentTile()
     {
-        tiles = FindObjectsOfType<TileManager>();
+        tiles = FindObjectsOfType<Tile>();
         float minDistance = float.MaxValue;
-        TileManager startingNearestTile = null;
+        Tile startingNearestTile = null;
 
-        foreach (TileManager tile in tiles)
+        foreach (Tile tile in tiles)
         {
             float distance = Vector3.Distance(transform.position, tile.GetPosition3D());
             if (distance < minDistance)
@@ -104,7 +116,7 @@ public class PieceManager : MonoBehaviour
         }
 
         // Find the nearest tile to the piece
-        TileManager newNearestTile = FindNearestTile();
+        Tile newNearestTile = FindNearestTile();
         // If the nearest tile has changed, update the move guide colors
         if (newNearestTile != nearestTile)
         {
@@ -127,10 +139,10 @@ public class PieceManager : MonoBehaviour
     private void SnapToNearestTile()
     {
         // Check if the closest tile has a piece and if it is not the same piece
-        if (nearestTile.GetPieceManager() != null && nearestTile.GetPieceManager() != this)
+        if (nearestTile.GetPiece() != null && nearestTile.GetPiece() != this)
         {
             // If it does, destroy the piece and set the tile to be empty
-            nearestTile.GetPieceManager().gameObject.SetActive(false);
+            nearestTile.GetPiece().gameObject.SetActive(false);
             nearestTile.SetOccupied(false);
         }
         // Move the piece to the new tile and update the board state
@@ -138,15 +150,16 @@ public class PieceManager : MonoBehaviour
         currentTile.SetOccupied(false);
         currentTile = nearestTile;
         currentTile.SetOccupied(true, this);
+        this.SetFirstMove(false);
     }
 
-    private TileManager FindNearestTile()
+    private Tile FindNearestTile()
     {
         float minDistance = float.MaxValue;
-        TileManager nearestTile = null;
+        Tile nearestTile = null;
 
         // Find the closest tile to the mouse position to snap the piece to
-        foreach (TileManager tile in tiles)
+        foreach (Tile tile in tiles)
         {
             float distance = Vector3.Distance(new3DPosition, tile.GetPosition3D());
             // Update the closest tile if the distance is less than the current closest tile

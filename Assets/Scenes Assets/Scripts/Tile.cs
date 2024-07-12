@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileManager : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     private Vector2Int boardIndex;
     private Vector3 position3D;
     private bool isOccupied = false;
-    private PieceManager pieceManager = null;
+    private Piece piece = null;
     private Renderer moveGuideRenderer;
     private Transform moveGuideTransform;
 
@@ -50,9 +50,9 @@ public class TileManager : MonoBehaviour
         return isOccupied;
     }
 
-    public PieceManager GetPieceManager()
+    public Piece GetPiece()
     {
-        return pieceManager;
+        return piece;
     }
 
     public void SetBoardIndex(Vector2Int boardIndex)
@@ -65,10 +65,10 @@ public class TileManager : MonoBehaviour
         position3D = position;
     }
 
-    public void SetOccupied(bool occupied, PieceManager piece = null)
+    public void SetOccupied(bool occupied, Piece piece = null)
     {
         isOccupied = occupied;
-        pieceManager = piece;
+        this.piece = piece;
     }
 
     public void SetMoveGuideShown(bool shown)

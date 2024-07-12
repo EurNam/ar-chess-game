@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RookManager : PieceManager
+public class Bishop : Piece
 {
     // Start is called before the first frame update
     protected override void Start()
@@ -21,11 +21,11 @@ public class RookManager : PieceManager
         List<Vector2Int> possibleMoves = new List<Vector2Int>();
         Vector2Int newBoardPosition;
 
-        // Find possible moves: Horizontal right
+        // Find possible moves: Diagonal up right
         for (int x = 0; x <= 8; x++)
         {
-            newBoardPosition = new Vector2Int(currentBoardPosition.x+x, currentBoardPosition.y);
-            if (newBoardPosition.x<=8){
+            newBoardPosition = new Vector2Int(currentBoardPosition.x+x, currentBoardPosition.y+x);
+            if (newBoardPosition.x<=8 && newBoardPosition.y<=8){
                 BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
                 if (moveType != BoardManager.MoveType.Invalid)
                 {
@@ -44,11 +44,11 @@ public class RookManager : PieceManager
             }
         }
 
-        // Find possible moves: Horizontal left
+        // Find possible moves: Diagonal up left
         for (int x = 0; x <= 8; x++)
         {
-            newBoardPosition = new Vector2Int(currentBoardPosition.x-x, currentBoardPosition.y);
-            if (newBoardPosition.x>=1){
+            newBoardPosition = new Vector2Int(currentBoardPosition.x-x, currentBoardPosition.y+x);
+            if (newBoardPosition.x>=1 && newBoardPosition.y<=8){
                 BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
                 if (moveType != BoardManager.MoveType.Invalid)
                 {
@@ -67,11 +67,11 @@ public class RookManager : PieceManager
             }
         }
 
-        // Find possible moves: Vertical up
+        // Find possible moves: Diagonal down right
         for (int y = 0; y <= 8; y++)
         {
-            newBoardPosition = new Vector2Int(currentBoardPosition.x, currentBoardPosition.y+y);
-            if (newBoardPosition.y<=8){
+            newBoardPosition = new Vector2Int(currentBoardPosition.x+y, currentBoardPosition.y-y);
+            if (newBoardPosition.x<=8 && newBoardPosition.y>=1){
                 BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
                 if (moveType != BoardManager.MoveType.Invalid)
                 {
@@ -90,11 +90,11 @@ public class RookManager : PieceManager
             }
         }
 
-        // Find possible moves: Vertical down
+        // Find possible moves: Diagonal down left
         for (int y = 0; y <= 8; y++)
         {
-            newBoardPosition = new Vector2Int(currentBoardPosition.x, currentBoardPosition.y-y);
-            if (newBoardPosition.y>=1){
+            newBoardPosition = new Vector2Int(currentBoardPosition.x-y, currentBoardPosition.y-y);
+            if (newBoardPosition.x>=1 && newBoardPosition.y>=1){
                 BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
                 if (moveType != BoardManager.MoveType.Invalid)
                 {
