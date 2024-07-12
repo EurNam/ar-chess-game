@@ -45,40 +45,40 @@ public class BoardManager : MonoBehaviour
         {
             if (tileObject != null)
             {
-                Vector2Int position = tileObject.GetPosition2D();
-                boardState[position.x, position.y] = tileObject;
+                Vector2Int boardIndex = tileObject.GetBoardIndex();
+                boardState[boardIndex.x, boardIndex.y] = tileObject;
             }
         }
     }
 
-    public MoveType ValidMove(Vector2Int position, PieceManager piece)
+    public MoveType ValidMove(Vector2Int boardPosition, PieceManager piece)
     {
-        if (boardState[position.x, position.y].GetPieceManager() == null)
+        if (boardState[boardPosition.x, boardPosition.y].GetPieceManager() == null)
         {
-            boardState[position.x, position.y].SetMoveGuideShown(true);
-            boardState[position.x, position.y].SetMoveGuideColor(MoveType.Allowed);
+            boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
+            boardState[boardPosition.x, boardPosition.y].SetMoveGuideColor(MoveType.Allowed);
             return MoveType.Allowed;
         }
-        else if (boardState[position.x, position.y].GetPieceManager().colorWhite() != piece.colorWhite())
+        else if (boardState[boardPosition.x, boardPosition.y].GetPieceManager().colorWhite() != piece.colorWhite())
         {
-            boardState[position.x, position.y].SetMoveGuideShown(true);
-            boardState[position.x, position.y].SetMoveGuideColor(MoveType.Capture);
+            boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
+            boardState[boardPosition.x, boardPosition.y].SetMoveGuideColor(MoveType.Capture);
             return MoveType.Capture;
         }
-        else if (boardState[position.x, position.y].GetPieceManager() == piece)
+        else if (boardState[boardPosition.x, boardPosition.y].GetPieceManager() == piece)
         {
-            boardState[position.x, position.y].SetMoveGuideShown(true);
-            boardState[position.x, position.y].SetMoveGuideColor(MoveType.Stay);
+            boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
+            boardState[boardPosition.x, boardPosition.y].SetMoveGuideColor(MoveType.Stay);
             return MoveType.Stay;
         }
         return MoveType.Invalid;
     }
 
-    public void HideMoveGuides(List<Vector2Int> positions)
+    public void HideMoveGuides(List<Vector2Int> boardPositions)
     {
-        foreach (Vector2Int position in positions)
+        foreach (Vector2Int boardPosition in boardPositions)
         {
-            boardState[position.x, position.y].SetMoveGuideShown(false);
+            boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(false);
         }
     }
 }

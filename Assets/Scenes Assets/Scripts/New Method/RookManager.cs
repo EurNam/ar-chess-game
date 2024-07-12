@@ -16,20 +16,21 @@ public class RookManager : PieceManager
         base.Update();
     }
 
-    protected override void GeneratePossibleMoves(Vector2Int position)
+    protected override void GeneratePossibleMoves(Vector2Int currentBoardPosition)
     {
         List<Vector2Int> possibleMoves = new List<Vector2Int>();
+        Vector2Int newBoardPosition;
 
         // Horizontal right
         for (int x = 0; x <= 8; x++)
         {
-            if (position.x+x<=8){
-                Vector2Int newPosition = new Vector2Int(position.x+x, position.y);
-                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newPosition, this);
+            if (currentBoardPosition.x+x<=8){
+                newBoardPosition = new Vector2Int(currentBoardPosition.x+x, currentBoardPosition.y);
+                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
                 if (moveType != BoardManager.MoveType.Invalid)
                 {
-                    if (!possibleMoves.Contains(newPosition)){
-                        possibleMoves.Add(newPosition);
+                    if (!possibleMoves.Contains(newBoardPosition)){
+                        possibleMoves.Add(newBoardPosition);
                         if (moveType == BoardManager.MoveType.Capture)
                         {
                             break;
@@ -46,13 +47,13 @@ public class RookManager : PieceManager
         // Horizontal left
         for (int x = 0; x <= 8; x++)
         {
-            if (position.x-x>=1){
-                Vector2Int newPosition = new Vector2Int(position.x-x, position.y);
-                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newPosition, this);
+            if (currentBoardPosition.x-x>=1){
+                newBoardPosition = new Vector2Int(currentBoardPosition.x-x, currentBoardPosition.y);
+                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
                 if (moveType != BoardManager.MoveType.Invalid)
                 {
-                    if (!possibleMoves.Contains(newPosition)){
-                        possibleMoves.Add(newPosition);
+                    if (!possibleMoves.Contains(newBoardPosition)){
+                        possibleMoves.Add(newBoardPosition);
                         if (moveType == BoardManager.MoveType.Capture)
                         {
                             break;
@@ -69,13 +70,13 @@ public class RookManager : PieceManager
         // Vertical up
         for (int y = 0; y <= 8; y++)
         {
-            if (position.y+y<=8){
-                Vector2Int newPosition = new Vector2Int(position.x, position.y+y);
-                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newPosition, this);
+            if (currentBoardPosition.y+y<=8){
+                newBoardPosition = new Vector2Int(currentBoardPosition.x, currentBoardPosition.y+y);
+                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
                 if (moveType != BoardManager.MoveType.Invalid)
                 {
-                    if (!possibleMoves.Contains(newPosition)){
-                        possibleMoves.Add(newPosition);
+                    if (!possibleMoves.Contains(newBoardPosition)){
+                        possibleMoves.Add(newBoardPosition);
                         if (moveType == BoardManager.MoveType.Capture)
                         {
                             break;
@@ -92,13 +93,13 @@ public class RookManager : PieceManager
         // Vertical down
         for (int y = 0; y <= 8; y++)
         {
-            if (position.y-y>=1){
-                Vector2Int newPosition = new Vector2Int(position.x, position.y-y);
-                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newPosition, this);
+            if (currentBoardPosition.y-y>=1){
+                newBoardPosition = new Vector2Int(currentBoardPosition.x, currentBoardPosition.y-y);
+                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
                 if (moveType != BoardManager.MoveType.Invalid)
                 {
-                    if (!possibleMoves.Contains(newPosition)){
-                        possibleMoves.Add(newPosition);
+                    if (!possibleMoves.Contains(newBoardPosition)){
+                        possibleMoves.Add(newBoardPosition);
                         if (moveType == BoardManager.MoveType.Capture)
                         {
                             break;

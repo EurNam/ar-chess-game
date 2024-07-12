@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    private Vector2Int position2D;
+    private Vector2Int boardIndex;
     private Vector3 position3D;
     private bool isOccupied = false;
     private PieceManager pieceManager = null;
@@ -13,7 +13,7 @@ public class TileManager : MonoBehaviour
 
     void Awake()
     {
-        this.SetPosition2D(new Vector2Int((int)transform.position.x, (int)transform.position.z));
+        this.SetBoardIndex(new Vector2Int((int)transform.position.x, (int)transform.position.z));
         this.SetPosition3D(transform.position);
 
         // Find the move guide using the MoveGuide script
@@ -35,14 +35,14 @@ public class TileManager : MonoBehaviour
         
     }
 
-    public Vector2Int GetPosition2D()
+    public Vector2Int GetBoardIndex()
     {
-        return position2D;
+        return boardIndex;
     }
 
     public Vector3 GetPosition3D()
     {
-        return position3D;
+        return transform.position;
     }
 
     public bool GetOccupiedState()
@@ -55,9 +55,9 @@ public class TileManager : MonoBehaviour
         return pieceManager;
     }
 
-    public void SetPosition2D(Vector2Int position)
+    public void SetBoardIndex(Vector2Int boardIndex)
     {
-        position2D = position;
+        this.boardIndex = boardIndex;
     }
 
     public void SetPosition3D(Vector3 position)

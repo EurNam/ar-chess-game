@@ -11,7 +11,7 @@ public class PieceManager : MonoBehaviour
     private Plane dragPlane;
     private TileManager[] tiles;
     private bool isDragging = false;
-    private Vector3 newPosition;
+    private Vector3 new3DPosition;
     private List<Vector2Int> possibleMoves = new List<Vector2Int>();
 
     // Start is called before the first frame update
@@ -49,7 +49,7 @@ public class PieceManager : MonoBehaviour
         currentTile = tile;
     }
 
-    protected virtual void GeneratePossibleMoves(Vector2Int position)
+    protected virtual void GeneratePossibleMoves(Vector2Int currentBoardPosition)
     {
         possibleMoves.Clear();
     }
@@ -82,7 +82,7 @@ public class PieceManager : MonoBehaviour
         isDragging = true;
         dragPlane = new Plane(Vector3.up, transform.position);
         mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-        GeneratePossibleMoves(currentTile.GetPosition2D());
+        GeneratePossibleMoves(currentTile.GetBoardIndex());
 
     }
     
@@ -92,8 +92,8 @@ public class PieceManager : MonoBehaviour
         float distance;
         if (dragPlane.Raycast(ray, out distance))
         {
-            newPosition = ray.GetPoint(distance);
-            transform.position = newPosition;
+            new3DPosition = ray.GetPoint(distance);
+            transform.position = new3DPosition;
         }
     }
 
@@ -111,7 +111,7 @@ public class PieceManager : MonoBehaviour
 
         foreach (TileManager tile in tiles)
         {
-            float distance = Vector3.Distance(newPosition, tile.GetPosition3D());
+            float distance = Vector3.Distance(new3DPosition, tile.GetPosition3D());
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -119,7 +119,7 @@ public class PieceManager : MonoBehaviour
             }
         }
 
-        if (possibleMoves.Contains(nearestTile.GetPosition2D()) && minDistance < 1.3f)
+        if (possibleMoves.Contains(nearestTile.GetBoardIndex()) && minDistance < 1.3f)
         {
             transform.position = nearestTile.GetPosition3D() + Vector3.up;
             currentTile.SetOccupied(false);
