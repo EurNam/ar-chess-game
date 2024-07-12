@@ -104,4 +104,12 @@ public class TileManager : MonoBehaviour
             }
         }
     }
+
+    public void SetMoveGuideColor(Color color)
+    {
+        if (moveGuideRenderer != null)
+        {
+            moveGuideRenderer.material.color = color;
+        }
+    }
 }

@@ -7,6 +7,7 @@ public class PieceManager : MonoBehaviour
     public PieceManager pieceManager;
     public bool isWhite;
     private TileManager currentTile;
+    private TileManager nearestTile;
     private Vector3 mousePosition;
     private Plane dragPlane;
     private TileManager[] tiles;
@@ -58,7 +59,7 @@ public class PieceManager : MonoBehaviour
     {
         tiles = FindObjectsOfType<TileManager>();
         float minDistance = float.MaxValue;
-        TileManager nearestTile = null;
+        TileManager startingNearestTile = null;
 
         foreach (TileManager tile in tiles)
         {
@@ -66,22 +67,27 @@ public class PieceManager : MonoBehaviour
             if (distance < minDistance)
             {
                 minDistance = distance;
-                nearestTile = tile;
+                startingNearestTile = tile;
             }
         }
 
-        if (nearestTile != null)
+        if (startingNearestTile != null)
         {
-            currentTile = nearestTile;
+            currentTile = startingNearestTile;
+            nearestTile = startingNearestTile;
             currentTile.SetOccupied(true, this);
         }
     }
 
     private void OnMouseDown()
     {
+        // Set the piece to be dragged
         isDragging = true;
+        // Set the plane to be the piece
         dragPlane = new Plane(Vector3.up, transform.position);
+        // Set the mouse position to be the piece
         mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        // Generate the possible moves for the piece
         GeneratePossibleMoves(currentTile.GetBoardIndex());
 
     }
@@ -90,10 +96,24 @@ public class PieceManager : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         float distance;
+        // Allow the piece to be dragged on the board
         if (dragPlane.Raycast(ray, out distance))
         {
             new3DPosition = ray.GetPoint(distance);
             transform.position = new3DPosition;
+        }
+
+        // Find the nearest tile to the piece
+        TileManager newNearestTile = FindNearestTile();
+        // If the nearest tile has changed, update the move guide colors
+        if (newNearestTile != nearestTile)
+        {
+            if (nearestTile != currentTile)
+            {
+                nearestTile.SetMoveGuideColor(Color.green);
+            }
+            newNearestTile.SetMoveGuideColor(Color.yellow);
+            nearestTile = newNearestTile;
         }
     }
 
@@ -105,6 +125,22 @@ public class PieceManager : MonoBehaviour
     }
 
     private void SnapToNearestTile()
+    {
+        // Check if the closest tile has a piece and if it is not the same piece
+        if (nearestTile.GetPieceManager() != null && nearestTile.GetPieceManager() != this)
+        {
+            // If it does, destroy the piece and set the tile to be empty
+            nearestTile.GetPieceManager().gameObject.SetActive(false);
+            nearestTile.SetOccupied(false);
+        }
+        // Move the piece to the new tile and update the board state
+        transform.position = nearestTile.GetPosition3D() + Vector3.up;
+        currentTile.SetOccupied(false);
+        currentTile = nearestTile;
+        currentTile.SetOccupied(true, this);
+    }
+
+    private TileManager FindNearestTile()
     {
         float minDistance = float.MaxValue;
         TileManager nearestTile = null;
@@ -124,21 +160,9 @@ public class PieceManager : MonoBehaviour
         // Check if the closest tile is a valid move and if the distance is less than 1.3 units
         if (possibleMoves.Contains(nearestTile.GetBoardIndex()) && minDistance < 1.3f)
         {
-            // Check if the closest tile has a piece and if it is not the same piece
-            if (nearestTile.GetPieceManager() != null && nearestTile.GetPieceManager() != this)
-            {
-                // If it does, destroy the piece and set the tile to be empty
-                nearestTile.GetPieceManager().gameObject.SetActive(false);
-                nearestTile.SetOccupied(false);
-            }
-            // Move the piece to the new tile and update the board state
-            transform.position = nearestTile.GetPosition3D() + Vector3.up;
-            currentTile.SetOccupied(false);
-            currentTile = nearestTile;
-            currentTile.SetOccupied(true, this);
-        } else {
-            // If it is not, move the piece back to its original tile
-            transform.position = currentTile.GetPosition3D() + Vector3.up;
+            return nearestTile;
         }
+
+        return currentTile;
     }
 }
