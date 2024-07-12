@@ -78,6 +78,11 @@ public class Piece : MonoBehaviour
         firstMove = move;
     }
 
+    public void SetWhite(bool white)
+    {
+        isWhite = white;
+    }
+
     protected virtual void GeneratePossibleMoves(Vector2Int currentBoardPosition)
     {
         possibleMoves.Clear();
@@ -145,7 +150,7 @@ public class Piece : MonoBehaviour
         }
     }
 
-    private void OnMouseUp()
+    protected virtual void OnMouseUp()
     {
         isDragging = false;
         SnapToNearestTile();

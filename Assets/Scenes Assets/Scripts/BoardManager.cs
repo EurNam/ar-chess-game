@@ -6,6 +6,8 @@ public class BoardManager : MonoBehaviour
 {
     public static BoardManager Instance;
     public GameObject board;
+    public GameObject queenWhitePrefab;
+    public GameObject queenBlackPrefab;
     private Tile[,] boardState;
 
     public enum MoveType

@@ -73,4 +73,42 @@ public class Pawn : Piece
 
         this.SetPossibleMoves(possibleMoves);
     }
+
+    protected override void OnMouseUp()
+    {
+        base.OnMouseUp();
+        CheckPromotion();
+    }
+
+    private void CheckPromotion()
+    {
+        int promotionRow = this.colorWhite() ? 8 : 1;
+        if (this.GetCurrentTile().GetBoardIndex().y == promotionRow)
+        {
+            PromoteToQueen();
+        }
+    }
+
+    private void PromoteToQueen()
+    {
+        // Instantiate a new queen at the pawn's position
+        GameObject queenPrefab = this.colorWhite() ? BoardManager.Instance.queenWhitePrefab : BoardManager.Instance.queenBlackPrefab;
+        GameObject newQueen = Instantiate(queenPrefab, this.transform.position, Quaternion.identity);
+        if (this.colorWhite())
+        {
+            newQueen.name = this.name + ": Queen Promotion";
+        } else {
+            newQueen.name = this.name + ": Queen Promotion";
+        }
+        Queen queenComponent = newQueen.GetComponent<Queen>();
+        queenComponent.SetCurrentTile(this.GetCurrentTile());
+        queenComponent.SetFirstMove(false);
+        queenComponent.SetWhite(this.colorWhite());
+
+        // Set the current tile to be occupied by the new queen
+        this.GetCurrentTile().SetOccupied(true, queenComponent);
+
+        // Deactivate the pawn
+        this.gameObject.SetActive(false);
+    }
 }
