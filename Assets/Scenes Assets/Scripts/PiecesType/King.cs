@@ -8,6 +8,7 @@ public class King : Piece
     protected override void Start()
     {
         base.Start();
+        this.SetKing();
     }
 
     // Update is called once per frame
@@ -205,6 +206,38 @@ public class King : Piece
             }
         }
         
+        // Handle castling
+        if (this.isFirstMove()){
+            Vector2Int kingPosition = this.GetCurrentTile().GetBoardIndex();
+            List<int> rookCol = new List<int>{1,8};
+            int right = 1;
+
+
+            foreach (int col in rookCol)
+            {
+                if (col == 1){
+                    right = -1;
+                } else {
+                    right = 1;
+                }
+
+                // Check if the tile next to the king is empty
+                if (BoardManager.Instance.GetTile(new Vector2Int(kingPosition.x+right, kingPosition.y)).GetPiece() == null){
+
+                    // Check if the tile two tiles next to the king is empty
+                    if (BoardManager.Instance.GetTile(new Vector2Int(kingPosition.x+2*right, kingPosition.y)).GetPiece() == null){
+
+                        // Check if the rook hasn't moved
+                        Tile rookTile = BoardManager.Instance.GetTile(new Vector2Int(col, kingPosition.y));
+                        if (rookTile.GetPiece() is Rook rook && this.colorWhite() == rook.colorWhite() && rook.isFirstMove()){
+                            BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(new Vector2Int(kingPosition.x+2*right, kingPosition.y), this);
+                            possibleMoves.Add(new Vector2Int(kingPosition.x+2*right, kingPosition.y));
+                        }
+                    }
+                }
+            }
+        }
+
         this.SetPossibleMoves(possibleMoves);
     }
 }

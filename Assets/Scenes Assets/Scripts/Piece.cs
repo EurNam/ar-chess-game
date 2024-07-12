@@ -14,6 +14,7 @@ public class Piece : MonoBehaviour
     private bool isDragging = false;
     private Vector3 new3DPosition;
     private bool firstMove = true;
+    private bool isKing = false;
     private List<Vector2Int> possibleMoves = new List<Vector2Int>();
 
     // Start is called before the first frame update
@@ -37,6 +38,16 @@ public class Piece : MonoBehaviour
         return possibleMoves;
     }
 
+    public Tile GetCurrentTile()
+    {
+        return currentTile;
+    }
+
+    public bool isKingPiece()
+    {
+        return isKing;
+    }
+
     public bool isFirstMove()
     {
         return firstMove;
@@ -55,6 +66,11 @@ public class Piece : MonoBehaviour
     public void SetCurrentTile(Tile tile)
     {
         currentTile = tile;
+    }
+
+    public void SetKing()
+    {
+        isKing = true;
     }
 
     public void SetFirstMove(bool move)
@@ -145,12 +161,22 @@ public class Piece : MonoBehaviour
             nearestTile.GetPiece().gameObject.SetActive(false);
             nearestTile.SetOccupied(false);
         }
+
+        // Handle Rook in castling
+        if (this.isKingPiece() && this.isFirstMove() && this.isCastle(nearestTile))
+        {
+            handleCastling(nearestTile);
+            this.SetFirstMove(false);
+        }
+
         // Move the piece to the new tile and update the board state
+        if (nearestTile != currentTile){
+            this.SetFirstMove(false);
+        }
         transform.position = nearestTile.GetPosition3D() + Vector3.up;
         currentTile.SetOccupied(false);
         currentTile = nearestTile;
         currentTile.SetOccupied(true, this);
-        this.SetFirstMove(false);
     }
 
     private Tile FindNearestTile()
@@ -177,5 +203,34 @@ public class Piece : MonoBehaviour
         }
 
         return currentTile;
+    }
+
+    private bool isCastle(Tile nearestTile)
+    {
+        // Check if the new move is a castle
+        List<Vector2Int> castleMoves = new List<Vector2Int>();
+        castleMoves.Add(new Vector2Int(7, 1));
+        castleMoves.Add(new Vector2Int(3, 1));
+        castleMoves.Add(new Vector2Int(7, 8));
+        castleMoves.Add(new Vector2Int(3, 8));
+        return castleMoves.Contains(nearestTile.GetBoardIndex());
+    }
+
+    private void handleCastling(Tile kingNewTile)
+    {
+        Vector2Int kingPosition = kingNewTile.GetBoardIndex();
+        int rookCol = (kingPosition.x == 3) ? 1 : 8; // Determine which rook to move based on king's new position
+        int rookNewCol = (kingPosition.x == 3) ? 4 : 6; // New position for the rook
+
+        Tile rookTile = BoardManager.Instance.GetTile(new Vector2Int(rookCol, kingPosition.y));
+        if (rookTile.GetPiece() is Rook rook)
+        {
+            // Move rook to castling position
+            Tile newRookTile = BoardManager.Instance.GetTile(new Vector2Int(rookNewCol, kingPosition.y));
+            rook.transform.position = newRookTile.GetPosition3D() + Vector3.up;
+            rookTile.SetOccupied(false);
+            newRookTile.SetOccupied(true, rook);
+            rook.SetCurrentTile(newRookTile);
+        }
     }
 }
