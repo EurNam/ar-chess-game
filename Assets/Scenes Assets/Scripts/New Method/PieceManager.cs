@@ -109,9 +109,11 @@ public class PieceManager : MonoBehaviour
         float minDistance = float.MaxValue;
         TileManager nearestTile = null;
 
+        // Find the closest tile to the mouse position to snap the piece to
         foreach (TileManager tile in tiles)
         {
             float distance = Vector3.Distance(new3DPosition, tile.GetPosition3D());
+            // Update the closest tile if the distance is less than the current closest tile
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -119,13 +121,23 @@ public class PieceManager : MonoBehaviour
             }
         }
 
+        // Check if the closest tile is a valid move and if the distance is less than 1.3 units
         if (possibleMoves.Contains(nearestTile.GetBoardIndex()) && minDistance < 1.3f)
         {
+            // Check if the closest tile has a piece and if it is not the same piece
+            if (nearestTile.GetPieceManager() != null && nearestTile.GetPieceManager() != this)
+            {
+                // If it does, destroy the piece and set the tile to be empty
+                nearestTile.GetPieceManager().gameObject.SetActive(false);
+                nearestTile.SetOccupied(false);
+            }
+            // Move the piece to the new tile and update the board state
             transform.position = nearestTile.GetPosition3D() + Vector3.up;
             currentTile.SetOccupied(false);
             currentTile = nearestTile;
             currentTile.SetOccupied(true, this);
         } else {
+            // If it is not, move the piece back to its original tile
             transform.position = currentTile.GetPosition3D() + Vector3.up;
         }
     }
