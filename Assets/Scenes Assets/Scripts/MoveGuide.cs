@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveGuide : MonoBehaviour
+namespace JKTechnologies.SeensioGo.ARChess
 {
-    // Dummy script for identification
+    public class MoveGuide : MonoBehaviour
+    {
+        // Dummy script for identification
+    }
 }

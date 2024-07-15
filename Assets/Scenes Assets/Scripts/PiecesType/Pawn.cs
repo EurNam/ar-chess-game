@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// namespace JKTechnologies.SeensioGo.ARChess
-// {
+namespace JKTechnologies.SeensioGo.ARChess
+{
     public class Pawn : Piece
     {
         // Start is called before the first frame update
@@ -146,4 +146,4 @@ using UnityEngine;
             this.gameObject.SetActive(false);
         }
     }
-// }
+}
