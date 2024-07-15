@@ -116,15 +116,17 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private void OnMouseDown()
         {
-            // Set the piece to be dragged
-            isDragging = true;
-            // Set the plane to be the piece
-            dragPlane = new Plane(Vector3.up, transform.position);
-            // Set the mouse position to be the piece
-            mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-            // Generate the possible moves for the piece
-            GeneratePossibleMoves(currentTile.GetBoardIndex());
-
+            if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite())
+            {
+                // Set the piece to be dragged
+                isDragging = true;
+                // Set the plane to be the piece
+                dragPlane = new Plane(Vector3.up, transform.position);
+                // Set the mouse position to be the piece
+                mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+                // Generate the possible moves for the piece
+                GeneratePossibleMoves(currentTile.GetBoardIndex());
+            }
         }
         
         private void DragPiece()
@@ -185,6 +187,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 BoardManager.Instance.SetBoardIndexBeforeLastMove(currentTile.GetBoardIndex());
                 BoardManager.Instance.SetPieceLastMoved(this);
                 BoardManager.Instance.SetBoardIndexLastMove(nearestTile.GetBoardIndex());
+                BoardManager.Instance.SetWhiteTurn();
             }
 
             // Update the board state before move

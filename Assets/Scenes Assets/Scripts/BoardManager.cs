@@ -14,6 +14,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         private Vector2Int boardIndexBeforeLastMove;
         private Vector2Int boardIndexLastMove;
         private Piece pieceLastMoved;
+        private bool whiteTurn = true;
 
         public enum MoveType
         {
@@ -78,6 +79,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             return pieceLastMoved;
         }
 
+        public bool GetWhiteTurn()
+        {
+            return whiteTurn;
+        }
+
         public void SetBoardIndexBeforeLastMove(Vector2Int boardIndex)
         {
             boardIndexBeforeLastMove = boardIndex;
@@ -91,6 +97,11 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetPieceLastMoved(Piece piece)
         {
             pieceLastMoved = piece;
+        }
+
+        public void SetWhiteTurn()
+        {
+            whiteTurn = !whiteTurn;
         }
 
         public MoveType ValidMove(Vector2Int boardPosition, Piece piece, bool enPassant = false)
