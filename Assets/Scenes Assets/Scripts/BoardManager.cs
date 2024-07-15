@@ -9,6 +9,9 @@ public class BoardManager : MonoBehaviour
     public GameObject queenWhitePrefab;
     public GameObject queenBlackPrefab;
     private Tile[,] boardState;
+    private Vector2Int boardIndexBeforeLastMove;
+    private Vector2Int boardIndexLastMove;
+    private Piece pieceLastMoved;
 
     public enum MoveType
     {
@@ -58,9 +61,45 @@ public class BoardManager : MonoBehaviour
         return boardState[boardPosition.x, boardPosition.y];
     }
 
-    public MoveType ValidMove(Vector2Int boardPosition, Piece piece)
+    public Vector2Int GetBoardIndexBeforeLastMove()
     {
-        if (boardState[boardPosition.x, boardPosition.y].GetPiece() == null)
+        return boardIndexBeforeLastMove;
+    }
+
+    public Vector2Int GetBoardIndexLastMove()
+    {
+        return boardIndexLastMove;
+    }
+
+    public Piece GetPieceLastMoved()
+    {
+        return pieceLastMoved;
+    }
+
+    public void SetBoardIndexBeforeLastMove(Vector2Int boardIndex)
+    {
+        boardIndexBeforeLastMove = boardIndex;
+    }
+
+    public void SetBoardIndexLastMove(Vector2Int boardIndex)
+    {
+        boardIndexLastMove = boardIndex;
+    }
+
+    public void SetPieceLastMoved(Piece piece)
+    {
+        pieceLastMoved = piece;
+    }
+
+    public MoveType ValidMove(Vector2Int boardPosition, Piece piece, bool enPassant = false)
+    {
+        if (enPassant)
+        {
+            boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
+            boardState[boardPosition.x, boardPosition.y].SetMoveGuideColor(MoveType.Capture);
+            return MoveType.Capture;
+        }
+        else if (boardState[boardPosition.x, boardPosition.y].GetPiece() == null)
         {
             boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
             boardState[boardPosition.x, boardPosition.y].SetMoveGuideColor(MoveType.Allowed);

@@ -167,6 +167,9 @@ public class Piece : MonoBehaviour
             nearestTile.SetOccupied(false);
         }
 
+        // Handle En Passant
+        handleEnPassant(nearestTile);
+
         // Handle Rook in castling
         if (this.isKingPiece() && this.isFirstMove() && this.isCastle(nearestTile))
         {
@@ -177,7 +180,12 @@ public class Piece : MonoBehaviour
         // Move the piece to the new tile and update the board state
         if (nearestTile != currentTile){
             this.SetFirstMove(false);
+            BoardManager.Instance.SetBoardIndexBeforeLastMove(currentTile.GetBoardIndex());
+            BoardManager.Instance.SetPieceLastMoved(this);
+            BoardManager.Instance.SetBoardIndexLastMove(nearestTile.GetBoardIndex());
         }
+
+        // Update the board state before move
         transform.position = nearestTile.GetPosition3D() + Vector3.up;
         currentTile.SetOccupied(false);
         currentTile = nearestTile;
@@ -236,6 +244,43 @@ public class Piece : MonoBehaviour
             rookTile.SetOccupied(false);
             newRookTile.SetOccupied(true, rook);
             rook.SetCurrentTile(newRookTile);
+        }
+    }
+
+    private void handleEnPassant(Tile nearestTile)
+    {
+        // Check for En Passant capture
+        if (!this.isFirstMove())
+        {
+            // If last piece moved is a pawn
+            if (BoardManager.Instance.GetPieceLastMoved().GetType() == typeof(Pawn))
+            {
+                // If that pawn moved two tiles forward
+                if (Mathf.Abs(BoardManager.Instance.GetBoardIndexLastMove().y - BoardManager.Instance.GetBoardIndexBeforeLastMove().y) == 2)
+                {
+                    // If this pawn is in the same row as that pawn that moved two tiles forward right before
+                    if (this.GetCurrentTile().GetBoardIndex().y == BoardManager.Instance.GetBoardIndexLastMove().y)
+                    {
+                        // If this pawn is next to the pawn that moved two tiles forward right before
+                        if (Mathf.Abs(this.GetCurrentTile().GetBoardIndex().x - BoardManager.Instance.GetBoardIndexLastMove().x) == 1)
+                        {
+                            Debug.Log("En passant capture");
+
+                            int yChange = 1;
+                            if (BoardManager.Instance.GetBoardIndexLastMove().y > BoardManager.Instance.GetBoardIndexBeforeLastMove().y)
+                            {
+                                yChange = -1;
+                            }
+
+                            if (nearestTile.GetBoardIndex() == new Vector2Int(BoardManager.Instance.GetBoardIndexLastMove().x, BoardManager.Instance.GetBoardIndexLastMove().y+yChange))
+                            {
+                                BoardManager.Instance.GetTile(BoardManager.Instance.GetBoardIndexLastMove()).GetPiece().gameObject.SetActive(false);
+                                BoardManager.Instance.GetTile(BoardManager.Instance.GetBoardIndexLastMove()).SetOccupied(false);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
