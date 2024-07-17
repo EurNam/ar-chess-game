@@ -29,7 +29,6 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             SetMoveGuideShown(false);
-            Debug.Log("Tile initialized");
         }
 
         // Update is called once per frame

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
@@ -126,6 +127,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             initialBoardPosition = currentTile.GetBoardIndex();
         }
 
+        private Vector3 initialPiecePosition;
+        private Vector3 initialMouseWorldPosition;
+
         private void OnMouseDown()
         {
             if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetWhitePlayer() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized())
@@ -134,8 +138,17 @@ namespace JKTechnologies.SeensioGo.ARChess
                 isDragging = true;
                 // Set the plane to be the piece
                 dragPlane = new Plane(Vector3.up, transform.position);
+
+                initialPiecePosition = transform.position;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (dragPlane.Raycast(ray, out float distance))
+                {
+                    initialMouseWorldPosition = ray.GetPoint(distance);
+                }
+
                 // Set the mouse position to be the piece
                 mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+
                 // Generate the possible moves for the piece
                 GeneratePossibleMoves(currentTile.GetBoardIndex());
                 FilterMovesToAvoidCheck();
@@ -149,8 +162,14 @@ namespace JKTechnologies.SeensioGo.ARChess
             // Allow the piece to be dragged on the board
             if (dragPlane.Raycast(ray, out distance))
             {
-                new3DPosition = ray.GetPoint(distance);
-                transform.position = new3DPosition;
+                // new3DPosition = ray.GetPoint(distance);
+                // transform.position = Vector3.Lerp(transform.position, new3DPosition, 0.01f);
+
+                Vector3 currentMouseWorldPosition = ray.GetPoint(distance);
+                Vector3 mouseDelta = currentMouseWorldPosition - initialMouseWorldPosition;
+                Vector3 targetPosition = initialPiecePosition + new Vector3(mouseDelta.x * 0.5f, 0, mouseDelta.z * 0.5f); // Scale the movement by 0.5 for x and z
+                transform.position = new Vector3(targetPosition.x, currentMouseWorldPosition.y, targetPosition.z); // Apply scaled x and z, and direct y
+                new3DPosition = targetPosition;
             }
 
             // Find the nearest tile to the piece
