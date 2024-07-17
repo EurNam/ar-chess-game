@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
-    public class Button : MonoBehaviour
+    public class Button : MonoBehaviour, IPointerDownHandler
     {
         public static Button Instance;
         public bool isWhitePlayer;
@@ -20,7 +21,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         }
 
-        void OnMouseDown()
+        public void OnPointerDown(PointerEventData eventData)
         {
             if (otherButton != null && otherButton.transform.position.y == transform.position.y) 
             {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
@@ -109,9 +110,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.SetPossibleMoves(possibleMoves);
         }
 
-        protected override void OnMouseUp()
+        public override void OnPointerUp(PointerEventData eventData)
         {
-            base.OnMouseUp();
+            base.OnPointerUp(eventData);
             CheckPromotion();
         }
 
