@@ -143,8 +143,6 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            Debug.Log(this.name + " OnPointerDown");
-
             if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetWhitePlayer() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized())
             {
                 // Set the piece to be dragged
@@ -164,7 +162,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             if (isDragging && ARChessGameSettings.Instance.GetBoardInitialized())
             {
-                Debug.Log(this.name + " OnDrag");
                 Ray ray = Camera.main.ScreenPointToRay(eventData.position);
                 float distance;
                 // Allow the piece to be dragged on the board
@@ -173,6 +170,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                     new3DPosition = ray.GetPoint(distance);
                     // Interpolate the position to create a dragging effect
                     transform.position = Vector3.Lerp(transform.position, new3DPosition, 0.1f); 
+                    Debug.Log(this.name + " OnDrag");
                 }
 
                 // Find the nearest tile to the piece
@@ -192,14 +190,12 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public virtual void OnPointerUp(PointerEventData eventData)
         {
-            Debug.Log(this.name + " OnPointerUp");
-
             if (ARChessGameSettings.Instance.GetBoardInitialized() && isDragging)
             {
                 isDragging = false;
                 SnapToNearestTile();
+                Debug.Log(this.name + " has been released");
             }
-            Debug.Log(this.name + " has been released");
         }
         
         // private void DragPiece()
@@ -248,6 +244,9 @@ namespace JKTechnologies.SeensioGo.ARChess
                 // If it does, destroy the piece and set the tile to be empty
                 nearestTile.GetPiece().gameObject.SetActive(false);
                 nearestTile.SetOccupied(false);
+                BoardManager.Instance.PlayCaptureSound();
+            } else {
+                BoardManager.Instance.PlaySnapSound();
             }
 
             // Handle En Passant

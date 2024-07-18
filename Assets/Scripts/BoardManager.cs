@@ -19,6 +19,9 @@ namespace JKTechnologies.SeensioGo.ARChess
         private Vector2Int blackKingPosition = new Vector2Int(5, 8);
         private int moveCount = 0;
         private bool inCheck = false;
+        public AudioClip snapSound; 
+        public AudioClip captureSound;
+        public AudioSource audioSource;
 
         public enum MoveType
         {
@@ -37,7 +40,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Start is called before the first frame update
         void Start()
         {
-            
+
         }
 
         // Update is called once per frame
@@ -338,6 +341,16 @@ namespace JKTechnologies.SeensioGo.ARChess
                     boardState[GetBlackKingPosition().x, GetBlackKingPosition().y].SetMoveGuideColor(MoveType.Check);
                 }
             }
+        }
+
+        public void PlaySnapSound()
+        {
+            audioSource.PlayOneShot(snapSound);
+        }
+
+        public void PlayCaptureSound()
+        {
+            audioSource.PlayOneShot(captureSound);
         }
 
         public void ResetBoard()

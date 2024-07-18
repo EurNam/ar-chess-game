@@ -24,7 +24,6 @@ public class VirtualMouse : MonoBehaviour
 
         // Initialize the cursor at the bottom left of the screen
         cursor.anchoredPosition = new Vector2(0, 0);
-        Debug.Log("Cursor initialized at: " + cursor.anchoredPosition);
     }
 
     void Update()
@@ -137,7 +136,6 @@ public class VirtualMouse : MonoBehaviour
         // Handle space bar for simulating mouse click
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Space bar pressed");
             SimulatePointerDown();
         }
         if (Input.GetKeyUp(KeyCode.Space))
@@ -159,8 +157,8 @@ public class VirtualMouse : MonoBehaviour
 
         // Clamp the cursor position to the screen bounds
         cursor.anchoredPosition = new Vector2(
-            Mathf.Clamp(cursor.anchoredPosition.x, -642, 642),
-            Mathf.Clamp(cursor.anchoredPosition.y, -1349, 1349)
+            Mathf.Clamp(cursor.anchoredPosition.x, 0-Screen.width/2, Screen.width/2),
+            Mathf.Clamp(cursor.anchoredPosition.y, 0-Screen.height/2, Screen.height/2)
         );
     }
 
@@ -219,6 +217,7 @@ public class VirtualMouse : MonoBehaviour
             };
 
             ExecuteEvents.Execute(draggedObject, pointerData, ExecuteEvents.dragHandler);
+            Debug.Log("Simulating mouse drag on: " + draggedObject.name);
         }
     }
 }
