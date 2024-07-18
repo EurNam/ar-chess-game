@@ -115,6 +115,12 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.SetPossibleMoves(possibleMoves);
         }
 
+        public override void OnMouseUp()
+        {
+            base.OnMouseUp();
+            CheckPromotion();
+        }
+
         public override void OnPointerUp(PointerEventData eventData)
         {
             base.OnPointerUp(eventData);

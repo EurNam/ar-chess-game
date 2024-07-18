@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
-    public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+    public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public Piece piece;
         public bool isWhite;
@@ -20,6 +20,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         private bool isKing = false;
         private List<Vector2Int> possibleMoves = new List<Vector2Int>();
         private Vector2Int initialBoardPosition;
+        private bool usingMouse = false;
+        private bool usingVirtualMouse = false;
 
         // Start is called before the first frame update
         protected virtual void Start()
@@ -31,7 +33,17 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Update is called once per frame
         protected virtual void Update()
         {
-
+            if (isDragging && ARChessGameSettings.Instance.GetBoardInitialized())
+            {
+                if (usingVirtualMouse)
+                {
+                    CustomDrag();
+                }
+                if (usingMouse)
+                {
+                    DragPieceMouse();
+                }
+            }
         }
 
         public List<Vector2Int> GetPossibleMoves()
@@ -124,24 +136,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             initialBoardPosition = currentTile.GetBoardIndex();
         }
 
-        // private void OnMouseDown()
-        // {
-        //     if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetWhitePlayer() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized())
-        //     {
-        //         // Set the piece to be dragged
-        //         isDragging = true;
-        //         // Set the plane to be the piece
-        //         dragPlane = new Plane(Vector3.up, transform.position);
-        //         // Set the mouse position to be the piece
-        //         mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-        //         // Generate the possible moves for the piece
-        //         GeneratePossibleMoves(currentTile.GetBoardIndex());
-        //         FilterMovesToAvoidCheck();
-        //         Debug.Log(this.name + " has been clicked on");
-        //     }
-        // }
-
-        public void OnPointerDown(PointerEventData eventData)
+        private void HandleClickDown()
         {
             if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized()) // && ARChessGameSettings.Instance.GetWhitePlayer() == this.colorWhite() 
             {
@@ -158,80 +153,91 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
-        public void OnDrag(PointerEventData eventData)
+        public void OnPointerDown(PointerEventData eventData)
         {
-            if (isDragging && ARChessGameSettings.Instance.GetBoardInitialized())
-            {
-                Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-                float distance;
-                // Allow the piece to be dragged on the board
-                if (dragPlane.Raycast(ray, out distance))
-                {
-                    new3DPosition = ray.GetPoint(distance);
-                    // Interpolate the position to create a dragging effect
-                    transform.position = Vector3.Lerp(transform.position, new3DPosition, 0.1f); 
-                    //Debug.Log(this.name + " OnDrag");
-                }
+            HandleClickDown();
+            usingVirtualMouse = true;
+        }
 
-                // Find the nearest tile to the piece
-                Tile newNearestTile = FindNearestTile();
-                // If the nearest tile has changed, update the move guide colors
-                if (newNearestTile != nearestTile)
+        public void OnMouseDown()
+        {
+            HandleClickDown();
+            usingMouse = true;
+        }
+
+        public void CustomDrag()
+        {
+            Vector3 cursorPosition = VirtualMouse.Instance.GetCursorPosition();
+
+            Ray ray = Camera.main.ScreenPointToRay(cursorPosition);
+            float distance;
+            // Allow the piece to be dragged on the board
+            if (dragPlane.Raycast(ray, out distance))
+            {
+                new3DPosition = ray.GetPoint(distance);
+                // Interpolate the position to create a dragging effect
+                transform.position = Vector3.Lerp(transform.position, new3DPosition, 0.1f); 
+                //Debug.Log(this.name + " OnDrag");
+            }
+
+            // Find the nearest tile to the piece
+            Tile newNearestTile = FindNearestTile();
+            // If the nearest tile has changed, update the move guide colors
+            if (newNearestTile != nearestTile)
+            {
+                if (nearestTile != currentTile)
                 {
-                    if (nearestTile != currentTile)
-                    {
-                        nearestTile.SetMoveGuideColor(Color.green);
-                    }
-                    newNearestTile.SetMoveGuideColor(Color.yellow);
-                    nearestTile = newNearestTile;
+                    nearestTile.SetMoveGuideColor(Color.green);
                 }
+                newNearestTile.SetMoveGuideColor(Color.yellow);
+                nearestTile = newNearestTile;
+            }
+        }
+
+        private void DragPieceMouse()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            float distance;
+            // Allow the piece to be dragged on the board
+            if (dragPlane.Raycast(ray, out distance))
+            {
+                new3DPosition = ray.GetPoint(distance);
+                transform.position = new3DPosition;
+            }
+
+            // Find the nearest tile to the piece
+            Tile newNearestTile = FindNearestTile();
+            // If the nearest tile has changed, update the move guide colors
+            if (newNearestTile != nearestTile)
+            {
+                if (nearestTile != currentTile)
+                {
+                    nearestTile.SetMoveGuideColor(Color.green);
+                }
+                newNearestTile.SetMoveGuideColor(Color.yellow);
+                nearestTile = newNearestTile;
+            }
+        }
+
+        private void HandleClickUp(){
+            if (ARChessGameSettings.Instance.GetBoardInitialized() && isDragging)
+            {
+                isDragging = false;
+                SnapToNearestTile();
             }
         }
 
         public virtual void OnPointerUp(PointerEventData eventData)
         {
-            if (ARChessGameSettings.Instance.GetBoardInitialized() && isDragging)
-            {
-                isDragging = false;
-                SnapToNearestTile();
-                //Debug.Log(this.name + " has been released");
-            }
+            HandleClickUp();
+            usingVirtualMouse = false;
         }
-        
-        // private void DragPiece()
-        // {
-        //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //     float distance;
-        //     // Allow the piece to be dragged on the board
-        //     if (dragPlane.Raycast(ray, out distance))
-        //     {
-        //         new3DPosition = ray.GetPoint(distance);
-        //         transform.position = new3DPosition;
-        //     }
 
-        //     // Find the nearest tile to the piece
-        //     Tile newNearestTile = FindNearestTile();
-        //     // If the nearest tile has changed, update the move guide colors
-        //     if (newNearestTile != nearestTile)
-        //     {
-        //         if (nearestTile != currentTile)
-        //         {
-        //             nearestTile.SetMoveGuideColor(Color.green);
-        //         }
-        //         newNearestTile.SetMoveGuideColor(Color.yellow);
-        //         nearestTile = newNearestTile;
-        //     }
-        // }
-
-        // protected virtual void OnMouseUp()
-        // {
-        //     if (ARChessGameSettings.Instance.GetBoardInitialized() && isDragging)
-        //     {
-        //         isDragging = false;
-        //         SnapToNearestTile();
-        //     }
-        //     Debug.Log(this.name + " has been released");
-        // }
+        public virtual void OnMouseUp()
+        {
+            HandleClickUp();
+            usingMouse = false;
+        }
 
         private void SnapToNearestTile()
         {
@@ -250,7 +256,6 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             // Handle En Passant
-            Debug.Log("En Passant check");
             handleEnPassant(nearestTile);
 
             // Handle Rook in castling
@@ -348,38 +353,30 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private void handleEnPassant(Tile nearestTile)
         {
-            Debug.Log("This piece first move: " + this.isFirstMove());
             // Check for En Passant capture
             if (!this.isFirstMove())
             {
-                Debug.Log("Last piece moved is pawn: " + (BoardManager.Instance.GetPieceLastMoved().GetType() == typeof(Pawn)));
                 // If last piece moved is a pawn
                 if (BoardManager.Instance.GetPieceLastMoved().GetType() == typeof(Pawn))
                 {
-                    Debug.Log("Last piece moved is a pawn");
                     // If that pawn moved two tiles forward
                     if (Mathf.Abs(BoardManager.Instance.GetBoardIndexLastMove().y - BoardManager.Instance.GetBoardIndexBeforeLastMove().y) == 2)
                     {
-                        Debug.Log("Last pawn moved two tiles forward");
                         // If this pawn is in the same row as that pawn that moved two tiles forward right before
                         if (this.GetCurrentTile().GetBoardIndex().y == BoardManager.Instance.GetBoardIndexLastMove().y)
                         {
-                            Debug.Log("This pawn is in the same row as the pawn that moved two tiles forward right before");
                             // If this pawn is next to the pawn that moved two tiles forward right before
                             if (Mathf.Abs(this.GetCurrentTile().GetBoardIndex().x - BoardManager.Instance.GetBoardIndexLastMove().x) == 1)
                             {   
-                                Debug.Log("This pawn is next to the pawn that moved two tiles forward right before");
                                 // Determine the direction of the pawn that moved two tiles forward right before
                                 int yChange = 1;
                                 if (BoardManager.Instance.GetBoardIndexLastMove().y > BoardManager.Instance.GetBoardIndexBeforeLastMove().y)
                                 {
                                     yChange = -1;
                                 }
-                                Debug.Log("Piece moving to " + nearestTile.GetBoardIndex());
                                 // Perform En Passant
                                 if (nearestTile.GetBoardIndex() == new Vector2Int(BoardManager.Instance.GetBoardIndexLastMove().x, BoardManager.Instance.GetBoardIndexLastMove().y+yChange))
                                 {
-                                    Debug.Log("En Passant move");
                                     BoardManager.Instance.GetTile(BoardManager.Instance.GetBoardIndexLastMove()).GetPiece().gameObject.SetActive(false);
                                     BoardManager.Instance.GetTile(BoardManager.Instance.GetBoardIndexLastMove()).SetOccupied(false);
                                     BoardManager.Instance.PlayCaptureSound();

@@ -5,17 +5,24 @@ using System.Collections.Generic;
 
 public class VirtualMouse : MonoBehaviour
 {
+    public static VirtualMouse Instance;
     public RectTransform cursor; // UI element representing the cursor
     public float moveSpeed = 1000f; // Speed of cursor movement
     public float longPressDuration = 1f; // Duration to detect a long press
     public float doubleTapTime = 0.3f; // Maximum time interval between taps for a double tap
     private Vector2 touchpadArea; // Area for the touchpad
-    private bool isLongPress = false;
-    private float touchTime = 0f;
-    private bool isDragging = false;
-    private GameObject draggedObject = null;
+    private bool isLongPress = false; // Check if the user is trying to click and drag
+    private float touchTime = 0f; // Time of the last touch
+    private bool isDragging = false; // Check if the user is trying to click and drag
+    private GameObject draggedObject = null; // Object being dragged
     private float lastTapTime = 0f; // Time of the last tap
     private int tapCount = 0; // Number of taps
+    private bool isEnabled = false; // Check if the virtual mouse is enabled
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -24,10 +31,15 @@ public class VirtualMouse : MonoBehaviour
 
         // Initialize the cursor at the bottom left of the screen
         cursor.anchoredPosition = new Vector2(0, 0);
+
+        // Hide the cursor initially
+        cursor.gameObject.SetActive(false);
     }
 
     void Update()
     {
+        if (!isEnabled) return;
+
         // Handle touch input
         if (Input.touchCount > 0)
         {
@@ -150,6 +162,11 @@ public class VirtualMouse : MonoBehaviour
         }
     }
 
+    public bool IsEnabled()
+    {
+        return isEnabled;
+    }
+
     void HandleCursorMovement(Vector2 deltaPosition)
     {
         // Move the cursor
@@ -209,15 +226,25 @@ public class VirtualMouse : MonoBehaviour
 
     void SimulateMouseDrag()
     {
-        if (draggedObject != null)
-        {
-            PointerEventData pointerData = new PointerEventData(EventSystem.current)
-            {
-                position = cursor.position
-            };
+        // if (draggedObject != null)
+        // {
+        //     PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        //     {
+        //         position = cursor.position
+        //     };
 
-            ExecuteEvents.Execute(draggedObject, pointerData, ExecuteEvents.dragHandler);
-            //Debug.Log("Simulating mouse drag on: " + draggedObject.name);
-        }
+        //     ExecuteEvents.Execute(draggedObject, pointerData, ExecuteEvents.dragHandler);
+        // }
+    }
+
+    public Vector3 GetCursorPosition()
+    {
+        return cursor.position;
+    }
+
+    public void ToggleVirtualMouse()
+    {
+        isEnabled = !isEnabled;
+        cursor.gameObject.SetActive(isEnabled);
     }
 }

@@ -3851,7 +3851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9108067533550851781, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9108067533550851781, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6192,7 +6192,7 @@ Transform:
   m_Children:
   - {fileID: 951399427}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &937640003
 GameObject:
@@ -6495,7 +6495,6 @@ Transform:
   - {fileID: 1690060103}
   - {fileID: 1657472772}
   - {fileID: 1718227911}
-  - {fileID: 1881385261}
   m_Father: {fileID: 937240784}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6608,6 +6607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 951399427}
+  animationDuration: 2
 --- !u!1 &965111519 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1232262280323120063, guid: 0d1084487cbd24481b9b9cee6ef747c5, type: 3}
@@ -12867,14 +12867,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881385260}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.5, y: 0, z: -4.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1790271313}
   - {fileID: 1191140386}
-  m_Father: {fileID: 951399427}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1890917652 stripped
 GameObject:

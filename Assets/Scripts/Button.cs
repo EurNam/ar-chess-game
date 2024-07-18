@@ -22,7 +22,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         }
 
-        public void OnPointerDown(PointerEventData eventData)
+        public void handleOnClick()
         {
             float buttonHeight = GetComponent<Renderer>().bounds.size.y;
 
@@ -43,6 +43,16 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 BoardRotator.Instance.RotateBoard();
             }
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            handleOnClick();
+        }
+
+        public void OnMouseDown()
+        {
+            handleOnClick();
         }
 
         private bool ShouldRotateBoard()
