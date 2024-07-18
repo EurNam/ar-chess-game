@@ -23,15 +23,18 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            float buttonHeight = GetComponent<Renderer>().bounds.size.y;
+
             if (otherButton != null && otherButton.transform.position.y == transform.position.y) 
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y - buttonHeight, transform.position.z);
                 ARChessGameSettings.Instance.SetWhitePlayer(isWhitePlayer);
                 ARChessGameSettings.Instance.SetGameStarted(true);
-            } else if (otherButton != null && otherButton.transform.position.y < transform.position.y)
+            } 
+            else if (otherButton != null && otherButton.transform.position.y < transform.position.y)
             {
-                otherButton.transform.position = new Vector3(otherButton.transform.position.x, otherButton.transform.position.y + 1, otherButton.transform.position.z);
-                transform.position = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+                otherButton.transform.position = new Vector3(otherButton.transform.position.x, otherButton.transform.position.y + buttonHeight, otherButton.transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y - buttonHeight, transform.position.z);
                 ARChessGameSettings.Instance.SetWhitePlayer(isWhitePlayer);
             }
         }

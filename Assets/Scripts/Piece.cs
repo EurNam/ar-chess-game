@@ -260,7 +260,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             // Move piece to new tile
-            transform.position = nearestTile.GetPosition3D() + Vector3.up;
+            float tileHeight = nearestTile.GetComponent<Renderer>().bounds.size.y;
+            transform.position = nearestTile.GetPosition3D() + new Vector3(0, tileHeight, 0);
             currentTile.SetOccupied(false);
             currentTile = nearestTile;
             currentTile.SetOccupied(true, this);
