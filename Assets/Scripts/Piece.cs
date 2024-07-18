@@ -143,7 +143,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetWhitePlayer() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized())
+            if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized()) // && ARChessGameSettings.Instance.GetWhitePlayer() == this.colorWhite() 
             {
                 // Set the piece to be dragged
                 isDragging = true;
@@ -154,7 +154,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 // Generate the possible moves for the piece
                 GeneratePossibleMoves(currentTile.GetBoardIndex());
                 FilterMovesToAvoidCheck();
-                Debug.Log(this.name + " has been clicked on");
+                //Debug.Log(this.name + " has been clicked on");
             }
         }
 
@@ -170,7 +170,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                     new3DPosition = ray.GetPoint(distance);
                     // Interpolate the position to create a dragging effect
                     transform.position = Vector3.Lerp(transform.position, new3DPosition, 0.1f); 
-                    Debug.Log(this.name + " OnDrag");
+                    //Debug.Log(this.name + " OnDrag");
                 }
 
                 // Find the nearest tile to the piece
@@ -194,7 +194,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 isDragging = false;
                 SnapToNearestTile();
-                Debug.Log(this.name + " has been released");
+                //Debug.Log(this.name + " has been released");
             }
         }
         
@@ -250,6 +250,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             // Handle En Passant
+            Debug.Log("En Passant check");
             handleEnPassant(nearestTile);
 
             // Handle Rook in castling
@@ -271,7 +272,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 this.SetFirstMove(false);
                 BoardManager.Instance.SetWhiteTurn();
                 BoardManager.Instance.IncrementMoveCount();
-                BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this);
+                BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this, true);
                 BoardManager.Instance.CheckForCheckmate();
                 Debug.Log("Move count: " + BoardManager.Instance.GetMoveCount());
                 if (BoardManager.Instance.GetMoveCount() == 0)
@@ -347,33 +348,41 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private void handleEnPassant(Tile nearestTile)
         {
+            Debug.Log("This piece first move: " + this.isFirstMove());
             // Check for En Passant capture
             if (!this.isFirstMove())
             {
+                Debug.Log("Last piece moved is pawn: " + (BoardManager.Instance.GetPieceLastMoved().GetType() == typeof(Pawn)));
                 // If last piece moved is a pawn
                 if (BoardManager.Instance.GetPieceLastMoved().GetType() == typeof(Pawn))
                 {
+                    Debug.Log("Last piece moved is a pawn");
                     // If that pawn moved two tiles forward
                     if (Mathf.Abs(BoardManager.Instance.GetBoardIndexLastMove().y - BoardManager.Instance.GetBoardIndexBeforeLastMove().y) == 2)
                     {
+                        Debug.Log("Last pawn moved two tiles forward");
                         // If this pawn is in the same row as that pawn that moved two tiles forward right before
                         if (this.GetCurrentTile().GetBoardIndex().y == BoardManager.Instance.GetBoardIndexLastMove().y)
                         {
+                            Debug.Log("This pawn is in the same row as the pawn that moved two tiles forward right before");
                             // If this pawn is next to the pawn that moved two tiles forward right before
                             if (Mathf.Abs(this.GetCurrentTile().GetBoardIndex().x - BoardManager.Instance.GetBoardIndexLastMove().x) == 1)
-                            {
+                            {   
+                                Debug.Log("This pawn is next to the pawn that moved two tiles forward right before");
                                 // Determine the direction of the pawn that moved two tiles forward right before
                                 int yChange = 1;
                                 if (BoardManager.Instance.GetBoardIndexLastMove().y > BoardManager.Instance.GetBoardIndexBeforeLastMove().y)
                                 {
                                     yChange = -1;
                                 }
-
+                                Debug.Log("Piece moving to " + nearestTile.GetBoardIndex());
                                 // Perform En Passant
                                 if (nearestTile.GetBoardIndex() == new Vector2Int(BoardManager.Instance.GetBoardIndexLastMove().x, BoardManager.Instance.GetBoardIndexLastMove().y+yChange))
                                 {
+                                    Debug.Log("En Passant move");
                                     BoardManager.Instance.GetTile(BoardManager.Instance.GetBoardIndexLastMove()).GetPiece().gameObject.SetActive(false);
                                     BoardManager.Instance.GetTile(BoardManager.Instance.GetBoardIndexLastMove()).SetOccupied(false);
+                                    BoardManager.Instance.PlayCaptureSound();
                                 }
                             }
                         }
@@ -392,7 +401,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 Piece originalPiece = targetTile.GetPiece();
                 targetTile.SetOccupied(true, this);
                 currentTile.SetOccupied(false);
-                BoardManager.Instance.UpdateBoardState(currentTile.GetBoardIndex(), move, this);
+                BoardManager.Instance.UpdateBoardState(currentTile.GetBoardIndex(), move, this, false);
 
                 if (!BoardManager.Instance.IsKingChecked(this.colorWhite()))
                 {
@@ -402,7 +411,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 // Revert the move
                 targetTile.SetOccupied(true, originalPiece);
                 currentTile.SetOccupied(true, this);
-                BoardManager.Instance.UpdateBoardState(move, currentTile.GetBoardIndex(), this);
+                BoardManager.Instance.UpdateBoardState(move, currentTile.GetBoardIndex(), this, false);
             }
 
             possibleMoves = validMoves;

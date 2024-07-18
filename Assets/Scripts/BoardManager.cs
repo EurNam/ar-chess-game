@@ -272,21 +272,21 @@ namespace JKTechnologies.SeensioGo.ARChess
                             Piece originalPiece = targetTile.GetPiece();
                             targetTile.SetOccupied(true, piece);
                             tile.SetOccupied(false);
-                            UpdateBoardState(tile.GetBoardIndex(), move, piece);
+                            UpdateBoardState(tile.GetBoardIndex(), move, piece, false);
 
                             if (!IsKingChecked(isWhite))
                             {
                                 // Revert the move
                                 targetTile.SetOccupied(true, originalPiece);
                                 tile.SetOccupied(true, piece);
-                                UpdateBoardState(move, tile.GetBoardIndex(), piece);
+                                UpdateBoardState(move, tile.GetBoardIndex(), piece, false);
                                 return true;
                             }
 
                             // Revert the move
                             targetTile.SetOccupied(true, originalPiece);
                             tile.SetOccupied(true, piece);
-                            UpdateBoardState(move, tile.GetBoardIndex(), piece);
+                            UpdateBoardState(move, tile.GetBoardIndex(), piece, false);
                         }
                     }
                 }
@@ -294,11 +294,14 @@ namespace JKTechnologies.SeensioGo.ARChess
             return false;
         }
 
-        public void UpdateBoardState(Vector2Int moveBefore, Vector2Int moveAfter, Piece piece)
+        public void UpdateBoardState(Vector2Int moveBefore, Vector2Int moveAfter, Piece piece, bool actualMove)
         {
-            SetBoardIndexBeforeLastMove(moveBefore);
-            SetBoardIndexLastMove(moveAfter);
-            SetPieceLastMoved(piece);
+            if (actualMove)
+            {
+                SetBoardIndexBeforeLastMove(moveBefore);
+                SetBoardIndexLastMove(moveAfter);
+                SetPieceLastMoved(piece);
+            }
 
             if (piece.isKingPiece())
             {

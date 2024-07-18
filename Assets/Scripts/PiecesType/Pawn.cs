@@ -82,15 +82,19 @@ namespace JKTechnologies.SeensioGo.ARChess
                 // If last piece moved is a pawn
                 if (BoardManager.Instance.GetPieceLastMoved().GetType() == typeof(Pawn))
                 {
+                    //Debug.Log("Last piece moved is a pawn");
                     // If that pawn moved two tiles forward
                     if (Mathf.Abs(BoardManager.Instance.GetBoardIndexLastMove().y - BoardManager.Instance.GetBoardIndexBeforeLastMove().y) == 2)
                     {
+                        //Debug.Log("Previous piece moved 2 tiles forward");
                         // If this pawn is in the same row as that pawn that moved two tiles forward right before
                         if (this.GetCurrentTile().GetBoardIndex().y == BoardManager.Instance.GetBoardIndexLastMove().y)
                         {
+                            //Debug.Log("This pawn is in the same row as the pawn that moved two tiles forward right before");
                             // If this pawn is next to the pawn that moved two tiles forward right before
                             if (Mathf.Abs(this.GetCurrentTile().GetBoardIndex().x - BoardManager.Instance.GetBoardIndexLastMove().x) == 1)
                             {
+                                //Debug.Log("This pawn is next to the pawn that moved two tiles forward right before");
                                 int yChange = 1;
                                 if (BoardManager.Instance.GetBoardIndexLastMove().y > BoardManager.Instance.GetBoardIndexBeforeLastMove().y)
                                 {
@@ -101,6 +105,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                                 BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(enPassant, this, true);
                                 possibleMoves.Add(enPassant);
                                 BoardManager.Instance.ShowMoveGuides(enPassant, moveType);
+                                //Debug.Log("En Passant move is possible");
                             }
                         }
                     }

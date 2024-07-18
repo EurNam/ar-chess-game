@@ -10,6 +10,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public static Button Instance;
         public bool isWhitePlayer;
         public Button otherButton;
+        public Transform pivot;
 
         void Start()
         {
@@ -37,6 +38,22 @@ namespace JKTechnologies.SeensioGo.ARChess
                 transform.position = new Vector3(transform.position.x, transform.position.y - buttonHeight, transform.position.z);
                 ARChessGameSettings.Instance.SetWhitePlayer(isWhitePlayer);
             }
+
+            if (ShouldRotateBoard())
+            {
+                BoardRotator.Instance.RotateBoard();
+            }
+        }
+
+        private bool ShouldRotateBoard()
+        {
+            float currentYRotation = pivot.eulerAngles.y;
+            if ((isWhitePlayer && Mathf.Abs(Mathf.DeltaAngle(currentYRotation, 0f)) < 1f) ||
+                (!isWhitePlayer && Mathf.Abs(Mathf.DeltaAngle(currentYRotation, 180f)) < 1f))
+            {
+                return false;
+            }
+            return true;
         }
 
         public void ResetPosition()

@@ -6,7 +6,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 {
     public class Tile : MonoBehaviour
     {
-        private Vector2Int boardIndex;
+        public Vector2Int boardIndex;
         private Vector3 position3D;
         private bool isOccupied = false;
         private Piece piece = null;
@@ -15,7 +15,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         void Awake()
         {
-            this.SetBoardIndex(new Vector2Int((int)transform.position.x, (int)transform.position.z));
+            // this.SetBoardIndex(new Vector2Int((int)transform.position.x, (int)transform.position.z));
             this.SetPosition3D(transform.position);
 
             // Find the move guide using the MoveGuide script

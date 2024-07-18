@@ -174,7 +174,7 @@ public class VirtualMouse : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             GameObject hitObject = hit.collider.gameObject;
-            Debug.Log("Simulating pointer down on: " + hitObject.name);
+            //Debug.Log("Simulating pointer down on: " + hitObject.name);
 
             // Simulate pointer down
             ExecuteEvents.Execute(hitObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerDownHandler);
@@ -188,7 +188,7 @@ public class VirtualMouse : MonoBehaviour
         }
         else
         {
-            Debug.Log("No 3D object found at cursor position");
+            //Debug.Log("No 3D object found at cursor position");
         }
     }
 
@@ -217,7 +217,7 @@ public class VirtualMouse : MonoBehaviour
             };
 
             ExecuteEvents.Execute(draggedObject, pointerData, ExecuteEvents.dragHandler);
-            Debug.Log("Simulating mouse drag on: " + draggedObject.name);
+            //Debug.Log("Simulating mouse drag on: " + draggedObject.name);
         }
     }
 }
