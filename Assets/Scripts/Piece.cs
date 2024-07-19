@@ -45,6 +45,12 @@ namespace JKTechnologies.SeensioGo.ARChess
                     DragPieceMouse();
                 }
             }
+
+            if (ARChessGameSettings.Instance.GetChangeTileSkin())
+            {
+                FindCurrentTile();
+                ARChessGameSettings.Instance.SetChangeTileSkin(false);
+            }
         }
 
         public List<Vector2Int> GetPossibleMoves()

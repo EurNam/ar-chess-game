@@ -11,6 +11,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         private bool gameStarted = false;
         private bool boardInitialized = false;
         private bool botPlaying = false;
+        private bool changeTileSkin = false;
 
         void Awake()
         {
@@ -43,6 +44,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             return boardInitialized;
         }
 
+        public bool GetChangeTileSkin()
+        {
+            return changeTileSkin;
+        }
+
         public void SetWhitePlayer(bool whitePlayer)
         {
             this.whitePlayer = whitePlayer;
@@ -56,6 +62,11 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetBoardInitialized(bool boardInitialized)
         {
             this.boardInitialized = boardInitialized;
+        }
+
+        public void SetChangeTileSkin(bool changeTileSkin)
+        {
+            this.changeTileSkin = changeTileSkin;
         }
 
         public void ResetGameSettings()
@@ -89,6 +100,12 @@ namespace JKTechnologies.SeensioGo.ARChess
             } else {
                 BoardManager.Instance.SetTileMaterial(tileColorIndex, player);
             }
+        }
+
+        public void SetTileSkin()
+        {
+            changeTileSkin = true;
+            BoardManager.Instance.SetTileSkin();
         }
     }
 }

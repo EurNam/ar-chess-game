@@ -168,6 +168,17 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
+        public void SetTileSkin()
+        {
+            foreach (Tile tile in boardState)
+            {
+                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
+                {
+                    tile.ChangeTilePrefab(0);
+                }
+            }
+        }
+
         public void SetTileMaterial(int tileColorIndex, int player)
         {
             foreach (Tile tile in boardState)

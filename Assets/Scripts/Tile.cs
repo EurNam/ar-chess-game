@@ -135,5 +135,37 @@ namespace JKTechnologies.SeensioGo.ARChess
             SetOccupied(false, null);
             SetMoveGuideShown(false);
         }
+
+        public void ChangeTilePrefab(int prefabIndex)
+        {
+            if (prefabIndex < 0 || prefabIndex >= tilePrefabs.Length)
+            {
+                Debug.LogError("Invalid prefab index");
+                return;
+            }
+
+            // Instantiate the new prefab
+            GameObject newTile = Instantiate(tilePrefabs[prefabIndex], transform.position, transform.rotation, transform.parent);
+
+            // Copy data from the current tile to the new tile
+            Tile newTileComponent = newTile.GetComponent<Tile>();
+            newTileComponent.gameObject.name = this.gameObject.name;
+            newTileComponent.boardIndex = this.boardIndex;
+            newTileComponent.position3D = this.position3D;
+            newTileComponent.isOccupied = this.isOccupied;
+            newTileComponent.piece = this.piece;
+
+            if ((this.GetBoardIndex().x+this.GetBoardIndex().y)%2 == 0)
+            {
+                newTileComponent.SetTileMaterial(0);
+            }
+            else
+            {
+                newTileComponent.SetTileMaterial(1);
+            }
+
+            // Destroy the current tile
+            Destroy(gameObject);
+        }
     }
 }

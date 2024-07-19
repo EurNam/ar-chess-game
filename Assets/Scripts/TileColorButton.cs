@@ -16,8 +16,15 @@ namespace JKTechnologies.SeensioGo.ARChess
             toggleButton.onClick.AddListener(toggleColor);
         }
         public void toggleColor()
-        {
-            ARChessGameSettings.Instance.SetTileColor(tileColorIndex, player);
+        {   
+            if (tileColorIndex == 4)
+            {
+                ARChessGameSettings.Instance.SetTileSkin();
+            }
+            else
+            {
+                ARChessGameSettings.Instance.SetTileColor(tileColorIndex, player);
+            }
         }
     }
 }
