@@ -2,20 +2,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class ToggleVirtualCursor : MonoBehaviour
-{
-    public Button toggleButton;
-
-    void Start()
+    public class ToggleVirtualCursor : MonoBehaviour
     {
-        toggleButton.onClick.AddListener(ToggleVirtualMouse);
-    }
+        public Button toggleButton;
 
-    void ToggleVirtualMouse()
-    {
-        if (VirtualMouse.Instance != null)
+        void Start()
         {
-            VirtualMouse.Instance.ToggleVirtualMouse();
+            toggleButton.onClick.AddListener(ToggleVirtualMouse);
+        }
+
+        void ToggleVirtualMouse()
+        {
+            if (VirtualMouse.Instance != null)
+            {
+                VirtualMouse.Instance.ToggleVirtualMouse();
+            }
         }
     }
-}

@@ -10,6 +10,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         private bool whitePlayer;
         private bool gameStarted = false;
         private bool boardInitialized = false;
+        private bool botPlaying = false;
 
         void Awake()
         {
@@ -68,6 +69,26 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void ResetPlayerTurn()
         {
             ARChessGameSettings.Instance.SetWhitePlayer(true);
+        }
+
+        public bool GetBotPlaying()
+        {
+            return botPlaying;
+        }
+
+        public void SetBotPlayer(bool botPlaying)
+        {
+            this.botPlaying = botPlaying;
+        }
+
+        public void SetTileColor(int tileColorIndex, int player)
+        {
+            if (player == 1)
+            {
+                BoardManager.Instance.SetTileMaterial(tileColorIndex, player);
+            } else {
+                BoardManager.Instance.SetTileMaterial(tileColorIndex, player);
+            }
         }
     }
 }

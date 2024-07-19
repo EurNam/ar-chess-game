@@ -9,12 +9,22 @@ namespace JKTechnologies.SeensioGo.ARChess
     {
         public static Button Instance;
         public bool isWhitePlayer;
+        public bool whitePlayerSelected = true;
         public Button otherButton;
         public Transform pivot;
+        private bool animationGoingOn = false;
+        private bool startGame = false;
+        private bool clicked = false;
+
+        void Awake()
+        {
+            Instance = this;
+            
+        }
 
         void Start()
         {
-            Instance = this;
+
         }
 
         void Update()
@@ -22,25 +32,60 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         }
 
+        public bool IsWhitePlayerSelected()
+        {
+            return whitePlayerSelected;
+        }
+
+        public void SetWhitePlayerSelected(bool value)
+        {
+            whitePlayerSelected = value;
+        }
+
+        public bool IsAnimationGoingOn()
+        {
+            return animationGoingOn;
+        }
+
+        public void SetAnimationGoingOn(bool value)
+        {
+            animationGoingOn = value;
+        }
+
+        public void SetStartGame(bool value)
+        {
+            startGame = value;
+        }
+
+        public void SetClicked(bool value)
+        {
+            clicked = value;
+        }
+
         public void handleOnClick()
         {
-            float buttonHeight = GetComponent<Renderer>().bounds.size.y;
+            if (animationGoingOn) return;
 
-            if (otherButton != null && otherButton.transform.position.y == transform.position.y) 
+            if (otherButton != null && !startGame && !clicked) 
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y - buttonHeight, transform.position.z);
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - this.transform.localScale.y, transform.localPosition.z);
                 ARChessGameSettings.Instance.SetWhitePlayer(isWhitePlayer);
                 ARChessGameSettings.Instance.SetGameStarted(true);
+                startGame = true;
+                otherButton.SetStartGame(true);
+                clicked = true;
+                if (!this.isWhitePlayer)
+                {
+                    BoardRotator.Instance.RotateBoard();
+                }
             } 
-            else if (otherButton != null && otherButton.transform.position.y < transform.position.y)
+            else if (otherButton != null && otherButton.transform.localPosition.y < transform.localPosition.y && !clicked)
             {
-                otherButton.transform.position = new Vector3(otherButton.transform.position.x, otherButton.transform.position.y + buttonHeight, otherButton.transform.position.z);
-                transform.position = new Vector3(transform.position.x, transform.position.y - buttonHeight, transform.position.z);
+                otherButton.transform.localPosition = new Vector3(otherButton.transform.localPosition.x, otherButton.transform.localPosition.y + otherButton.transform.localScale.y, otherButton.transform.localPosition.z);
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - this.transform.localScale.y, transform.localPosition.z);
                 ARChessGameSettings.Instance.SetWhitePlayer(isWhitePlayer);
-            }
-
-            if (ShouldRotateBoard())
-            {
+                clicked = true;
+                otherButton.SetClicked(false);
                 BoardRotator.Instance.RotateBoard();
             }
         }
@@ -68,7 +113,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public void ResetPosition()
         {
-            transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, 1, transform.localPosition.z);
             BoardManager.Instance.HideMoveGuides();
         }
     }

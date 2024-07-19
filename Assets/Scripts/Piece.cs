@@ -9,6 +9,7 @@ namespace JKTechnologies.SeensioGo.ARChess
     {
         public Piece piece;
         public bool isWhite;
+        public GameObject boardParent;
         private Tile currentTile;
         private Tile nearestTile;
         private Vector3 mousePosition;
@@ -119,11 +120,14 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             foreach (Tile tile in tiles)
             {
-                float distance = Vector3.Distance(transform.position, tile.GetPosition3D());
-                if (distance < minDistance)
+                if (tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
                 {
-                    minDistance = distance;
-                    startingNearestTile = tile;
+                    float distance = Vector3.Distance(transform.position, tile.GetPosition3D());
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        startingNearestTile = tile;
+                    }
                 }
             }
 
@@ -143,13 +147,12 @@ namespace JKTechnologies.SeensioGo.ARChess
                 // Set the piece to be dragged
                 isDragging = true;
                 // Set the plane to be the piece
-                dragPlane = new Plane(Vector3.up, transform.position);
+                dragPlane = new Plane(boardParent.transform.up, transform.position);
                 // Set the mouse position to be the piece
                 mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
                 // Generate the possible moves for the piece
                 GeneratePossibleMoves(currentTile.GetBoardIndex());
                 FilterMovesToAvoidCheck();
-                //Debug.Log(this.name + " has been clicked on");
             }
         }
 
@@ -177,7 +180,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                 new3DPosition = ray.GetPoint(distance);
                 // Interpolate the position to create a dragging effect
                 transform.position = Vector3.Lerp(transform.position, new3DPosition, 0.1f); 
-                //Debug.Log(this.name + " OnDrag");
             }
 
             // Find the nearest tile to the piece
@@ -266,8 +268,14 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             // Move piece to new tile
-            float tileHeight = nearestTile.GetComponent<Renderer>().bounds.size.y;
-            transform.position = nearestTile.GetPosition3D() + new Vector3(0, tileHeight, 0);
+            float localTileHeight = nearestTile.transform.localScale.y;
+            Vector3 localPosition = nearestTile.transform.localPosition + new Vector3(0, localTileHeight, 0);
+
+            Tile convertPoint = BoardManager.Instance.GetTile(new Vector2Int(0, 0));
+            convertPoint.transform.localPosition = localPosition;
+
+            transform.position = convertPoint.transform.position;
+
             currentTile.SetOccupied(false);
             currentTile = nearestTile;
             currentTile.SetOccupied(true, this);
@@ -290,6 +298,53 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
+        // public void botMovePiece(Tile newTile)
+        // {
+        //     // Check if the closest tile has a piece and if it is not the same piece
+        //     if (newTile.GetPiece() != null && newTile.GetPiece() != this)
+        //     {
+        //         // If it does, destroy the piece and set the tile to be empty
+        //         newTile.GetPiece().gameObject.SetActive(false);
+        //         newTile.SetOccupied(false);
+        //         BoardManager.Instance.PlayCaptureSound();
+        //     } else {
+        //         BoardManager.Instance.PlaySnapSound();
+        //     }
+
+        //     // Handle En Passant
+        //     handleEnPassant(newTile);
+
+        //     // Handle Rook in castling
+        //     if (this.isKingPiece() && this.isFirstMove() && this.isCastle(newTile))
+        //     {
+        //         handleCastling(newTile);
+        //         this.SetFirstMove(false);
+        //     }
+
+        //     // Move piece to new tile
+        //     float tileHeight = newTile.GetComponent<Renderer>().bounds.size.y;
+        //     transform.position = newTile.GetPosition3D() + new Vector3(0, tileHeight, 0);
+        //     newTile.SetOccupied(false);
+        //     newTile = newTile;
+        //     currentTile.SetOccupied(true, this);
+
+        //     // Update the board state after move
+        //     if (tempNearestTile != tempCurrentTile){
+        //         this.SetFirstMove(false);
+        //         BoardManager.Instance.SetWhiteTurn();
+        //         BoardManager.Instance.IncrementMoveCount();
+        //         BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this, true);
+        //         BoardManager.Instance.CheckForCheckmate();
+        //         if (BoardManager.Instance.GetMoveCount() == 0)
+        //         {
+        //             BoardManager.Instance.HideMoveGuides();
+        //         }
+        //     } else {
+        //         BoardManager.Instance.HideMoveGuides();
+        //         BoardManager.Instance.CheckForCheckmate();
+        //     }
+        // }
+
         protected virtual void SwitchToAlternativePrefab()
         {
             // Do nothing by default
@@ -303,17 +358,20 @@ namespace JKTechnologies.SeensioGo.ARChess
             // Find the closest tile to the piece position to snap the piece to
             foreach (Tile tile in tiles)
             {
-                float distance = Vector3.Distance(this.transform.position, tile.GetPosition3D());
-                // Update the closest tile if the distance is less than the current closest tile
-                if (distance < minDistance)
+                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
                 {
-                    minDistance = distance;
-                    nearestTile = tile;
+                    float distance = Vector3.Distance(this.transform.position, tile.GetPosition3D());
+                    // Update the closest tile if the distance is less than the current closest tile
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        nearestTile = tile;
+                    }
                 }
             }
 
             // Check if the closest tile is a valid move and if the distance is less than 1.3 units
-            if (possibleMoves.Contains(nearestTile.GetBoardIndex()) && minDistance < 1.3f)
+            if (possibleMoves.Contains(nearestTile.GetBoardIndex()) && minDistance < 1.3f*boardParent.transform.localScale.x)
             {
                 return nearestTile;
             }
@@ -343,7 +401,14 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 // Move rook to castling position
                 Tile newRookTile = BoardManager.Instance.GetTile(new Vector2Int(rookNewCol, kingPosition.y));
-                rook.transform.position = newRookTile.GetPosition3D() + Vector3.up;
+                float localTileHeight = rookTile.transform.localScale.y;
+                Vector3 localPosition = newRookTile.transform.localPosition + new Vector3(0, localTileHeight, 0);
+
+                Tile convertPoint = BoardManager.Instance.GetTile(new Vector2Int(0, 0));
+                convertPoint.transform.localPosition = localPosition;
+
+                rook.transform.position = convertPoint.transform.position;
+
                 rookTile.SetOccupied(false);
                 newRookTile.SetOccupied(true, rook);
                 rook.SetCurrentTile(newRookTile);

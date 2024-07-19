@@ -7,16 +7,22 @@ namespace JKTechnologies.SeensioGo.ARChess
     public class Tile : MonoBehaviour
     {
         public Vector2Int boardIndex;
+        public GameObject[] tilePrefabs;
+        public Material[] tileMaterials;
         private Vector3 position3D;
         private bool isOccupied = false;
         private Piece piece = null;
+        private Renderer tileRenderer;
+        private GameObject tilePrefab;
         private Renderer moveGuideRenderer;
         private Transform moveGuideTransform;
+        
 
         void Awake()
         {
             // this.SetBoardIndex(new Vector2Int((int)transform.position.x, (int)transform.position.z));
             this.SetPosition3D(transform.position);
+            this.tileRenderer = GetComponent<Renderer>();
 
             // Find the move guide using the MoveGuide script
             MoveGuide moveGuide = GetComponentInChildren<MoveGuide>();
@@ -71,6 +77,11 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             isOccupied = occupied;
             this.piece = piece;
+        }
+
+        public void SetTileMaterial(int materialIndex)
+        {
+            tileRenderer.material = tileMaterials[materialIndex];
         }
 
         public void SetMoveGuideShown(bool shown)

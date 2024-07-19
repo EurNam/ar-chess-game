@@ -40,20 +40,16 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Start is called before the first frame update
         void Start()
         {
-
+            InitializeBoardState();
+            ARChessGameSettings.Instance.SetBoardInitialized(true);
+            GenerateAllPossibleMoves();
+            HideMoveGuides();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (ARChessGameSettings.Instance.GetGameStarted())
-            {
-                InitializeBoardState();
-                ARChessGameSettings.Instance.SetBoardInitialized(true);
-                ARChessGameSettings.Instance.SetGameStarted(false);
-                GenerateAllPossibleMoves();
-                HideMoveGuides();
-            }
+
         }
 
         private void InitializeBoardState()
@@ -162,11 +158,25 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             foreach (Tile tile in boardState)
             {
-                if (tile != null)
+                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
                 {
                     if (tile.GetPiece() != null)
                     {
                         tile.GetPiece().GeneratePossibleMovesForBoard(tile.GetBoardIndex());
+                    }
+                }
+            }
+        }
+
+        public void SetTileMaterial(int tileColorIndex, int player)
+        {
+            foreach (Tile tile in boardState)
+            {
+                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
+                {
+                    if ((tile.GetBoardIndex().x + tile.GetBoardIndex().y) % 2 == player)
+                    {
+                        tile.SetTileMaterial(tileColorIndex);
                     }
                 }
             }
@@ -213,7 +223,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 foreach (Tile tile in boardState)
                 {
-                    if (tile != null)
+                    if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
                     {
                         tile.SetMoveGuideShown(false);
                     }
@@ -237,7 +247,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             //Debug.Log(isWhite ? "White King is at: " + kingPosition : "Black King is at: " + kingPosition);
             foreach (Tile tile in boardState)
             {
-                if (tile != null)
+                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
                 {
                     Piece piece = tile.GetPiece();
                     if (piece != null && piece.colorWhite() != isWhite)
@@ -260,7 +270,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             foreach (Tile tile in boardState)
             {
-                if (tile != null)
+                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
                 {
                     Piece piece = tile.GetPiece();
                     if (piece != null && piece.colorWhite() == isWhite)
@@ -361,7 +371,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             // Reset all pieces to their initial positions
             foreach (Tile tile in boardState)
             {
-                if (tile != null && tile.GetPiece() != null)
+                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0 && tile.GetPiece() != null)
                 {
                     tile.GetPiece().ResetPosition();
                 }
@@ -376,5 +386,38 @@ namespace JKTechnologies.SeensioGo.ARChess
             inCheck = false;
             ARChessGameSettings.Instance.ResetPlayerTurn();
         }
+
+        // Basic chess bot
+        // public void BotMakeMove()
+        // {
+        //     List<Piece> botPieces = new List<Piece>();
+        //     foreach (Tile tile in boardState)
+        //     {
+        //         if (tile != null && tile.GetPiece() != null && tile.GetPiece().colorWhite() != ARChessGameSettings.Instance.GetWhitePlayer())
+        //         {
+        //             botPieces.Add(tile.GetPiece());
+        //         }
+        //     }
+
+        //     List<Vector2Int> allPossibleMoves = new List<Vector2Int>();
+        //     Piece selectedPiece = null;
+        //     foreach (Piece piece in botPieces)
+        //     {
+        //         List<Vector2Int> possibleMoves = piece.GetPossibleMoves();
+        //         if (possibleMoves.Count > 0)
+        //         {
+        //             selectedPiece = piece;
+        //             allPossibleMoves.AddRange(possibleMoves);
+        //         }
+        //     }
+
+        //     if (selectedPiece != null && allPossibleMoves.Count > 0)
+        //     {
+        //         Vector2Int randomMove = allPossibleMoves[Random.Range(0, allPossibleMoves.Count)];
+        //         Tile targetTile = GetTile(randomMove);
+        //         selectedPiece.SetCurrentTile(targetTile);
+        //         selectedPiece.SnapToNearestTile();
+        //     }
+        // }
     }
 }
