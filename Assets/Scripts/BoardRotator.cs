@@ -29,7 +29,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             Button.Instance.SetAnimationGoingOn(true);
 
             Vector3 originalPosition = pivot.position;
-            Vector3 raisedPosition = originalPosition + Vector3.up * pivot.localScale.y * 3;
+            Vector3 raisedPosition = originalPosition + Vector3.up * this.transform.localScale.y * 3;
             Quaternion originalRotation = pivot.rotation;
             Quaternion targetRotation = originalRotation * Quaternion.Euler(0, 180, 0);
 
