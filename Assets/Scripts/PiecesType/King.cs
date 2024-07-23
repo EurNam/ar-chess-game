@@ -10,7 +10,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         protected override void Start()
         {
             base.Start();
-            this.SetKing();
+            this.SetKing(true);
         }
 
         // Update is called once per frame

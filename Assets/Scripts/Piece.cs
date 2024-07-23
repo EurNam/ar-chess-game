@@ -10,6 +10,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         public Piece piece;
         public bool isWhite;
         public GameObject boardParent;
+        public GameObject[] piecePrefabs;
+        public Material[] pieceMaterials;
         private Tile currentTile;
         private Tile nearestTile;
         private Vector3 mousePosition;
@@ -24,11 +26,17 @@ namespace JKTechnologies.SeensioGo.ARChess
         private bool usingMouse = false;
         private bool usingVirtualMouse = false;
 
+        void Awake()
+        {
+            piece = this;
+            this.SetFirstMove(true);
+        }
+
         // Start is called before the first frame update
         protected virtual void Start()
         {
-            FindCurrentTile();
-            this.SetFirstMove(true);
+            // FindCurrentTile();
+            // this.SetFirstMove(true);
         }
 
         // Update is called once per frame
@@ -45,12 +53,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                     DragPieceMouse();
                 }
             }
-
-            if (ARChessGameSettings.Instance.GetChangeTileSkin())
-            {
-                FindCurrentTile();
-                ARChessGameSettings.Instance.SetChangeTileSkin(false);
-            }
         }
 
         public List<Vector2Int> GetPossibleMoves()
@@ -61,6 +63,11 @@ namespace JKTechnologies.SeensioGo.ARChess
         public Tile GetCurrentTile()
         {
             return currentTile;
+        }
+
+        public Tile GetNearestTile()
+        {
+            return nearestTile;
         }
 
         public bool isKingPiece()
@@ -78,6 +85,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             return isWhite;
         }
 
+        public Vector2Int GetInitialBoardPosition()
+        {
+            return initialBoardPosition;
+        }
+
         public void SetPossibleMoves(List<Vector2Int> moves)
         {
             possibleMoves = moves;
@@ -93,9 +105,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             nearestTile = tile;
         }
 
-        public void SetKing()
+        public void SetKing(bool king)
         {
-            isKing = true;
+            isKing = king;
         }
 
         public void SetFirstMove(bool move)
@@ -108,6 +120,22 @@ namespace JKTechnologies.SeensioGo.ARChess
             isWhite = white;
         }
 
+        public void SetInitialBoardPosition(Vector2Int position)
+        {
+            initialBoardPosition = position;
+        }
+
+        public void SetPieceMaterial(int materialIndex)
+        {
+            Material newMaterial = pieceMaterials[materialIndex];
+            Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+            foreach (Renderer renderer in renderers)
+            {
+                renderer.material = newMaterial;
+            }
+        }
+
         protected virtual void GeneratePossibleMoves(Vector2Int currentBoardPosition)
         {
             possibleMoves.Clear();
@@ -118,7 +146,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.GeneratePossibleMoves(currentBoardPosition);
         }
 
-        private void FindCurrentTile()
+        public void FindCurrentTile()
         {
             tiles = FindObjectsOfType<Tile>();
             float minDistance = float.MaxValue;
@@ -126,7 +154,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             foreach (Tile tile in tiles)
             {
-                if (tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
+                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0 && tile.gameObject.activeSelf)
                 {
                     float distance = Vector3.Distance(transform.position, tile.GetPosition3D());
                     if (distance < minDistance)
@@ -144,6 +172,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 currentTile.SetOccupied(true, this);
             }
             initialBoardPosition = currentTile.GetBoardIndex();
+            Debug.Log(this.name + " is on tile " + currentTile.name);
         }
 
         private void HandleClickDown()
@@ -223,6 +252,8 @@ namespace JKTechnologies.SeensioGo.ARChess
                     nearestTile.SetMoveGuideColor(Color.green);
                 }
                 newNearestTile.SetMoveGuideColor(Color.yellow);
+                Debug.Log("Set color " + newNearestTile.name + " to yellow");
+                
                 nearestTile = newNearestTile;
             }
         }
@@ -358,16 +389,22 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private Tile FindNearestTile()
         {
+            tiles = FindObjectsOfType<Tile>();
             float minDistance = float.MaxValue;
             Tile nearestTile = null;
 
             // Find the closest tile to the piece position to snap the piece to
             foreach (Tile tile in tiles)
             {
-                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
+                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0 && tile.gameObject.activeSelf)
                 {
+                    Debug.Log("Checking distance to " + tile.name);
                     float distance = Vector3.Distance(this.transform.position, tile.GetPosition3D());
                     // Update the closest tile if the distance is less than the current closest tile
+                    if (tile.GetBoardIndex() == new Vector2Int(4,2))
+                    {
+                        // Debug.Log("Distance to " + tile.name + ": " + distance);
+                    }
                     if (distance < minDistance)
                     {
                         minDistance = distance;
@@ -376,7 +413,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 }
             }
 
-            // Check if the closest tile is a valid move and if the distance is less than 1.3 units
+            // Check if the closest tile is a valid move and if the distance is less than 1.5 units
             if (possibleMoves.Contains(nearestTile.GetBoardIndex()) && minDistance < 1.3f*boardParent.transform.localScale.x)
             {
                 return nearestTile;
@@ -493,6 +530,50 @@ namespace JKTechnologies.SeensioGo.ARChess
                 }
             }
             BoardManager.Instance.ShowMoveGuides(this.GetCurrentTile().GetBoardIndex(), BoardManager.MoveType.Stay);
+        }
+
+        public void ChangePiecePrefab(int prefabIndex)
+        {
+            if (prefabIndex < 0 || prefabIndex >= piecePrefabs.Length)
+            {
+                Debug.LogError("Invalid prefab index");
+                return;
+            }
+
+            // Instantiate the new prefab
+            GameObject newPiece = Instantiate(piecePrefabs[prefabIndex], transform.position, transform.rotation, transform.parent);
+
+            // Copy data from the current piece to the new piece
+            Piece newPieceComponent = newPiece.GetComponent<Piece>();
+            newPieceComponent.gameObject.name = this.gameObject.name;
+            newPieceComponent.SetCurrentTile(this.currentTile);
+            newPieceComponent.SetNearestTile(this.nearestTile);
+            newPieceComponent.SetFirstMove(this.isFirstMove());
+            newPieceComponent.SetWhite(this.colorWhite());
+            newPieceComponent.isKing = this.isKingPiece();
+            newPieceComponent.possibleMoves = this.possibleMoves;
+            newPieceComponent.initialBoardPosition = this.initialBoardPosition;
+            newPieceComponent.boardParent = this.boardParent;
+
+            // if (this.piece != null)
+            // {
+            //     this.piece.FindCurrentTile();
+            // }
+
+            if (this.colorWhite())
+            {
+                newPieceComponent.SetPieceMaterial(0);
+            }
+            else
+            {
+                newPieceComponent.SetPieceMaterial(1);
+            }
+
+
+
+            // Destroy the current piece
+            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
 
         public void ResetPosition()

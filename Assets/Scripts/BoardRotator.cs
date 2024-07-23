@@ -7,6 +7,7 @@ namespace JKTechnologies.SeensioGo.ARChess
     {
         public static BoardRotator Instance;
         public Transform pivot;
+        public Tile scaling;
         public float animationDuration = 2f;
 
         void Awake()
@@ -29,14 +30,14 @@ namespace JKTechnologies.SeensioGo.ARChess
             Button.Instance.SetAnimationGoingOn(true);
 
             Vector3 originalPosition = pivot.position;
-            Vector3 raisedPosition = originalPosition + Vector3.up * this.transform.localScale.y * 3;
+            Vector3 raisedPosition = originalPosition;
             Quaternion originalRotation = pivot.rotation;
             Quaternion targetRotation = originalRotation * Quaternion.Euler(0, 180, 0);
 
             float elapsedTime = 0f;
 
             // Raise the board
-            while (elapsedTime < animationDuration / 2)
+            while (elapsedTime < animationDuration / 4)
             {
                 pivot.position = Vector3.Lerp(originalPosition, raisedPosition, (elapsedTime / (animationDuration / 2)));
                 elapsedTime += Time.deltaTime;
@@ -58,7 +59,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             elapsedTime = 0f;
 
             // Lower the board
-            while (elapsedTime < animationDuration / 2)
+            while (elapsedTime < animationDuration / 4)
             {
                 pivot.position = Vector3.Lerp(raisedPosition, originalPosition, (elapsedTime / (animationDuration / 2)));
                 elapsedTime += Time.deltaTime;

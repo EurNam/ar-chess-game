@@ -41,15 +41,19 @@ namespace JKTechnologies.SeensioGo.ARChess
         void Start()
         {
             InitializeBoardState();
-            ARChessGameSettings.Instance.SetBoardInitialized(true);
-            GenerateAllPossibleMoves();
-            HideMoveGuides();
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            if (ARChessGameSettings.Instance.GetChangeTileSkin())
+            {
+                InitializeBoardState();
+                GenerateAllPossibleMoves();
+                HideMoveGuides();
+                Debug.Log("New board initialized");
+                ARChessGameSettings.Instance.SetChangeTileSkin(false);
+            }
         }
 
         private void InitializeBoardState()
@@ -61,12 +65,23 @@ namespace JKTechnologies.SeensioGo.ARChess
             Tile[] tileObjects = FindObjectsOfType<Tile>();
             foreach (Tile tileObject in tileObjects)
             {
-                if (tileObject != null)
+                if (tileObject != null && tileObject.gameObject.activeSelf)
                 {
                     Vector2Int boardIndex = tileObject.GetBoardIndex();
                     boardState[boardIndex.x, boardIndex.y] = tileObject;
                 }
             }
+
+            ARChessGameSettings.Instance.SetBoardInitialized(true);
+
+            Piece[] pieces = FindObjectsOfType<Piece>();
+            foreach (Piece piece in pieces)
+            {
+                piece.FindCurrentTile();
+            }
+
+            this.GenerateAllPossibleMoves();
+            this.HideMoveGuides();
         }
 
         public Tile GetTile(Vector2Int boardPosition)
@@ -168,15 +183,21 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
-        public void SetTileSkin()
+        public void SetTileSkin(int tileAppearanceIndex)
         {
             foreach (Tile tile in boardState)
             {
                 if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
                 {
-                    tile.ChangeTilePrefab(0);
+                    tile.ChangeTilePrefab(tileAppearanceIndex);
+                    if (tile.GetPiece() != null)
+                    {
+                        tile.GetPiece().ChangePiecePrefab(tileAppearanceIndex);
+                    }
                 }
             }
+            
+            this.InitializeBoardState();
         }
 
         public void SetTileMaterial(int tileColorIndex, int player)

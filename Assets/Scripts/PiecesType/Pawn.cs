@@ -152,6 +152,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             queenComponent.SetFirstMove(false);
             queenComponent.SetWhite(this.colorWhite());
 
+            queenComponent.SetNearestTile(this.GetNearestTile());
+            queenComponent.SetKing(this.isKingPiece());
+            queenComponent.SetInitialBoardPosition(this.GetInitialBoardPosition());
+            queenComponent.boardParent = this.boardParent;
+
             // Set the current tile to be occupied by the new queen
             this.GetCurrentTile().SetOccupied(true, queenComponent);
 

@@ -12,6 +12,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         private bool boardInitialized = false;
         private bool botPlaying = false;
         private bool changeTileSkin = false;
+        private int tileSkinIndex = 0;
 
         void Awake()
         {
@@ -102,10 +103,17 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
-        public void SetTileSkin()
+        public void SetTileSkin(int tileAppearanceIndex)
         {
+            if (tileAppearanceIndex == tileSkinIndex)
+            {
+                Debug.Log("Already using that skin");
+                return;
+            }
             changeTileSkin = true;
-            BoardManager.Instance.SetTileSkin();
+            boardInitialized = false;
+            BoardManager.Instance.SetTileSkin(tileAppearanceIndex);
+            tileSkinIndex = tileAppearanceIndex;
         }
     }
 }

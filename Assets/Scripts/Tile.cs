@@ -9,6 +9,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public Vector2Int boardIndex;
         public GameObject[] tilePrefabs;
         public Material[] tileMaterials;
+        private int tileAppearanceIndex = 0;
         private Vector3 position3D;
         private bool isOccupied = false;
         private Piece piece = null;
@@ -20,7 +21,6 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         void Awake()
         {
-            // this.SetBoardIndex(new Vector2Int((int)transform.position.x, (int)transform.position.z));
             this.SetPosition3D(transform.position);
             this.tileRenderer = GetComponent<Renderer>();
 
@@ -151,9 +151,12 @@ namespace JKTechnologies.SeensioGo.ARChess
             Tile newTileComponent = newTile.GetComponent<Tile>();
             newTileComponent.gameObject.name = this.gameObject.name;
             newTileComponent.boardIndex = this.boardIndex;
-            newTileComponent.position3D = this.position3D;
-            newTileComponent.isOccupied = this.isOccupied;
-            newTileComponent.piece = this.piece;
+            newTileComponent.tileAppearanceIndex = prefabIndex;
+
+            // if (this.piece != null)
+            // {
+            //     this.piece.FindCurrentTile();
+            // }
 
             if ((this.GetBoardIndex().x+this.GetBoardIndex().y)%2 == 0)
             {
@@ -164,8 +167,9 @@ namespace JKTechnologies.SeensioGo.ARChess
                 newTileComponent.SetTileMaterial(1);
             }
 
-            // Destroy the current tile
-            Destroy(gameObject);
+            //  the current tile
+            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
     }
 }
