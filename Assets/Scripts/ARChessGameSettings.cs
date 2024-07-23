@@ -10,7 +10,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         private bool whitePlayer;
         private bool gameStarted = false;
         private bool boardInitialized = false;
-        private bool botPlaying = false;
+        // private bool botPlaying = false;
         private bool changeTileSkin = false;
         private int tileSkinIndex = 0;
 
@@ -18,26 +18,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             Instance = this;
             Debug.Log("ARChessGameSettings Awake");
-        }
-
-        void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
-        }
-
-        public bool GetWhitePlayer()
-        {
-            return whitePlayer;
-        }
-
-        public bool GetGameStarted()
-        {
-            return gameStarted;
         }
 
         public bool GetBoardInitialized()
@@ -83,15 +63,15 @@ namespace JKTechnologies.SeensioGo.ARChess
             ARChessGameSettings.Instance.SetWhitePlayer(true);
         }
 
-        public bool GetBotPlaying()
-        {
-            return botPlaying;
-        }
+        // public bool GetBotPlaying()
+        // {
+        //     return botPlaying;
+        // }
 
-        public void SetBotPlayer(bool botPlaying)
-        {
-            this.botPlaying = botPlaying;
-        }
+        // public void SetBotPlayer(bool botPlaying)
+        // {
+        //     this.botPlaying = botPlaying;
+        // }
 
         public void SetTileColor(int tileColorIndex, int player)
         {

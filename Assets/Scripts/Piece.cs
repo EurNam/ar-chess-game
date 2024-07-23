@@ -177,7 +177,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private void HandleClickDown()
         {
-            if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized()) // && ARChessGameSettings.Instance.GetWhitePlayer() == this.colorWhite() 
+            if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized() && GameManager.Instance.GetWhitePlayer() == this.colorWhite()) 
             {
                 // Set the piece to be dragged
                 isDragging = true;
