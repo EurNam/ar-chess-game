@@ -172,7 +172,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                 currentTile.SetOccupied(true, this);
             }
             initialBoardPosition = currentTile.GetBoardIndex();
-            Debug.Log(this.name + " is on tile " + currentTile.name);
         }
 
         private void HandleClickDown()
@@ -252,8 +251,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                     nearestTile.SetMoveGuideColor(Color.green);
                 }
                 newNearestTile.SetMoveGuideColor(Color.yellow);
-                Debug.Log("Set color " + newNearestTile.name + " to yellow");
-                
                 nearestTile = newNearestTile;
             }
         }
@@ -398,13 +395,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0 && tile.gameObject.activeSelf)
                 {
-                    Debug.Log("Checking distance to " + tile.name);
                     float distance = Vector3.Distance(this.transform.position, tile.GetPosition3D());
                     // Update the closest tile if the distance is less than the current closest tile
-                    if (tile.GetBoardIndex() == new Vector2Int(4,2))
-                    {
-                        // Debug.Log("Distance to " + tile.name + ": " + distance);
-                    }
                     if (distance < minDistance)
                     {
                         minDistance = distance;

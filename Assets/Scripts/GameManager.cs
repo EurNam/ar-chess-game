@@ -62,5 +62,10 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             return whitePlayer;
         }
+
+        public void SetWhitePlayer(bool whitePlayer)
+        {
+            this.whitePlayer = whitePlayer;
+        }
     }
 }

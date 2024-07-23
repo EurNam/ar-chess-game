@@ -88,6 +88,14 @@ namespace JKTechnologies.SeensioGo.ARChess
                 otherButton.SetClicked(false);
                 BoardRotator.Instance.RotateBoard();
             }
+            if (isWhitePlayer)
+            {
+                GameManager.Instance.SetWhitePlayer(true);
+            }
+            else 
+            {
+                GameManager.Instance.SetWhitePlayer(false);
+            }
         }
 
         public void OnPointerDown(PointerEventData eventData)
