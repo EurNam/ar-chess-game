@@ -317,7 +317,6 @@ namespace JKTechnologies.SeensioGo.ARChess
             // Update the board state after move
             if (tempNearestTile != tempCurrentTile){
                 this.SetFirstMove(false);
-                BoardManager.Instance.SetWhiteTurn();
                 BoardManager.Instance.IncrementMoveCount();
                 BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this, true);
                 BoardManager.Instance.CheckForCheckmate();
@@ -326,6 +325,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     BoardManager.Instance.HideMoveGuides();
                 }
+                GameManager.Instance.SwitchRoomTurn();
             } else {
                 BoardManager.Instance.HideMoveGuides();
                 BoardManager.Instance.CheckForCheckmate();

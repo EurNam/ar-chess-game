@@ -1,4 +1,5 @@
 using UnityEngine;
+using JKTechnologies.SeensioGo.ARChess;
 
 namespace JKTechnologies.SeensioGo.GameEngine
 {
@@ -13,26 +14,47 @@ namespace JKTechnologies.SeensioGo.GameEngine
             {
                 Instance = this;
             }
+            Debug.Log("Hello");
         }  
+
+        #region EXTERNAL INTERFACES (BOTH EXTERNAL AND INTERNAL USE)
+        /* 
+            This is the external interface for the game room manager.
+            This is only used for seensio go external use: ARChess, Seafood, etc.
+        */
+
+        public bool IsMultiplayerMode()
+        {
+            return default;
+        }
 
         public string GetPlayerID()
         {
             return "ID";
         }
 
-        public void SetGameSettings(object gameSettings)
+        public void SetGameManager(IGameManager gameManager)
+        {
+            
+        }
+
+        public void SetGameRoomSettings(object gameSettings)
         {
             m_gameSettings = gameSettings;
         }
 
-        public object GetGameSettings()
+
+        public object GetRoomGameSettings()
         {
             return m_gameSettings;
         }
 
-        public void OnSetTurnAction(string action)
+        public void SwitchRoomTurn()
         {
-            Debug.Log("OnSetTurnAction: " + action);
+            // TODO: call switch turn on all players in this game room
+            GameManager.Instance.SwitchTurn();
         }
+        
+        #endregion
     }
 }

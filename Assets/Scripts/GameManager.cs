@@ -5,7 +5,7 @@ using JKTechnologies.SeensioGo.GameEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour, IGameManager
     {
         public static GameManager Instance;
         private string m_playerID;
@@ -14,7 +14,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         void Awake()
         {
-            if(Instance == null)
+            if (Instance == null)
             {
                 Instance = this;
             }
@@ -22,26 +22,15 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         void Start()
         {
-            if (GameRoomManager.Instance.isMultiplayerMode)
+            if (GameRoomManager.Instance.IsMultiplayerMode())
             {
+                GameRoomManager.Instance.SetGameManager(this);
                 // Get ID from room
                 m_playerID = GameRoomManager.Instance.GetPlayerID();
                 // Attempt to set room setting and play as white
-                m_gameSettings[0] = m_playerID;
-                GameRoomManager.Instance.SetGameSettings(m_gameSettings);
+                m_gameSettings[1] = m_playerID;
+                GameRoomManager.Instance.SetGameRoomSettings(m_gameSettings);
                 // Retrieve setting from room
-                m_gameSettings = GameRoomManager.Instance.GetGameSettings() as string[];
-                // Check if allowed to play as white
-                if (m_gameSettings[0] == m_playerID)
-                {
-                    // Play as white
-                    whitePlayer = true;
-                }
-                else 
-                {
-                    // Play as black
-                    whitePlayer = false;
-                }
             }
             else
             {
@@ -66,6 +55,32 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetWhitePlayer(bool whitePlayer)
         {
             this.whitePlayer = whitePlayer;
+        }
+
+        public void SetGameSettings(object gameSettings)
+        {
+            // Retrieve setting from room
+            m_gameSettings = gameSettings as string[];
+            // Check if allowed to play as white
+            if (m_gameSettings[0] == m_playerID)
+            {
+                // Play as white
+                whitePlayer = true;
+            }
+            else
+            {
+                // Play as black
+                whitePlayer = false;
+            } 
+        }
+        public void SwitchRoomTurn()
+        {
+            GameRoomManager.Instance.SwitchRoomTurn();
+        }
+
+        public void SwitchTurn()
+        {
+            BoardManager.Instance.SetWhiteTurn();
         }
     }
 }

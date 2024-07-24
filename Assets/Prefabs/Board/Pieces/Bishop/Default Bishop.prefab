@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a248bdc32ad03403a8b03198439e11cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece: {fileID: 0}
   isWhite: 0
   boardParent: {fileID: 0}
   piecePrefabs:
