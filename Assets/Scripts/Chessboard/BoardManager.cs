@@ -6,6 +6,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 {
     public class BoardManager : MonoBehaviour
     {
+        #region Variables
         public static BoardManager Instance;
         public GameObject board;
         public GameObject queenWhitePrefab;
@@ -31,7 +32,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             Check,
             Stay
         }
+        #endregion
 
+        #region Unity Methods
         void Awake()
         {
             Instance = this;
@@ -55,35 +58,9 @@ namespace JKTechnologies.SeensioGo.ARChess
                 ARChessGameSettings.Instance.SetChangeTileSkin(false);
             }
         }
+        #endregion
 
-        private void InitializeBoardState()
-        {
-            int boardSize = 9;
-            boardState = new Tile[boardSize, boardSize];
-
-            // Find all tiles with the "Tile" tag
-            Tile[] tileObjects = FindObjectsOfType<Tile>();
-            foreach (Tile tileObject in tileObjects)
-            {
-                if (tileObject != null && tileObject.gameObject.activeSelf)
-                {
-                    Vector2Int boardIndex = tileObject.GetBoardIndex();
-                    boardState[boardIndex.x, boardIndex.y] = tileObject;
-                }
-            }
-
-            ARChessGameSettings.Instance.SetBoardInitialized(true);
-
-            Piece[] pieces = FindObjectsOfType<Piece>();
-            foreach (Piece piece in pieces)
-            {
-                piece.FindCurrentTile();
-            }
-
-            this.GenerateAllPossibleMoves();
-            this.HideMoveGuides();
-        }
-
+        #region Getters, Setters
         public Tile GetTile(Vector2Int boardPosition)
         {
             return boardState[boardPosition.x, boardPosition.y];
@@ -167,6 +144,36 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void IncrementMoveCount()
         {
             moveCount++;
+        }
+        #endregion
+
+        #region Board Management
+        private void InitializeBoardState()
+        {
+            int boardSize = 9;
+            boardState = new Tile[boardSize, boardSize];
+
+            // Find all tiles with the "Tile" tag
+            Tile[] tileObjects = FindObjectsOfType<Tile>();
+            foreach (Tile tileObject in tileObjects)
+            {
+                if (tileObject != null && tileObject.gameObject.activeSelf)
+                {
+                    Vector2Int boardIndex = tileObject.GetBoardIndex();
+                    boardState[boardIndex.x, boardIndex.y] = tileObject;
+                }
+            }
+
+            ARChessGameSettings.Instance.SetBoardInitialized(true);
+
+            Piece[] pieces = FindObjectsOfType<Piece>();
+            foreach (Piece piece in pieces)
+            {
+                piece.FindCurrentTile();
+            }
+
+            this.GenerateAllPossibleMoves();
+            this.HideMoveGuides();
         }
 
         public void GenerateAllPossibleMoves()
@@ -451,5 +458,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         //         selectedPiece.SnapToNearestTile();
         //     }
         // }
+        #endregion
     }
 }
