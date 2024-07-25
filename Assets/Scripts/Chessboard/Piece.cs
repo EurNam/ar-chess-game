@@ -25,6 +25,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         private Vector2Int initialBoardPosition;
         private bool usingMouse = false;
         private bool usingVirtualMouse = false;
+        private bool whiteTurn = true;
 
         void Awake()
         {
@@ -52,6 +53,13 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     DragPieceMouse();
                 }
+            }
+
+            if (whiteTurn != BoardManager.Instance.GetWhiteTurn())
+            {
+                whiteTurn = BoardManager.Instance.GetWhiteTurn();
+                // Re-adjusting position
+                this.SnapToNearestTile(false);
             }
         }
 
@@ -259,7 +267,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             if (ARChessGameSettings.Instance.GetBoardInitialized() && isDragging)
             {
                 isDragging = false;
-                SnapToNearestTile();
+                SnapToNearestTile(true);
             }
         }
 
@@ -275,7 +283,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             usingMouse = false;
         }
 
-        private void SnapToNearestTile()
+        public void SnapToNearestTile(bool afterMove)
         {
             Tile tempCurrentTile = currentTile;
             Tile tempNearestTile = nearestTile;
@@ -288,10 +296,13 @@ namespace JKTechnologies.SeensioGo.ARChess
                 nearestTile.SetOccupied(false);
                 BoardManager.Instance.PlayCaptureSound();
             } else {
-                BoardManager.Instance.PlaySnapSound();
+                if (afterMove)
+                {
+                    BoardManager.Instance.PlaySnapSound();
+                }
             }
 
-            // Handle En Passant
+             // Handle En Passant
             handleEnPassant(nearestTile);
 
             // Handle Rook in castling
@@ -319,7 +330,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 this.SetFirstMove(false);
                 BoardManager.Instance.IncrementMoveCount();
                 BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this, true);
-                BoardManager.Instance.CheckForCheckmate();
+                BoardManager.Instance.CheckForCheckmate(!this.colorWhite());
                 Debug.Log("Move count: " + BoardManager.Instance.GetMoveCount());
                 if (BoardManager.Instance.GetMoveCount() == 0)
                 {
@@ -328,9 +339,9 @@ namespace JKTechnologies.SeensioGo.ARChess
                 GameManager.Instance.SwitchRoomTurn();
             } else {
                 BoardManager.Instance.HideMoveGuides();
-                BoardManager.Instance.CheckForCheckmate();
+                BoardManager.Instance.CheckForCheckmate(this.colorWhite());
             }
-        }
+        } 
 
         // public void botMovePiece(Tile newTile)
         // {
@@ -378,11 +389,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         //         BoardManager.Instance.CheckForCheckmate();
         //     }
         // }
-
-        protected virtual void SwitchToAlternativePrefab()
-        {
-            // Do nothing by default
-        }
 
         private Tile FindNearestTile()
         {

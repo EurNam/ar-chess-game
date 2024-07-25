@@ -223,6 +223,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public MoveType ValidMove(Vector2Int boardPosition, Piece piece, bool enPassant = false)
         {
+            
             if (enPassant)
             {
                 // boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
@@ -368,11 +369,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             BoardManager.Instance.HideMoveGuides();
         }
 
-        public void CheckForCheckmate()
+        public void CheckForCheckmate(bool whiteKing)
         {
-            if (IsKingChecked(whiteTurn))
+            if (IsKingChecked(whiteKing))
             {
-                if (CanRemoveCheck(whiteTurn))
+                if (CanRemoveCheck(whiteKing))
                 {
                     Debug.Log("Check");
                     SetInCheck(true);
@@ -382,7 +383,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                     Debug.Log("Checkmate");
                     ResetBoard();
                 }
-                if (whiteTurn)
+                if (whiteKing)
                 {
                     boardState[GetWhiteKingPosition().x, GetWhiteKingPosition().y].SetMoveGuideShown(true);
                     boardState[GetWhiteKingPosition().x, GetWhiteKingPosition().y].SetMoveGuideColor(MoveType.Check);

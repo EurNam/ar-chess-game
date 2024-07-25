@@ -140,7 +140,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             // Instantiate a new queen at the pawn's position
             GameObject queenPrefab = this.colorWhite() ? BoardManager.Instance.queenWhitePrefab : BoardManager.Instance.queenBlackPrefab;
-            GameObject newQueen = Instantiate(queenPrefab, this.transform.position, Quaternion.identity);
+            GameObject newQueen = Instantiate(queenPrefab, this.transform.position, Quaternion.identity, this.transform.parent);
             if (this.colorWhite())
             {
                 newQueen.name = this.name + ": Queen Promotion";
