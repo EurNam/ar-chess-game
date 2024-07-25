@@ -29,6 +29,11 @@ namespace JKTechnologies.SeensioGo.GameEngine
             return default;
         }
 
+        public bool IsGameRoomMaster()
+        {
+            return default;
+        }
+
         public string GetPlayerID()
         {
             return "ID";
@@ -55,8 +60,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
             // TODO: call switch turn on all players in this game room
             GameManager.Instance.SwitchTurn();
             // m_gameManager.SwitchTurn();
-        }
-        
+        }        
         #endregion
     }
 }

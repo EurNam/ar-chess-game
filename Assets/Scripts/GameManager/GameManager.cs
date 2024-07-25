@@ -9,8 +9,9 @@ namespace JKTechnologies.SeensioGo.ARChess
     {
         public static GameManager Instance;
         private string m_playerID;
-        private string[] m_gameSettings = new string[2]{"",""};
+        private string[] m_gameSettings = new string[3]{"","",""}; // 1: White Side, 2: Black Side, 3: Room Host
         private bool whitePlayer;
+        private bool roomHost;
 
         void Awake()
         {
@@ -25,12 +26,6 @@ namespace JKTechnologies.SeensioGo.ARChess
             if (GameRoomManager.Instance.IsMultiplayerMode())
             {
                 GameRoomManager.Instance.SetGameManager(this);
-                // Get ID from room
-                m_playerID = GameRoomManager.Instance.GetPlayerID();
-                // Attempt to set room setting and play as white
-                m_gameSettings[0] = m_playerID;
-                GameRoomManager.Instance.SetGameRoomSettings(m_gameSettings);
-                // Retrieve setting from room
             }
             else
             {
@@ -52,9 +47,30 @@ namespace JKTechnologies.SeensioGo.ARChess
             return whitePlayer;
         }
 
+        public bool GetRoomHost()
+        {
+            return roomHost;
+        }
+
         public void SetWhitePlayer(bool whitePlayer)
         {
             this.whitePlayer = whitePlayer;
+        }
+
+        public void SetRoomHost(bool roomHost)
+        {
+            this.roomHost = roomHost;
+        }
+
+        public object GetGameSettings()
+        {
+            // Get player ID from room
+            m_playerID = GameRoomManager.Instance.GetPlayerID();
+            // Attempt to set room setting and play as white
+            m_gameSettings[0] = m_playerID;
+            // Set room host
+            m_gameSettings[2] = m_playerID;
+            return m_gameSettings;
         }
 
         public void SetGameSettings(object gameSettings)
@@ -72,6 +88,16 @@ namespace JKTechnologies.SeensioGo.ARChess
                 // Play as black
                 whitePlayer = false;
             } 
+
+            if (m_gameSettings[2] == m_playerID)
+            {
+                roomHost = true;
+            }
+            else
+            {
+                roomHost = false;
+                TileAppearanceButton.Instance.gameObject.SetActive(false);
+            }
         }
         public void SwitchRoomTurn()
         {
@@ -81,6 +107,11 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SwitchTurn()
         {
             BoardManager.Instance.SetWhiteTurn();
+        }
+
+        public bool IsMyTurn()
+        {
+            return whitePlayer == BoardManager.Instance.GetWhiteTurn();
         }
     }
 }
