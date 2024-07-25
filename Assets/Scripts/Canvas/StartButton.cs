@@ -17,6 +17,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void StartGame()
         {   
             ARChessGameSettings.Instance.SetGameStarted(true);
+            GameRoomManager.Instance.StartGameRoom();
         }
     }
 }

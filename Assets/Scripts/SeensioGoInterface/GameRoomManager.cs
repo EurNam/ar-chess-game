@@ -55,6 +55,12 @@ namespace JKTechnologies.SeensioGo.GameEngine
             return m_gameSettings;
         }
 
+
+        public void StartGameRoom()
+        {
+            return default;
+        }
+
         public void SwitchRoomTurn()
         {
             // TODO: call switch turn on all players in this game room
