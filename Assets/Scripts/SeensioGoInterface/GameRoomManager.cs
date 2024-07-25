@@ -7,6 +7,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
     {
         public static GameRoomManager Instance;
         public bool isMultiplayerMode = false;
+        private IGameManager m_gameManager;
         private object m_gameSettings;
         private void Awake()
         {
@@ -35,7 +36,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
 
         public void SetGameManager(IGameManager gameManager)
         {
-            
+            m_gameManager = gameManager;
         }
 
         public void SetGameRoomSettings(object gameSettings)
@@ -53,6 +54,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
         {
             // TODO: call switch turn on all players in this game room
             GameManager.Instance.SwitchTurn();
+            // m_gameManager.SwitchTurn();
         }
         
         #endregion

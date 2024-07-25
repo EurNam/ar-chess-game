@@ -213,11 +213,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edb95d9a0ad74c4386bac4ca7506cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece: {fileID: 0}
   isWhite: 0
   boardParent: {fileID: 0}
   piecePrefabs:
   - {fileID: 3529835572845571950}
-  - {fileID: 5376371887646376244, guid: 009a08ff6e94147f6ba340b9525e53e0, type: 3}
+  - {fileID: 2529873283726950706, guid: 467c13eb1f7cb43de9f76e40806230b9, type: 3}
   pieceMaterials:
   - {fileID: 2100000, guid: 9a63d9b4233f44d40b3202b0bc95e2ce, type: 2}
   - {fileID: 2100000, guid: d040892faa3f84bb99d299993e20d4de, type: 2}

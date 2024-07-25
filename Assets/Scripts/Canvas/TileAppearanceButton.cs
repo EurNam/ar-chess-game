@@ -15,6 +15,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         void Start()
         {
             toggleButton.onClick.AddListener(toggleColor);
+            this.gameObject.SetActive(false);
         }
         public void toggleColor()
         {   

@@ -9,6 +9,7 @@ using System.Collections;
         void Start()
         {
             toggleButton.onClick.AddListener(ToggleVirtualMouse);
+            this.gameObject.SetActive(false);
         }
 
         void ToggleVirtualMouse()

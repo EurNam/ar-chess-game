@@ -64,7 +64,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public void handleOnClick()
         {
-            if (animationGoingOn) return;
+            if (animationGoingOn || !ARChessGameSettings.Instance.GetGameStarted()) return;
 
             if (otherButton != null && !startGame && !clicked) 
             {

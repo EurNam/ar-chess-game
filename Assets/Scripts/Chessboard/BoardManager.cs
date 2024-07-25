@@ -223,7 +223,6 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public MoveType ValidMove(Vector2Int boardPosition, Piece piece, bool enPassant = false)
         {
-            
             if (enPassant)
             {
                 // boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
