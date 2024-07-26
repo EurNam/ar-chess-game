@@ -30,6 +30,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             if (skinButton)
             {
                 ARChessGameSettings.Instance.SetTileSkin(tileAppearanceIndex);
+                GameManager.Instance.SetRoomSkin(tileAppearanceIndex);
             }
         }
     }

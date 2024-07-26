@@ -9,9 +9,11 @@ namespace JKTechnologies.SeensioGo.ARChess
     {
         public static GameManager Instance;
         private string m_playerID;
-        private string[] m_gameSettings = new string[3]{"","",""}; // 1: White Side, 2: Black Side, 3: Room Host
+        private string[] m_gameSettings = new string[4]{"","","",""}; // 1: White Side, 2: Black Side, 3: Room Host, 4: Tile Skin
         private bool whitePlayer;
         private bool roomHost;
+        private int skinIndex;
+
 
         void Awake()
         {
@@ -62,6 +64,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.roomHost = roomHost;
         }
 
+        public void SetRoomSkin(int skinIndex)
+        {
+            this.skinIndex = skinIndex;
+        }
+
         public object GetGameSettings()
         {
             // Get player ID from room
@@ -70,6 +77,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             m_gameSettings[0] = m_playerID;
             // Set room host
             m_gameSettings[2] = m_playerID;
+            // Set board skin
+            m_gameSettings[3] = skinIndex.ToString();
             return m_gameSettings;
         }
 
@@ -89,6 +98,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 whitePlayer = false;
             } 
 
+            // Set room host to show change skin option
             if (m_gameSettings[2] == m_playerID)
             {
                 roomHost = true;
@@ -98,15 +108,25 @@ namespace JKTechnologies.SeensioGo.ARChess
                 roomHost = false;
                 TileAppearanceButton.Instance.gameObject.SetActive(false);
             }
+
+            if (m_gameSettings[3] != null)
+            {
+                skinIndex = int.Parse(m_gameSettings[3]);
+                ARChessGameSettings.Instance.SetTileSkin(skinIndex);
+            }
         }
+
+        // Switch room turn
         public void SwitchRoomTurn()
         {
             GameRoomManager.Instance.SwitchRoomTurn();
         }
 
+        // Update local turn and board state pieces position
         public void SwitchTurn()
         {
             BoardManager.Instance.SetWhiteTurn();
+            BoardManager.Instance.UpdateBoardStatePiecesPosition();
         }
 
         public bool IsMyTurn()

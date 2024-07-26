@@ -156,6 +156,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             queenComponent.SetKing(this.isKingPiece());
             queenComponent.SetInitialBoardPosition(this.GetInitialBoardPosition());
             queenComponent.boardParent = this.boardParent;
+            BoardManager.Instance.UpdateBoardStatePieces();
 
             // Set the current tile to be occupied by the new queen
             this.GetCurrentTile().SetOccupied(true, queenComponent);

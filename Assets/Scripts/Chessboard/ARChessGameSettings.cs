@@ -97,8 +97,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
             changeTileSkin = true;
             boardInitialized = false;
-            BoardManager.Instance.SetTileSkin(tileAppearanceIndex);
             tileSkinIndex = tileAppearanceIndex;
+            BoardManager.Instance.SetTileSkin(tileAppearanceIndex);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public GameObject queenWhitePrefab;
         public GameObject queenBlackPrefab;
         private Tile[,] boardState;
+        private Piece[] boardStatePieces;
         private Vector2Int boardIndexBeforeLastMove;
         private Vector2Int boardIndexLastMove;
         private Piece pieceLastMoved;
@@ -145,6 +146,11 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             moveCount++;
         }
+
+        public void UpdateBoardStatePieces()
+        {
+            boardStatePieces = FindObjectsOfType<Piece>();
+        }
         #endregion
 
         #region Board Management
@@ -166,8 +172,8 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             ARChessGameSettings.Instance.SetBoardInitialized(true);
 
-            Piece[] pieces = FindObjectsOfType<Piece>();
-            foreach (Piece piece in pieces)
+            boardStatePieces = FindObjectsOfType<Piece>();
+            foreach (Piece piece in boardStatePieces)
             {
                 piece.FindCurrentTile();
             }
@@ -217,6 +223,18 @@ namespace JKTechnologies.SeensioGo.ARChess
                     {
                         tile.SetTileMaterial(tileColorIndex);
                     }
+                }
+            }
+        }
+
+        public void UpdateBoardStatePiecesPosition()
+        {
+            foreach (Piece piece in boardStatePieces)
+            {
+                if (piece != null && piece.gameObject.activeSelf)
+                {
+                    piece.FindNearestTile();
+                    piece.SnapToNearestTile(false);
                 }
             }
         }

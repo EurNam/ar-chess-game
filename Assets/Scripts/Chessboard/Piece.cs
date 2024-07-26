@@ -54,14 +54,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                     DragPieceMouse();
                 }
             }
-
-            if (whiteTurn != BoardManager.Instance.GetWhiteTurn())
-            {
-                whiteTurn = BoardManager.Instance.GetWhiteTurn();
-                // Re-adjusting position
-                nearestTile = this.FindNearestTile();
-                this.SnapToNearestTile(false);
-            }
         }
 
         public List<Vector2Int> GetPossibleMoves()
@@ -394,7 +386,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         //     }
         // }
 
-        private Tile FindNearestTile()
+        public Tile FindNearestTile()
         {
             //tiles = FindObjectsOfType<Tile>();
             float minDistance = float.MaxValue;
