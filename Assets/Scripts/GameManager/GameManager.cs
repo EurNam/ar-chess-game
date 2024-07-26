@@ -10,9 +10,9 @@ namespace JKTechnologies.SeensioGo.ARChess
         public static GameManager Instance;
         private string m_playerID;
         private string[] m_gameSettings = new string[4]{"","","",""}; // 1: White Side, 2: Black Side, 3: Room Host, 4: Tile Skin
-        private bool whitePlayer;
-        private bool roomHost;
-        private int skinIndex;
+        private bool whitePlayer = true;
+        private bool roomHost = true;
+        private int skinIndex = 0;
 
 
         void Awake()
@@ -57,6 +57,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetWhitePlayer(bool whitePlayer)
         {
             this.whitePlayer = whitePlayer;
+            Debug.Log("Is white player: " + whitePlayer);
         }
 
         public void SetRoomHost(bool roomHost)
@@ -73,8 +74,15 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             // Get player ID from room
             m_playerID = GameRoomManager.Instance.GetPlayerID();
-            // Attempt to set room setting and play as white
-            m_gameSettings[0] = m_playerID;
+            // Set player side
+            if (whitePlayer)
+            {
+                m_gameSettings[0] = m_playerID;
+            }
+            else
+            {
+                m_gameSettings[1] = m_playerID;
+            }
             // Set room host
             m_gameSettings[2] = m_playerID;
             // Set board skin
@@ -89,13 +97,19 @@ namespace JKTechnologies.SeensioGo.ARChess
             // Check if allowed to play as white
             if (m_gameSettings[0] == m_playerID)
             {
-                // Play as white
-                whitePlayer = true;
+                if (!whitePlayer)
+                {
+                    whitePlayer = true;
+                    BoardRotator.Instance.RotateBoard();
+                } 
             }
             else
             {
-                // Play as black
-                whitePlayer = false;
+                if (whitePlayer)
+                {
+                    whitePlayer = false;
+                    BoardRotator.Instance.RotateBoard();
+                }
             } 
 
             // Set room host to show change skin option
@@ -109,6 +123,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 TileAppearanceButton.Instance.gameObject.SetActive(false);
             }
 
+            // Set room skin to corresponding screen
             if (m_gameSettings[3] != null)
             {
                 skinIndex = int.Parse(m_gameSettings[3]);

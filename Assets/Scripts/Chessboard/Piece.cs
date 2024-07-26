@@ -25,7 +25,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         private Vector2Int initialBoardPosition;
         private bool usingMouse = false;
         private bool usingVirtualMouse = false;
-        private bool whiteTurn = true;
 
         void Awake()
         {

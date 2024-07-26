@@ -10,6 +10,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public static TileAppearanceButton Instance;
         public UnityEngine.UI.Button toggleButton;
         public bool skinButton;
+        public bool SwitchSidesButton;
         public int tileAppearanceIndex;
 
         void Awake()
@@ -19,18 +20,28 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         void Start()
         {
-            toggleButton.onClick.AddListener(toggleColor);
+            toggleButton.onClick.AddListener(buttonFunction);
             if (this.skinButton)
             {
                 this.gameObject.SetActive(false);
             }
         }
-        public void toggleColor()
+        public void buttonFunction()
         {   
+            // Skin change function
             if (skinButton)
             {
                 ARChessGameSettings.Instance.SetTileSkin(tileAppearanceIndex);
                 GameManager.Instance.SetRoomSkin(tileAppearanceIndex);
+            }
+
+            if (SwitchSidesButton)
+            {
+                if (!BoardRotator.Instance.GetIsRotating())
+                {
+                    GameManager.Instance.SetWhitePlayer(!GameManager.Instance.GetWhitePlayer());
+                    BoardRotator.Instance.RotateBoard();
+                }
             }
         }
     }

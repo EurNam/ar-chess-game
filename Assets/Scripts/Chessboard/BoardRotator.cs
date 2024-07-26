@@ -9,6 +9,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public Transform pivot;
         public Tile scaling;
         public float animationDuration = 2f;
+        private bool rotating = false;
 
         void Awake()
         {
@@ -20,6 +21,11 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         }
 
+        public bool GetIsRotating()
+        {
+            return rotating;
+        }
+
         public void RotateBoard()
         {
             StartCoroutine(RotateBoardCoroutine());
@@ -27,6 +33,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private IEnumerator RotateBoardCoroutine()
         {
+            rotating = true;
             Button.Instance.SetAnimationGoingOn(true);
 
             Vector3 originalPosition = pivot.position;
@@ -35,17 +42,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             Quaternion targetRotation = originalRotation * Quaternion.Euler(0, 180, 0);
 
             float elapsedTime = 0f;
-
-            // Raise the board
-            while (elapsedTime < animationDuration / 4)
-            {
-                pivot.position = Vector3.Lerp(originalPosition, raisedPosition, (elapsedTime / (animationDuration / 2)));
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
             pivot.position = raisedPosition;
-            elapsedTime = 0f;
 
             // Rotate the board
             while (elapsedTime < animationDuration / 2)
@@ -55,20 +52,8 @@ namespace JKTechnologies.SeensioGo.ARChess
                 yield return null;
             }
 
-            pivot.rotation = targetRotation;
-            elapsedTime = 0f;
-
-            // Lower the board
-            while (elapsedTime < animationDuration / 4)
-            {
-                pivot.position = Vector3.Lerp(raisedPosition, originalPosition, (elapsedTime / (animationDuration / 2)));
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            pivot.position = originalPosition;
-            
-            Button.Instance.SetAnimationGoingOn(false); 
+            yield return new WaitForSeconds(0.1f);
+            rotating = false;
         }
     }
 }
