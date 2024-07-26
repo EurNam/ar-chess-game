@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using JKTechnologies.SeensioGo.GameEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {

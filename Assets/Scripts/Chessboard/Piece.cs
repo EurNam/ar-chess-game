@@ -59,6 +59,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 whiteTurn = BoardManager.Instance.GetWhiteTurn();
                 // Re-adjusting position
+                nearestTile = this.FindNearestTile();
                 this.SnapToNearestTile(false);
             }
         }
@@ -286,6 +287,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public void SnapToNearestTile(bool afterMove)
         {
+            Debug.Log("Snap to nearest tile");
             Tile tempCurrentTile = currentTile;
             Tile tempNearestTile = nearestTile;
 
@@ -328,6 +330,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             // Update the board state after move
             if (tempNearestTile != tempCurrentTile){
+                Debug.Log("Switch turn");
                 this.SetFirstMove(false);
                 BoardManager.Instance.IncrementMoveCount();
                 BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this, true);
@@ -393,7 +396,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private Tile FindNearestTile()
         {
-            tiles = FindObjectsOfType<Tile>();
+            //tiles = FindObjectsOfType<Tile>();
             float minDistance = float.MaxValue;
             Tile nearestTile = null;
 
