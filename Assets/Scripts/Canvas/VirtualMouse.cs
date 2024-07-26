@@ -7,7 +7,7 @@ using System.Collections.Generic;
     {
         public static VirtualMouse Instance;
         public RectTransform cursor; // UI element representing the cursor
-        public float moveSpeed = 1000f; // Speed of cursor movement
+        public float moveSpeed = 500f; // Reduced speed of cursor movement
         public float longPressDuration = 1f; // Duration to detect a long press
         public float doubleTapTime = 0.3f; // Maximum time interval between taps for a double tap
         private Vector2 touchpadArea; // Area for the touchpad
@@ -18,6 +18,7 @@ using System.Collections.Generic;
         private float lastTapTime = 0f; // Time of the last tap
         private int tapCount = 0; // Number of taps
         private bool isEnabled = false; // Check if the virtual mouse is enabled
+        private float sensitivityFactor = 0.5f; // Sensitivity factor to slow down cursor movement
 
         void Awake()
         {
@@ -48,7 +49,7 @@ using System.Collections.Generic;
                 // Check if the touch is within the touchpad area
                 if (touch.position.y <= touchpadArea.y)
                 {
-                    HandleCursorMovement(touch.deltaPosition);
+                    HandleCursorMovement(touch.deltaPosition * sensitivityFactor);
 
                     // Handle double tap
                     if (touch.phase == TouchPhase.Began)
@@ -94,7 +95,7 @@ using System.Collections.Generic;
                 // Check if the mouse is within the touchpad area
                 if (mousePosition.y <= touchpadArea.y)
                 {
-                    Vector2 deltaPosition = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * moveSpeed * Time.deltaTime;
+                    Vector2 deltaPosition = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * moveSpeed * Time.deltaTime * sensitivityFactor;
                     HandleCursorMovement(deltaPosition);
 
                     // Handle dragging
@@ -135,13 +136,13 @@ using System.Collections.Generic;
             // Handle arrow key input for cursor movement
             Vector2 arrowKeyMovement = Vector2.zero;
             if (Input.GetKey(KeyCode.UpArrow))
-                arrowKeyMovement.y += moveSpeed * Time.deltaTime;
+                arrowKeyMovement.y += moveSpeed * Time.deltaTime * sensitivityFactor;
             if (Input.GetKey(KeyCode.DownArrow))
-                arrowKeyMovement.y -= moveSpeed * Time.deltaTime;
+                arrowKeyMovement.y -= moveSpeed * Time.deltaTime * sensitivityFactor;
             if (Input.GetKey(KeyCode.LeftArrow))
-                arrowKeyMovement.x -= moveSpeed * Time.deltaTime;
+                arrowKeyMovement.x -= moveSpeed * Time.deltaTime * sensitivityFactor;
             if (Input.GetKey(KeyCode.RightArrow))
-                arrowKeyMovement.x += moveSpeed * Time.deltaTime;
+                arrowKeyMovement.x += moveSpeed * Time.deltaTime * sensitivityFactor;
 
             HandleCursorMovement(arrowKeyMovement);
 
@@ -174,8 +175,8 @@ using System.Collections.Generic;
 
             // Clamp the cursor position to the screen bounds
             cursor.anchoredPosition = new Vector2(
-                Mathf.Clamp(cursor.anchoredPosition.x, 0-Screen.width/2, Screen.width/2),
-                Mathf.Clamp(cursor.anchoredPosition.y, 0-Screen.height/2, Screen.height/2)
+                Mathf.Clamp(cursor.anchoredPosition.x, 0 - Screen.width / 2, Screen.width / 2),
+                Mathf.Clamp(cursor.anchoredPosition.y, 0 - Screen.height / 2, Screen.height / 2)
             );
         }
 

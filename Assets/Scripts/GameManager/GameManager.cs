@@ -102,6 +102,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                     whitePlayer = true;
                     BoardRotator.Instance.RotateBoard();
                 } 
+                Debug.Log("White player");
             }
             else
             {
@@ -110,6 +111,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                     whitePlayer = false;
                     BoardRotator.Instance.RotateBoard();
                 }
+                Debug.Log("Black player");
             } 
 
             // Set room host to show change skin option
@@ -135,6 +137,10 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SwitchRoomTurn()
         {
             GameRoomManager.Instance.SwitchRoomTurn();
+            if (!GameRoomManager.Instance.IsMultiplayerMode())
+            {
+                this.whitePlayer = !this.whitePlayer;
+            }
         }
 
         // Update local turn and board state pieces position
