@@ -30,6 +30,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             piece = this;
             this.SetFirstMove(true);
+            // boardParent = this.gameObject.GetComponentInParent<GameObject>();
         }
 
         // Start is called before the first frame update
@@ -90,6 +91,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             return initialBoardPosition;
         }
 
+        public Tile[] GetTiles()
+        {
+            return tiles;
+        }
+
         public void SetPossibleMoves(List<Vector2Int> moves)
         {
             possibleMoves = moves;
@@ -123,6 +129,11 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetInitialBoardPosition(Vector2Int position)
         {
             initialBoardPosition = position;
+        }
+
+        public void SetTiles(Tile[] tiles)
+        {
+            this.tiles = tiles;
         }
 
         public void SetPieceMaterial(int materialIndex)

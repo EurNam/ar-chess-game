@@ -9,8 +9,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         #region Variables
         public static BoardManager Instance;
         public GameObject board;
-        public GameObject queenWhitePrefab;
-        public GameObject queenBlackPrefab;
+        public GameObject defaultQueenPrefab;
+        public GameObject desertQueenPrefab;
         private Tile[,] boardState;
         private Piece[] boardStatePieces;
         private Vector2Int boardIndexBeforeLastMove;
@@ -241,6 +241,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public MoveType ValidMove(Vector2Int boardPosition, Piece piece, bool enPassant = false)
         {
+            // Debug.Log("Checking valid move: " + boardPosition + " " + piece.name);
             if (enPassant)
             {
                 // boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);

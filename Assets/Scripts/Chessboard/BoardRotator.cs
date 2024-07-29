@@ -34,7 +34,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         private IEnumerator RotateBoardCoroutine()
         {
             rotating = true;
-            Button.Instance.SetAnimationGoingOn(true);
 
             Vector3 originalPosition = pivot.position;
             Vector3 raisedPosition = originalPosition;

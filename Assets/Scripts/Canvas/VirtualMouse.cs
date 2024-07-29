@@ -18,7 +18,7 @@ using System.Collections.Generic;
         private float lastTapTime = 0f; // Time of the last tap
         private int tapCount = 0; // Number of taps
         private bool isEnabled = false; // Check if the virtual mouse is enabled
-        private float sensitivityFactor = 0.5f; // Sensitivity factor to slow down cursor movement
+        private float sensitivityFactor = 0.3f; // Sensitivity factor to slow down cursor movement
 
         void Awake()
         {
@@ -28,7 +28,7 @@ using System.Collections.Generic;
         void Start()
         {
             // Define the touchpad area (bottom third of the screen)
-            touchpadArea = new Vector2(Screen.width, Screen.height / 3);
+            touchpadArea = new Vector2(Screen.height, Screen.height / 3);
 
             // Initialize the cursor at the bottom left of the screen
             cursor.anchoredPosition = new Vector2(0, 0);
@@ -175,8 +175,8 @@ using System.Collections.Generic;
 
             // Clamp the cursor position to the screen bounds
             cursor.anchoredPosition = new Vector2(
-                Mathf.Clamp(cursor.anchoredPosition.x, 0 - Screen.width / 2, Screen.width / 2),
-                Mathf.Clamp(cursor.anchoredPosition.y, 0 - Screen.height / 2, Screen.height / 2)
+                Mathf.Clamp(cursor.anchoredPosition.x, 0 - 430 / 2, 430 / 2),
+                Mathf.Clamp(cursor.anchoredPosition.y, 0 - 466, 466)
             );
         }
 

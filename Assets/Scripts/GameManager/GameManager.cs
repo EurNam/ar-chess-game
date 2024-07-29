@@ -147,7 +147,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SwitchTurn()
         {
             BoardManager.Instance.SetWhiteTurn();
-            BoardManager.Instance.UpdateBoardStatePiecesPosition();
+            //BoardManager.Instance.UpdateBoardStatePiecesPosition();
         }
 
         public bool IsMyTurn()

@@ -35,6 +35,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             return gameStarted;
         }
 
+        public int GetTileSkinIndex()
+        {
+            return tileSkinIndex;
+        }
+
         public void SetWhitePlayer(bool whitePlayer)
         {
             this.whitePlayer = whitePlayer;

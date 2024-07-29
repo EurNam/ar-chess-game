@@ -38,25 +38,28 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
             for (int y = 0; y <= moveUp; y++)
             {
-                newBoardPosition = new Vector2Int(currentBoardPosition.x, currentBoardPosition.y+y*isWhite);
-                if (newBoardPosition.y<=8){
-                    BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
-                    if (moveType != BoardManager.MoveType.Invalid)
-                    {
-                        if (!possibleMoves.Contains(newBoardPosition)){
-                            possibleMoves.Add(newBoardPosition);
-                            BoardManager.Instance.ShowMoveGuides(newBoardPosition, moveType);
-                            if (moveType == BoardManager.MoveType.Capture)
-                            {
-                                possibleMoves.Remove(newBoardPosition);
-                                BoardManager.Instance.GetTile(newBoardPosition).SetMoveGuideShown(false);
+                if (currentBoardPosition.y+y*isWhite >= 1 && currentBoardPosition.y+y*isWhite <= 8)
+                {
+                    newBoardPosition = new Vector2Int(currentBoardPosition.x, currentBoardPosition.y+y*isWhite);
+                    if (newBoardPosition.y<=8){
+                        BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
+                        if (moveType != BoardManager.MoveType.Invalid)
+                        {
+                            if (!possibleMoves.Contains(newBoardPosition)){
+                                possibleMoves.Add(newBoardPosition);
+                                BoardManager.Instance.ShowMoveGuides(newBoardPosition, moveType);
+                                if (moveType == BoardManager.MoveType.Capture)
+                                {
+                                    possibleMoves.Remove(newBoardPosition);
+                                    BoardManager.Instance.GetTile(newBoardPosition).SetMoveGuideShown(false);
+                                }
                             }
+                        } else {
+                            break;
                         }
                     } else {
                         break;
                     }
-                } else {
-                    break;
                 }
             }
 
@@ -139,7 +142,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         private void PromoteToQueen()
         {
             // Instantiate a new queen at the pawn's position
-            GameObject queenPrefab = this.colorWhite() ? BoardManager.Instance.queenWhitePrefab : BoardManager.Instance.queenBlackPrefab;
+            GameObject queenPrefab = ARChessGameSettings.Instance.GetTileSkinIndex() == 0 ? BoardManager.Instance.defaultQueenPrefab : BoardManager.Instance.desertQueenPrefab;
             GameObject newQueen = Instantiate(queenPrefab, this.transform.position, Quaternion.identity, this.transform.parent);
             if (this.colorWhite())
             {
@@ -156,6 +159,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             queenComponent.SetKing(this.isKingPiece());
             queenComponent.SetInitialBoardPosition(this.GetInitialBoardPosition());
             queenComponent.boardParent = this.boardParent;
+            queenComponent.SetTiles(this.GetTiles());
+            queenComponent.SetPieceMaterial(this.colorWhite() ? 0 : 1);
             BoardManager.Instance.UpdateBoardStatePieces();
 
             // Set the current tile to be occupied by the new queen
