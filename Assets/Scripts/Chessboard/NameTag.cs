@@ -7,12 +7,12 @@ namespace JKTechnologies.SeensioGo.ARChess
 {
     public class NameTag : MonoBehaviour
     {
-        private string name;
+        private string playerName;
         private TextMeshPro text;
         void Awake()
         {
             text = this.gameObject.GetComponent<TextMeshPro>();
-            text.text = name ?? "Player";
+            text.text = playerName ?? "Player";
             Debug.Log("NameTag: " + text.text);
         }
     }

@@ -9,14 +9,14 @@ namespace JKTechnologies.SeensioGo.ARChess
     [Serializable]
     public class GameSettings
     {
-        public GameSide side;
+        public GameSide side = new GameSide();
     }
 
     [Serializable]
     public class GameSide
     {
-        public string black;
-        public string white;
+        public string black; // "master" || "guest"
+        public string white; // "master" || "guest"
     }
 
     public static class SIDE
@@ -28,12 +28,14 @@ namespace JKTechnologies.SeensioGo.ARChess
     public class GameManager : MonoBehaviour, IGameInstance, IGameActionListener
     {
         public static GameManager Instance;
+        public string gameID;
         private string m_playerID;
-        private string[] m_gameSettings = new string[4]{"","","",""}; // 1: White Side, 2: Black Side, 3: Room Host, 4: Tile Skin
+        private string[] m_old_gameSettings = new string[4]{"","","",""}; // 1: White Side, 2: Black Side, 3: Room Host, 4: Tile Skin
         private bool whitePlayer = true;
         private bool roomHost = true;
         private int skinIndex = 0;
-        private GameSettings m_new_gameSettings = new GameSettings();
+        private bool isRoomMaster = true;
+        private GameSettings m_gameSettings = new GameSettings();
 
 
 
@@ -48,20 +50,22 @@ namespace JKTechnologies.SeensioGo.ARChess
         void Start()
         {
             #if SEENSIOGO
-                IGameRoomManager.Instance.SetGameInstance(this,"XWVSJ2yCtyLlez9F47tu");
+                IGameRoomManager.Instance.SetGameInstance(this,gameID);
                 IGameRoomManager.Instance.RegisterGameActionListener(this);
+                isRoomMaster = IGameRoomManager.Instance.IsRoomMaster();
                 m_gameSettings = await IGameRoomManager.Instance.GetGameRoomSettings<GameSettings>();
+
             #else
-                m_playerID = "White";
-                m_gameSettings[0] = m_playerID;
-                if (m_gameSettings[0] != null)
-                {
-                    whitePlayer = true;
-                }
-                else 
-                {
-                    whitePlayer = false;
-                }
+                // m_playerID = "White";
+                // m_gameSettings[0] = m_playerID;
+                // if (m_gameSettings[0] != null)
+                // {
+                //     whitePlayer = true;
+                // }
+                // else 
+                // {
+                //     whitePlayer = false;
+                // }
             #endif
         }
 
@@ -91,40 +95,38 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.skinIndex = skinIndex;
         }
 
-        public object GetGameSettings()
-        {
-            // Get player ID from room
-            // m_playerID = GameRoomManager.Instance.GetPlayerID();
-            // Set player side
-            if (whitePlayer)
-            {
-                m_gameSettings[0] = m_playerID;
-            }
-            else
-            {
-                m_gameSettings[1] = m_playerID;
-            }
-            // Set room host
-            m_gameSettings[2] = m_playerID;
-            // Set board skin
-            m_gameSettings[3] = skinIndex.ToString();
-            return m_gameSettings;
-        }
+        // public object GetGameSettings()
+        // {
+        //     // Get player ID from room
+        //     // m_playerID = GameRoomManager.Instance.GetPlayerID();
+        //     // Set player side
+        //     if (whitePlayer)
+        //     {
+        //         m_gameSettings[0] = m_playerID;
+        //     }
+        //     else
+        //     {
+        //         m_gameSettings[1] = m_playerID;
+        //     }
+        //     // Set room host
+        //     m_gameSettings[2] = m_playerID;
+        //     // Set board skin
+        //     m_gameSettings[3] = skinIndex.ToString();
+        //     return m_gameSettings;
+        // }
 
-        public void SetGameSettings(object gameSettings)
+        public void SetGameSettings()
         {
-            // Retrieve setting from room
-            m_gameSettings = gameSettings as string[];
-            // Check if allowed to play as white
-            if (m_gameSettings[0] == m_playerID)
+            // // Retrieve setting from room
+            // // Check if allowed to play as white
+            if ((m_gameSettings.side.white == "master") == isRoomMaster)
             {
                 if (!whitePlayer)
                 {
                     whitePlayer = true;
                     BoardRotator.Instance.RotateBoard();
                 } 
-                Debug.Log("White player");
-            }
+            }   
             else
             {
                 if (whitePlayer)
@@ -132,26 +134,31 @@ namespace JKTechnologies.SeensioGo.ARChess
                     whitePlayer = false;
                     BoardRotator.Instance.RotateBoard();
                 }
-                Debug.Log("Black player");
-            } 
+            }
+            // {
+            //     if (!whitePlayer)
+            //     {
+            //         whitePlayer = true;
+            //         BoardRotator.Instance.RotateBoard();
+            //     } 
+            //     Debug.Log("White player");
+            // }
+            // else
+            // {
+            //     if (whitePlayer)
+            //     {
+            //         whitePlayer = false;
+            //         BoardRotator.Instance.RotateBoard();
+            //     }
+            //     Debug.Log("Black player");
+            // } 
 
-            // Set room host to show change skin option
-            if (m_gameSettings[2] == m_playerID)
-            {
-                roomHost = true;
-            }
-            else
-            {
-                roomHost = false;
-                TileAppearanceButton.Instance.gameObject.SetActive(false);
-            }
-
-            // Set room skin to corresponding screen
-            if (m_gameSettings[3] != null)
-            {
-                skinIndex = int.Parse(m_gameSettings[3]);
-                ARChessGameSettings.Instance.SetTileSkin(skinIndex);
-            }
+            // // Set room skin to corresponding screen
+            // if (m_gameSettings[3] != null)
+            // {
+            //     skinIndex = int.Parse(m_gameSettings[3]);
+            //     ARChessGameSettings.Instance.SetTileSkin(skinIndex);
+            // }
         }
 
         // Switch room turn
@@ -173,14 +180,17 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Update local turn and board state pieces position
         public void SwitchTurn()
         {
+            BoardManager.Instance.SetWhiteTurn();
+
             #if !SEENSIOGO
                 this.SetWhitePlayer(!this.whitePlayer);
+            #else
+                if (this.IsMyTurn())
+                {
+                    IGameRoomManager.Instance.TakeOwnerShip();
+                }
             #endif
-            BoardManager.Instance.SetWhiteTurn();
-            if (this.IsMyTurn())
-            {
-                IGameRoomManager.Instance.TakeOwnerShip();
-            }
+
             BoardManager.Instance.UpdateBoardStatePiecesPosition();
         }
 

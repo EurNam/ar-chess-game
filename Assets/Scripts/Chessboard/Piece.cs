@@ -240,7 +240,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             // Find the nearest tile to the piece
-            Tile newNearestTile = FindNearestTile();
+            Tile newNearestTile = FindNearestTile(true);
             // If the nearest tile has changed, update the move guide colors
             if (newNearestTile != nearestTile)
             {
@@ -265,7 +265,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             // Find the nearest tile to the piece
-            Tile newNearestTile = FindNearestTile();
+            Tile newNearestTile = FindNearestTile(true);
             // If the nearest tile has changed, update the move guide colors
             if (newNearestTile != nearestTile)
             {
@@ -409,7 +409,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         //     }
         // }
 
-        public Tile FindNearestTile()
+        public Tile FindNearestTile(bool actualMove)
         {
             //tiles = FindObjectsOfType<Tile>();
             float minDistance = float.MaxValue;
@@ -430,13 +430,23 @@ namespace JKTechnologies.SeensioGo.ARChess
                 }
             }
 
-            // Check if the closest tile is a valid move and if the distance is less than 1.5 units
-            if (possibleMoves.Contains(nearestTile.GetBoardIndex()) && minDistance < 1.3f*boardParent.transform.localScale.x)
+            if (actualMove)
             {
+                // Check if the closest tile is a valid move and if the distance is less than 1.5 units
+                if (possibleMoves.Contains(nearestTile.GetBoardIndex()) && minDistance < 1.3f*boardParent.transform.localScale.x)
+                {
+                    return nearestTile;
+                }
+                return currentTile;   
+            }
+            else
+            {
+                if (currentTile!=nearestTile)
+                {
+                    Debug.Log(this.name + " is moved to a new tile by the opponent.");
+                }
                 return nearestTile;
             }
-
-            return currentTile;
         }
 
         private bool isCastle(Tile nearestTile)
