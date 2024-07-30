@@ -5,7 +5,7 @@ using JKTechnologies.SeensioGo.GameEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
-    public class GameManager : MonoBehaviour, IGameManager
+    public class GameManager : MonoBehaviour, IGameInstance, IGameActionListener
     {
         public static GameManager Instance;
         private string m_playerID;
@@ -25,12 +25,10 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         void Start()
         {
-            if (GameRoomManager.Instance.IsMultiplayerMode())
-            {
-                GameRoomManager.Instance.SetGameManager(this);
-            }
-            else
-            {
+            #if SEENSIOGO
+                GameRoomManager.Instance.SetGameInstance(this,"XWVSJ2yCtyLlez9F47tu");
+                GameRoomManager.Instance.RegisterGameActionListener(this);
+            #else
                 m_playerID = "White";
                 m_gameSettings[0] = m_playerID;
                 if (m_gameSettings[0] != null)
@@ -41,7 +39,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     whitePlayer = false;
                 }
-            }
+            #endif
         }
 
         public bool GetWhitePlayer()
@@ -73,7 +71,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public object GetGameSettings()
         {
             // Get player ID from room
-            m_playerID = GameRoomManager.Instance.GetPlayerID();
+            // m_playerID = GameRoomManager.Instance.GetPlayerID();
             // Set player side
             if (whitePlayer)
             {
@@ -136,18 +134,27 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Switch room turn
         public void SwitchRoomTurn()
         {
-            GameRoomManager.Instance.SwitchRoomTurn();
-            if (!GameRoomManager.Instance.IsMultiplayerMode())
-            {
-                this.whitePlayer = !this.whitePlayer;
-            }
+            #if SEENSIOGO
+                IGameRoomManager.Instance.ScatterActionToRoom("SwitchTurn");
+            #else
+                this.SwitchTurn();
+            #endif
+        }
+
+        public void OnActionReceived(string actionName)
+        {
+            Debug.Log("Action received: " + actionName);
+            Invoke(actionName, 0.1f);
         }
 
         // Update local turn and board state pieces position
         public void SwitchTurn()
         {
+            #if !SEENSIOGO
+                this.SetWhitePlayer(!this.whitePlayer);
+            #endif
             BoardManager.Instance.SetWhiteTurn();
-            //BoardManager.Instance.UpdateBoardStatePiecesPosition();
+            BoardManager.Instance.UpdateBoardStatePiecesPosition();
         }
 
         public bool IsMyTurn()

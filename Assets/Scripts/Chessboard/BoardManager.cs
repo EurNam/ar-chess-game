@@ -137,6 +137,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetWhiteTurn()
         {
             whiteTurn = !whiteTurn;
+            Debug.Log("White turn: " + whiteTurn);
         }
 
         public void SetInCheck(bool value)
@@ -219,11 +220,11 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             if (whiteTurn && whiteAvailableMoves == 0)
             {
-                Debug.Log("Stalemate");
+                // Debug.Log("Stalemate");
             }
             else if (!whiteTurn && blackAvailableMoves == 0)
             {
-                Debug.Log("Stalemate");
+                // Debug.Log("Stalemate");
             }
         }
 

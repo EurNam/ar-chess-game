@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using JKTechnologies.SeensioGo.GameEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
     public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
+        #region Variables
         public Piece piece;
         public bool isWhite;
         public GameObject boardParent;
@@ -25,7 +27,9 @@ namespace JKTechnologies.SeensioGo.ARChess
         private Vector2Int initialBoardPosition;
         private bool usingMouse = false;
         private bool usingVirtualMouse = false;
+        #endregion
 
+        #region Unity Methods
         void Awake()
         {
             piece = this;
@@ -55,7 +59,9 @@ namespace JKTechnologies.SeensioGo.ARChess
                 }
             }
         }
+        #endregion
 
+        #region Get, Set Methods
         public List<Vector2Int> GetPossibleMoves()
         {
             return possibleMoves;
@@ -146,7 +152,9 @@ namespace JKTechnologies.SeensioGo.ARChess
                 renderer.material = newMaterial;
             }
         }
+        #endregion
 
+        #region Methods
         protected virtual void GeneratePossibleMoves(Vector2Int currentBoardPosition)
         {
             possibleMoves.Clear();
@@ -332,7 +340,6 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             // Update the board state after move
             if (tempNearestTile != tempCurrentTile){
-                Debug.Log("Switch turn");
                 this.SetFirstMove(false);
                 BoardManager.Instance.IncrementMoveCount();
                 BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this, true);
@@ -589,5 +596,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             currentTile.SetOccupied(true, this);
             firstMove = true;
         }
+
+        #endregion
     }
 }
