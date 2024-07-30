@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,25 @@ using JKTechnologies.SeensioGo.GameEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
+    [Serializable]
+    public class GameSettings
+    {
+        public GameSide side;
+    }
+
+    [Serializable]
+    public class GameSide
+    {
+        public string black;
+        public string white;
+    }
+
+    public static class SIDE
+    {
+        public const string MASTER = "master";
+        public const string GUEST = "guest";
+    }
+
     public class GameManager : MonoBehaviour, IGameInstance, IGameActionListener
     {
         public static GameManager Instance;
@@ -13,6 +33,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         private bool whitePlayer = true;
         private bool roomHost = true;
         private int skinIndex = 0;
+        private GameSettings m_new_gameSettings = new GameSettings();
+
 
 
         void Awake()
@@ -26,8 +48,9 @@ namespace JKTechnologies.SeensioGo.ARChess
         void Start()
         {
             #if SEENSIOGO
-                GameRoomManager.Instance.SetGameInstance(this,"XWVSJ2yCtyLlez9F47tu");
-                GameRoomManager.Instance.RegisterGameActionListener(this);
+                IGameRoomManager.Instance.SetGameInstance(this,"XWVSJ2yCtyLlez9F47tu");
+                IGameRoomManager.Instance.RegisterGameActionListener(this);
+                m_gameSettings = await IGameRoomManager.Instance.GetGameRoomSettings<GameSettings>();
             #else
                 m_playerID = "White";
                 m_gameSettings[0] = m_playerID;
