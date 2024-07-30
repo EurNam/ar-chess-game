@@ -154,6 +154,10 @@ namespace JKTechnologies.SeensioGo.ARChess
                 this.SetWhitePlayer(!this.whitePlayer);
             #endif
             BoardManager.Instance.SetWhiteTurn();
+            if (this.IsMyTurn())
+            {
+                IGameRoomManager.Instance.TakeOwnerShip();
+            }
             BoardManager.Instance.UpdateBoardStatePiecesPosition();
         }
 
