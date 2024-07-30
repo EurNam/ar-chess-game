@@ -6,7 +6,7 @@ using JKTechnologies.SeensioGo.GameEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
-    public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IGameRPC
     {
         #region Variables
         public Piece piece;
@@ -350,6 +350,9 @@ namespace JKTechnologies.SeensioGo.ARChess
                     BoardManager.Instance.HideMoveGuides();
                 }
                 GameManager.Instance.SwitchRoomTurn();
+                #if SEENSIOGO
+                    IGameRoomManager.Instance.ScatterRPCActionToRoom(this, "SwitchTurn");
+                #endif
             } else {
                 BoardManager.Instance.HideMoveGuides();
                 BoardManager.Instance.CheckForCheckmate(this.colorWhite());
@@ -598,5 +601,10 @@ namespace JKTechnologies.SeensioGo.ARChess
         }
 
         #endregion
+
+        public void OnRPCActionReceived(string actionName)
+        {
+            Debug.Log("Action received: " + actionName);
+        }
     }
 }
