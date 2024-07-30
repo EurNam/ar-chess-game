@@ -40,6 +40,9 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Start is called before the first frame update
         protected virtual void Start()
         {
+            #if SEENSIOGO
+                IGameRoomManager.Instance.RegisterRPCToGameRoom(this);
+            #endif
             // FindCurrentTile();
             // this.SetFirstMove(true);
         }
