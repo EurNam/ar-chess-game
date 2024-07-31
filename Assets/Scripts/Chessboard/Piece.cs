@@ -416,7 +416,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 currentTile = nearestTile;
                 currentTile.SetOccupied(true, this);
                 this.SetFirstMove(false);
-                
+
                 BoardManager.Instance.IncrementMoveCount();
                 BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this, true);
                 BoardManager.Instance.CheckForCheckmate(!this.colorWhite());
@@ -425,6 +425,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     BoardManager.Instance.HideMoveGuides();
                 }
+                Debug.Log(this.name + " is moved from " + tempCurrentTile.GetBoardIndex() + " to " + tempNearestTile.GetBoardIndex() + " by opponent.");
             } 
         }
 
