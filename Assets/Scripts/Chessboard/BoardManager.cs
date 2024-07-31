@@ -176,7 +176,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         }
         #endregion
 
-        #region Board Management
+        #region Board Initialization
         private void InitializeBoardState()
         {
             int boardSize = 9;
@@ -258,19 +258,51 @@ namespace JKTechnologies.SeensioGo.ARChess
                 }
             }
         }
+        #endregion
 
-        public void UpdateBoardStatePiecesPosition()
+        #region Board Update
+        // public void UpdateBoardStatePiecesPosition()
+        // {
+        //     foreach (Piece piece in boardStatePieces)
+        //     {
+        //         if (piece != null && piece.gameObject.activeSelf)
+        //         {
+        //             piece.FindNearestTile(false);
+        //             piece.UpdatePiecePositionInfo();
+        //         }
+        //     }
+        // }
+
+        public void UpdateBoardState(Vector2Int moveBefore, Vector2Int moveAfter, Piece piece, bool actualMove)
         {
-            foreach (Piece piece in boardStatePieces)
+            if (actualMove)
             {
-                if (piece != null && piece.gameObject.activeSelf)
+                SetBoardIndexBeforeLastMove(moveBefore);
+                SetBoardIndexLastMove(moveAfter);
+                SetPieceLastMoved(piece);
+            }
+
+            if (piece.isKingPiece())
+            {
+                if (piece.colorWhite())
                 {
-                    piece.FindNearestTile(false);
-                    piece.UpdatePiecePositionInfo();
+                    BoardManager.Instance.SetWhiteKingPosition(moveAfter);
+                }
+                else
+                {
+                    BoardManager.Instance.SetBlackKingPosition(moveAfter);
                 }
             }
-        }
 
+            this.SetWhiteAvailableMoves(0);
+            this.SetBlackAvailableMoves(0);
+
+            GenerateAllPossibleMoves();
+            BoardManager.Instance.HideMoveGuides();
+        }
+        #endregion
+
+        #region Board Movement
         public MoveType ValidMove(Vector2Int boardPosition, Piece piece, bool enPassant = false)
         {
             // Debug.Log("Checking valid move: " + boardPosition + " " + piece.name);
@@ -330,7 +362,9 @@ namespace JKTechnologies.SeensioGo.ARChess
                 }
             }
         }
+        #endregion
 
+        #region Check, Checkmate
         public bool IsKingChecked(bool isWhite)
         {
             Vector2Int kingPosition = isWhite ? GetWhiteKingPosition() : GetBlackKingPosition();
@@ -394,34 +428,6 @@ namespace JKTechnologies.SeensioGo.ARChess
             return false;
         }
 
-        public void UpdateBoardState(Vector2Int moveBefore, Vector2Int moveAfter, Piece piece, bool actualMove)
-        {
-            if (actualMove)
-            {
-                SetBoardIndexBeforeLastMove(moveBefore);
-                SetBoardIndexLastMove(moveAfter);
-                SetPieceLastMoved(piece);
-            }
-
-            if (piece.isKingPiece())
-            {
-                if (piece.colorWhite())
-                {
-                    BoardManager.Instance.SetWhiteKingPosition(moveAfter);
-                }
-                else
-                {
-                    BoardManager.Instance.SetBlackKingPosition(moveAfter);
-                }
-            }
-
-            this.SetWhiteAvailableMoves(0);
-            this.SetBlackAvailableMoves(0);
-
-            GenerateAllPossibleMoves();
-            BoardManager.Instance.HideMoveGuides();
-        }
-
         public void CheckForCheckmate(bool whiteKing)
         {
             if (IsKingChecked(whiteKing))
@@ -449,6 +455,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
+        #endregion
+
+        #region Play Sound
         public void PlaySnapSound()
         {
             audioSource.PlayOneShot(snapSound);
@@ -458,7 +467,9 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             audioSource.PlayOneShot(captureSound);
         }
+        #endregion
 
+        #region Reset Game
         public void ResetBoard()
         {
             // Reset all pieces to their initial positions

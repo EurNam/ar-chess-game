@@ -47,7 +47,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
-        void Start()
+        private async void Start()
         {
             #if SEENSIOGO
                 IGameRoomManager.Instance.SetGameInstance(this,gameID);
@@ -183,7 +183,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Update local turn and board state pieces position
         public void SwitchTurn()
         {
-            BoardManager.Instance.UpdateBoardStatePiecesPosition();
             BoardManager.Instance.SetWhiteTurn();
 
             #if !SEENSIOGO
