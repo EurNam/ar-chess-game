@@ -592,8 +592,9 @@ namespace JKTechnologies.SeensioGo.ARChess
         #endregion
 
         #region Change Skin
-        public void ChangePiecePrefab(int prefabIndex)
+        public void ChangePiecePrefab()
         {
+            int prefabIndex = ARChessGameSettings.Instance.GetBoardAppearanceIndex();
             if (prefabIndex < 0 || prefabIndex >= piecePrefabs.Length)
             {
                 Debug.LogError("Invalid prefab index");

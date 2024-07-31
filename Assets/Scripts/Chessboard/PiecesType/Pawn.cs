@@ -142,7 +142,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         private void PromoteToQueen()
         {
             // Instantiate a new queen at the pawn's position
-            GameObject queenPrefab = ARChessGameSettings.Instance.GetTileSkinIndex() == 0 ? BoardManager.Instance.defaultQueenPrefab : BoardManager.Instance.desertQueenPrefab;
+            GameObject queenPrefab = ARChessGameSettings.Instance.GetBoardAppearanceIndex() == 0 ? BoardManager.Instance.defaultQueenPrefab : BoardManager.Instance.desertQueenPrefab;
             GameObject newQueen = Instantiate(queenPrefab, this.transform.position, Quaternion.identity, this.transform.parent);
             if (this.colorWhite())
             {

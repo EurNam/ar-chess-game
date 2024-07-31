@@ -31,7 +31,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             // Skin change function
             if (skinButton)
             {
-                ARChessGameSettings.Instance.SetTileSkin(tileAppearanceIndex);
+                ARChessGameSettings.Instance.SetBoardSkin(tileAppearanceIndex);
                 GameManager.Instance.SetRoomSkin(tileAppearanceIndex);
             }
 

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using JKTechnologies.SeensioGo.GameEngine;
+
 namespace JKTechnologies.SeensioGo.ARChess
 {
     public class BoardManager : MonoBehaviour
@@ -228,16 +230,16 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
-        public void SetTileSkin(int tileAppearanceIndex)
+        public void SetBoardSkin()
         {
             foreach (Tile tile in boardState)
             {
                 if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
                 {
-                    tile.ChangeTilePrefab(tileAppearanceIndex);
+                    IGameRoomManager.Instance.ScatterRPCActionToRoom(tile, "ChangeTilePrefab");
                     if (tile.GetPiece() != null)
                     {
-                        tile.GetPiece().ChangePiecePrefab(tileAppearanceIndex);
+                        IGameRoomManager.Instance.ScatterRPCActionToRoom(tile.GetPiece(), "ChangePiecePrefab");
                     }
                 }
             }

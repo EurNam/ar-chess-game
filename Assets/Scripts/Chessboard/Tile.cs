@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using JKTechnologies.SeensioGo.GameEngine;
+
 namespace JKTechnologies.SeensioGo.ARChess
 {
-    public class Tile : MonoBehaviour
+    public class Tile : MonoBehaviour, IGameRPC
     {
         public Vector2Int boardIndex;
         public GameObject[] tilePrefabs;
@@ -136,8 +138,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             SetMoveGuideShown(false);
         }
 
-        public void ChangeTilePrefab(int prefabIndex)
+        public void ChangeTilePrefab()
         {
+            int prefabIndex = ARChessGameSettings.Instance.GetBoardAppearanceIndex();
             if (prefabIndex < 0 || prefabIndex >= tilePrefabs.Length)
             {
                 Debug.LogError("Invalid prefab index");
@@ -171,5 +174,13 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.gameObject.SetActive(false);
             Destroy(this.gameObject);
         }
+
+        #region Multiplayer
+        public void OnRPCActionReceived(string actionName)
+        {
+            Debug.Log("Action received: " + actionName);
+            Invoke(actionName, 0.1f);
+        }
+        #endregion
     }
 }
