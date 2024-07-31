@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -394,7 +395,14 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 // If it does, destroy the piece and set the tile to be empty
                 Piece capturedPiece = nearestTile.GetPiece();
-                IGameRoomManager.Instance.ScatterRPCActionToRoom(capturedPiece, "Captured"); 
+                try
+                {
+                    IGameRoomManager.Instance.ScatterRPCActionToRoom(capturedPiece, "Captured"); 
+                }
+                catch (Exception e)
+                {
+                    capturedPiece.Captured();
+                }
             }
 
             // Handle En Passant
@@ -436,7 +444,14 @@ namespace JKTechnologies.SeensioGo.ARChess
                     BoardManager.Instance.HideMoveGuides();
                 }
                 await Task.Delay(100);
-                IGameRoomManager.Instance.ScatterRPCActionToRoom(this, "Moved");
+                try
+                {
+                    IGameRoomManager.Instance.ScatterRPCActionToRoom(this, "Moved");
+                }
+                catch (Exception e)
+                {
+                    this.Moved();
+                }
                 GameManager.Instance.SwitchRoomTurn();
             } else {
                 BoardManager.Instance.HideMoveGuides();
@@ -516,7 +531,14 @@ namespace JKTechnologies.SeensioGo.ARChess
 
                 rook.transform.position = convertPoint.transform.position;
 
-                IGameRoomManager.Instance.ScatterRPCActionToRoom(rook, "Moved");
+                try
+                {
+                    IGameRoomManager.Instance.ScatterRPCActionToRoom(rook, "Moved");
+                }
+                catch (Exception e)
+                {
+                    rook.Moved();
+                }
                 // rookTile.SetOccupied(false);
                 // newRookTile.SetOccupied(true, rook);
                 // rook.SetCurrentTile(newRookTile);
@@ -551,7 +573,14 @@ namespace JKTechnologies.SeensioGo.ARChess
                                 if (nearestTile.GetBoardIndex() == new Vector2Int(BoardManager.Instance.GetBoardIndexLastMove().x, BoardManager.Instance.GetBoardIndexLastMove().y+yChange))
                                 {
                                     Piece capturedPiece = BoardManager.Instance.GetTile(BoardManager.Instance.GetBoardIndexLastMove()).GetPiece();
-                                    IGameRoomManager.Instance.ScatterRPCActionToRoom(capturedPiece, "Captured");
+                                    try
+                                    {
+                                        IGameRoomManager.Instance.ScatterRPCActionToRoom(capturedPiece, "Captured");
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        capturedPiece.Captured();
+                                    }
                                 }
                             }
                         }

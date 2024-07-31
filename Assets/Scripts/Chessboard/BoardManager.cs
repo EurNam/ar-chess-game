@@ -440,7 +440,38 @@ namespace JKTechnologies.SeensioGo.ARChess
                 else
                 {
                     Debug.Log("Checkmate");
-                    ResetBoard();
+                    NameTag[] nameTags = FindObjectsOfType<NameTag>();
+                    if (!whiteKing)
+                    {
+                        Debug.Log("White won");
+                        foreach (NameTag nameTag in nameTags)
+                        {
+                            if (nameTag.isUser)
+                            {
+                                nameTag.SetName("White Won!");
+                            }
+                            else
+                            {
+                                nameTag.SetName("Black Lost!");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Black won");
+                        foreach (NameTag nameTag in nameTags)
+                        {
+                            if (nameTag.isUser)
+                            {
+                                nameTag.SetName("White Lost!");
+                            }
+                            else
+                            {
+                                nameTag.SetName("Black Won!");
+                            }
+                        }
+                    }
+                    // ResetBoard();
                 }
                 if (whiteKing)
                 {

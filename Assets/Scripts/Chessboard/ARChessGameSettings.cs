@@ -65,7 +65,6 @@ namespace JKTechnologies.SeensioGo.ARChess
             SetGameStarted(false);
             SetBoardInitialized(false);
             SetWhitePlayer(true);
-            Button.Instance.ResetPosition();
         }
 
         public void ResetPlayerTurn()
