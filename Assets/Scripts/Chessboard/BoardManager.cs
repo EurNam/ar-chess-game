@@ -266,7 +266,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 if (piece != null && piece.gameObject.activeSelf)
                 {
                     piece.FindNearestTile(false);
-                    piece.SnapToNearestTile(false);
+                    piece.UpdatePiecePositionInfo();
                 }
             }
         }

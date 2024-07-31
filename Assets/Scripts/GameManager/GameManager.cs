@@ -54,6 +54,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 IGameRoomManager.Instance.RegisterGameActionListener(this);
                 isRoomMaster = IGameRoomManager.Instance.IsRoomMaster();
                 m_gameSettings = await IGameRoomManager.Instance.GetGameRoomSettings<GameSettings>();
+                this.SetGameSettings();
 
             #else
                 // m_playerID = "White";
@@ -125,6 +126,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     whitePlayer = true;
                     BoardRotator.Instance.RotateBoard();
+                    IGameRoomManager.Instance.TakeOwnerShip();
                 } 
             }   
             else
@@ -169,6 +171,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             #else
                 this.SwitchTurn();
             #endif
+            
         }
 
         public void OnActionReceived(string actionName)
@@ -180,6 +183,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Update local turn and board state pieces position
         public void SwitchTurn()
         {
+            BoardManager.Instance.UpdateBoardStatePiecesPosition();
             BoardManager.Instance.SetWhiteTurn();
 
             #if !SEENSIOGO
@@ -190,8 +194,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                     IGameRoomManager.Instance.TakeOwnerShip();
                 }
             #endif
-
-            BoardManager.Instance.UpdateBoardStatePiecesPosition();
         }
 
         public bool IsMyTurn()

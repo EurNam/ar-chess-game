@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
 using JKTechnologies.SeensioGo.GameEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
@@ -196,6 +198,46 @@ namespace JKTechnologies.SeensioGo.ARChess
             initialBoardPosition = currentTile.GetBoardIndex();
         }
 
+        public Tile FindNearestTile(bool actualMove)
+        {
+            //tiles = FindObjectsOfType<Tile>();
+            float minDistance = float.MaxValue;
+            Tile nearestTile = null;
+
+            // Find the closest tile to the piece position to snap the piece to
+            foreach (Tile tile in tiles)
+            {
+                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0 && tile.gameObject.activeSelf)
+                {
+                    float distance = Vector3.Distance(this.transform.position, tile.GetPosition3D());
+                    // Update the closest tile if the distance is less than the current closest tile
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        nearestTile = tile;
+                    }
+                }
+            }
+
+            if (actualMove)
+            {
+                // Check if the closest tile is a valid move and if the distance is less than 1.5 units
+                if (possibleMoves.Contains(nearestTile.GetBoardIndex()) && minDistance < 1.3f*boardParent.transform.localScale.x)
+                {
+                    return nearestTile;
+                }
+                return currentTile;   
+            }
+            else
+            {
+                if (currentTile!=nearestTile)
+                {
+                    Debug.Log(this.name + " is moved to a new tile by the opponent.");
+                }
+                return nearestTile;
+            }
+        }
+
         private void HandleClickDown()
         {
             if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized() && GameManager.Instance.GetWhitePlayer() == this.colorWhite() && ARChessGameSettings.Instance.GetGameStarted()) 
@@ -298,9 +340,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             usingMouse = false;
         }
 
-        public void SnapToNearestTile(bool afterMove)
+        public async void SnapToNearestTile(bool afterMove)
         {
-            Debug.Log("Snap to nearest tile");
             Tile tempCurrentTile = currentTile;
             Tile tempNearestTile = nearestTile;
 
@@ -328,18 +369,22 @@ namespace JKTechnologies.SeensioGo.ARChess
                 this.SetFirstMove(false);
             }
 
+
             // Move piece to new tile
-            float localTileHeight = nearestTile.transform.localScale.y;
-            Vector3 localPosition = nearestTile.transform.localPosition + new Vector3(0, localTileHeight, 0);
+            if (afterMove)
+            {
+                float localTileHeight = nearestTile.transform.localScale.y;
+                Vector3 localPosition = nearestTile.transform.localPosition + new Vector3(0, localTileHeight, 0);
 
-            Tile convertPoint = BoardManager.Instance.GetTile(new Vector2Int(0, 0));
-            convertPoint.transform.localPosition = localPosition;
+                Tile convertPoint = BoardManager.Instance.GetTile(new Vector2Int(0, 0));
+                convertPoint.transform.localPosition = localPosition;
 
-            transform.position = convertPoint.transform.position;
+                transform.position = convertPoint.transform.position;
+            }
 
-            currentTile.SetOccupied(false);
-            currentTile = nearestTile;
-            currentTile.SetOccupied(true, this);
+                currentTile.SetOccupied(false);
+                currentTile = nearestTile;
+                currentTile.SetOccupied(true, this);
 
             // Update the board state after move
             if (tempNearestTile != tempCurrentTile){
@@ -352,15 +397,36 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     BoardManager.Instance.HideMoveGuides();
                 }
+                await Task.Delay(100);
                 GameManager.Instance.SwitchRoomTurn();
-                #if SEENSIOGO
-                    IGameRoomManager.Instance.ScatterRPCActionToRoom(this, "SwitchTurn");
-                #endif
             } else {
                 BoardManager.Instance.HideMoveGuides();
                 BoardManager.Instance.CheckForCheckmate(this.colorWhite());
             }
         } 
+
+        public void UpdatePiecePositionInfo()
+        {
+            Tile tempCurrentTile = currentTile;
+            Tile tempNearestTile = nearestTile;
+
+            // Update the board state after move
+            if (tempNearestTile != tempCurrentTile){
+                currentTile.SetOccupied(false);
+                currentTile = nearestTile;
+                currentTile.SetOccupied(true, this);
+                this.SetFirstMove(false);
+                
+                BoardManager.Instance.IncrementMoveCount();
+                BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this, true);
+                BoardManager.Instance.CheckForCheckmate(!this.colorWhite());
+                Debug.Log("Move count: " + BoardManager.Instance.GetMoveCount());
+                if (BoardManager.Instance.GetMoveCount() == 0)
+                {
+                    BoardManager.Instance.HideMoveGuides();
+                }
+            } 
+        }
 
         // public void botMovePiece(Tile newTile)
         // {
@@ -408,46 +474,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         //         BoardManager.Instance.CheckForCheckmate();
         //     }
         // }
-
-        public Tile FindNearestTile(bool actualMove)
-        {
-            //tiles = FindObjectsOfType<Tile>();
-            float minDistance = float.MaxValue;
-            Tile nearestTile = null;
-
-            // Find the closest tile to the piece position to snap the piece to
-            foreach (Tile tile in tiles)
-            {
-                if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0 && tile.gameObject.activeSelf)
-                {
-                    float distance = Vector3.Distance(this.transform.position, tile.GetPosition3D());
-                    // Update the closest tile if the distance is less than the current closest tile
-                    if (distance < minDistance)
-                    {
-                        minDistance = distance;
-                        nearestTile = tile;
-                    }
-                }
-            }
-
-            if (actualMove)
-            {
-                // Check if the closest tile is a valid move and if the distance is less than 1.5 units
-                if (possibleMoves.Contains(nearestTile.GetBoardIndex()) && minDistance < 1.3f*boardParent.transform.localScale.x)
-                {
-                    return nearestTile;
-                }
-                return currentTile;   
-            }
-            else
-            {
-                if (currentTile!=nearestTile)
-                {
-                    Debug.Log(this.name + " is moved to a new tile by the opponent.");
-                }
-                return nearestTile;
-            }
-        }
 
         private bool isCastle(Tile nearestTile)
         {
