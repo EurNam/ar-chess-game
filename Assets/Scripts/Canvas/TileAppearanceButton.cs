@@ -11,6 +11,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public UnityEngine.UI.Button toggleButton;
         public bool skinButton;
         public bool SwitchSidesButton;
+        public bool SwitchBoardSkinButton;
         public int tileAppearanceIndex;
 
         void Awake()
@@ -31,8 +32,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             // Skin change function
             if (skinButton)
             {
-                ARChessGameSettings.Instance.SetBoardSkin(tileAppearanceIndex);
                 GameManager.Instance.SetRoomSkin(tileAppearanceIndex);
+                GameManagerBufferData.Instance.SetBufferSkinData(tileAppearanceIndex);
+                ARChessGameSettings.Instance.SetBoardSkin(tileAppearanceIndex);
             }
 
             if (SwitchSidesButton)
@@ -43,6 +45,11 @@ namespace JKTechnologies.SeensioGo.ARChess
                     BoardRotator.Instance.RotateBoard();
                 }
             }
+        }
+
+        public void HideButton()
+        {
+            this.gameObject.SetActive(false);
         }
     }
 }

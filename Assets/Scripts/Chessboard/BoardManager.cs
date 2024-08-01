@@ -557,5 +557,19 @@ namespace JKTechnologies.SeensioGo.ARChess
         //     }
         // }
         #endregion
+
+        #region Multiplayer
+        public void UpdatePieceCaptureState(string[] boardPieceState)
+        {
+            foreach (Piece piece in boardStatePieces)
+            {
+                int pieceId = piece.RPC_GetID();
+                if (boardPieceState[pieceId-1] == "")
+                {
+                    piece.gameObject.SetActive(false);
+                }
+            }
+        }
+        #endregion
     }
 }

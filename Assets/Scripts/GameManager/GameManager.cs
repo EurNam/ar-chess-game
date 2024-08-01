@@ -53,8 +53,25 @@ namespace JKTechnologies.SeensioGo.ARChess
                 IGameRoomManager.Instance.SetGameInstance(this,gameID);
                 IGameRoomManager.Instance.RegisterGameActionListener(this);
                 isRoomMaster = IGameRoomManager.Instance.IsRoomMaster();
+                if (!isRoomMaster)
+                {
+                    TileAppearanceButton.Instance.HideButton();
+                }
                 m_gameSettings = await IGameRoomManager.Instance.GetGameRoomSettings<GameSettings>();
                 this.SetGameSettings();
+
+                BufferData bufferData = await IGameRoomManager.Instance.GetBufferDataToRoom<BufferData>();
+                if (bufferData == null)
+                {
+                    bufferData = GameManagerBufferData.Instance.GetBufferData();
+                    IGameRoomManager.Instance.SetBufferRoomData(bufferData);
+                }
+                else 
+                {
+                    GameManagerBufferData.Instance.SetBufferData(bufferData);
+                    ARChessGameSettings.Instance.SetBoardSkin(bufferData.boardAppearanceIndex);
+                    BoardManager.Instance.UpdatePieceCaptureState(bufferData.boardPieceState);
+                }
 
             #else
                 // m_playerID = "White";
@@ -96,30 +113,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.skinIndex = skinIndex;
         }
 
-        // public object GetGameSettings()
-        // {
-        //     // Get player ID from room
-        //     // m_playerID = GameRoomManager.Instance.GetPlayerID();
-        //     // Set player side
-        //     if (whitePlayer)
-        //     {
-        //         m_gameSettings[0] = m_playerID;
-        //     }
-        //     else
-        //     {
-        //         m_gameSettings[1] = m_playerID;
-        //     }
-        //     // Set room host
-        //     m_gameSettings[2] = m_playerID;
-        //     // Set board skin
-        //     m_gameSettings[3] = skinIndex.ToString();
-        //     return m_gameSettings;
-        // }
-
-        public void SetGameSettings()
+        public async void SetGameSettings()
         {
-            // // Retrieve setting from room
-            // // Check if allowed to play as white
+            // Retrieve setting from room
             if ((m_gameSettings.side.white == "master") == isRoomMaster)
             {
                 if (!whitePlayer)
@@ -137,30 +133,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                     BoardRotator.Instance.RotateBoard();
                 }
             }
-            // {
-            //     if (!whitePlayer)
-            //     {
-            //         whitePlayer = true;
-            //         BoardRotator.Instance.RotateBoard();
-            //     } 
-            //     Debug.Log("White player");
-            // }
-            // else
-            // {
-            //     if (whitePlayer)
-            //     {
-            //         whitePlayer = false;
-            //         BoardRotator.Instance.RotateBoard();
-            //     }
-            //     Debug.Log("Black player");
-            // } 
-
-            // // Set room skin to corresponding screen
-            // if (m_gameSettings[3] != null)
-            // {
-            //     skinIndex = int.Parse(m_gameSettings[3]);
-            //     ARChessGameSettings.Instance.SetTileSkin(skinIndex);
-            // }
         }
 
         // Switch room turn
@@ -177,6 +149,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void ChangeRoomBoardSkin()
         {
             #if SEENSIOGO
+                IGameRoomManager.Instance.SetBufferRoomData(GameManagerBufferData.Instance.GetBufferData());
                 IGameRoomManager.Instance.ScatterActionToRoom("ChangeBoardSkin");
             #else
                 this.ChangeBoardSkin();
@@ -204,8 +177,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             #endif
         }
 
-        public void ChangeBoardSkin()
+        public async void ChangeBoardSkin()
         {
+            BufferData bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
+            GameManagerBufferData.Instance.SetBufferSkinData(bufferData.boardAppearanceIndex);
+            ARChessGameSettings.Instance.SetBoardAppearanceIndex(bufferData.boardAppearanceIndex);
             BoardManager.Instance.SetBoardSkin();
         }
 

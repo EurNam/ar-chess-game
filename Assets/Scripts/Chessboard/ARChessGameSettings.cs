@@ -60,6 +60,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.changeTileSkin = changeTileSkin;
         }
 
+        public void SetBoardAppearanceIndex(int boardAppearanceIndex)
+        {
+            this.boardAppearanceIndex = boardAppearanceIndex;
+        }
+
         public void ResetGameSettings()
         {
             SetGameStarted(false);
@@ -102,7 +107,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             changeTileSkin = true;
             boardInitialized = false;
             boardAppearanceIndex = tileAppearanceIndex;
-            GameManager.Instance.ChangeBoardSkin();
+            GameManager.Instance.ChangeRoomBoardSkin();
         }
     }
 }

@@ -12,6 +12,7 @@ namespace JKTechnologies.SeensioGo.ARChess
     public class Piece : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IGameRPC
     {
         #region Variables
+        public int pieceIndex;
         public Piece piece;
         public bool isWhite;
         public GameObject boardParent;
@@ -397,7 +398,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 Piece capturedPiece = nearestTile.GetPiece();
                 try
                 {
-                    IGameRoomManager.Instance.ScatterRPCActionToRoom(capturedPiece, "Captured"); 
+                    IGameRoomManager.Instance.RPC_ScatterActionToRoom(capturedPiece, "Captured"); 
                 }
                 catch (Exception e)
                 {
@@ -446,7 +447,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 await Task.Delay(100);
                 try
                 {
-                    IGameRoomManager.Instance.ScatterRPCActionToRoom(this, "Moved");
+                    IGameRoomManager.Instance.RPC_ScatterActionToRoom(this, "Moved");
                 }
                 catch (Exception e)
                 {
@@ -496,6 +497,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             Debug.Log(this.name + " is captured by opponent.");
             this.GetCurrentTile().SetOccupied(false);
             BoardManager.Instance.PlayCaptureSound();
+            int index = this.RPC_GetID()-1;
+            GameManagerBufferData.Instance.SetBufferPieceData(null, index);
             this.gameObject.SetActive(false);
         }
         #endregion
@@ -533,7 +536,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
                 try
                 {
-                    IGameRoomManager.Instance.ScatterRPCActionToRoom(rook, "Moved");
+                    IGameRoomManager.Instance.RPC_ScatterActionToRoom(rook, "Moved");
                 }
                 catch (Exception e)
                 {
@@ -575,7 +578,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                                     Piece capturedPiece = BoardManager.Instance.GetTile(BoardManager.Instance.GetBoardIndexLastMove()).GetPiece();
                                     try
                                     {
-                                        IGameRoomManager.Instance.ScatterRPCActionToRoom(capturedPiece, "Captured");
+                                        IGameRoomManager.Instance.RPC_ScatterActionToRoom(capturedPiece, "Captured");
                                     }
                                     catch (Exception e)
                                     {
@@ -652,10 +655,15 @@ namespace JKTechnologies.SeensioGo.ARChess
         #endregion
 
         #region Multiplayer
-        public void OnRPCActionReceived(string actionName)
+        public void RPC_OnActionReceived(string actionName)
         {
             Debug.Log("Action received: " + actionName);
             Invoke(actionName, 0.1f);
+        }
+
+        public int RPC_GetID()
+        {
+            return pieceIndex;
         }
         #endregion
     }
