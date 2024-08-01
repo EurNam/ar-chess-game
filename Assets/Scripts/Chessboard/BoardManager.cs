@@ -236,10 +236,10 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 if (tile != null && tile.GetBoardIndex().x != 0 && tile.GetBoardIndex().y != 0)
                 {
-                    IGameRoomManager.Instance.ScatterRPCActionToRoom(tile, "ChangeTilePrefab");
+                    tile.ChangeTilePrefab();
                     if (tile.GetPiece() != null)
                     {
-                        IGameRoomManager.Instance.ScatterRPCActionToRoom(tile.GetPiece(), "ChangePiecePrefab");
+                        tile.GetPiece().ChangePiecePrefab();
                     }
                 }
             }

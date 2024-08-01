@@ -174,6 +174,15 @@ namespace JKTechnologies.SeensioGo.ARChess
             
         }
 
+        public void ChangeRoomBoardSkin()
+        {
+            #if SEENSIOGO
+                IGameRoomManager.Instance.ScatterActionToRoom("ChangeBoardSkin");
+            #else
+                this.ChangeBoardSkin();
+            #endif
+        }
+
         public void OnActionReceived(string actionName)
         {
             Debug.Log("Action received: " + actionName);
@@ -193,6 +202,11 @@ namespace JKTechnologies.SeensioGo.ARChess
                     IGameRoomManager.Instance.TakeOwnerShip();
                 }
             #endif
+        }
+
+        public void ChangeBoardSkin()
+        {
+            BoardManager.Instance.SetBoardSkin();
         }
 
         public bool IsMyTurn()

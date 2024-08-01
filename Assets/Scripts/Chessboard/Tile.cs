@@ -6,7 +6,7 @@ using JKTechnologies.SeensioGo.GameEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
-    public class Tile : MonoBehaviour, IGameRPC
+    public class Tile : MonoBehaviour
     {
         public Vector2Int boardIndex;
         public GameObject[] tilePrefabs;
@@ -174,13 +174,5 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.gameObject.SetActive(false);
             Destroy(this.gameObject);
         }
-
-        #region Multiplayer
-        public void OnRPCActionReceived(string actionName)
-        {
-            Debug.Log("Action received: " + actionName);
-            Invoke(actionName, 0.1f);
-        }
-        #endregion
     }
 }
