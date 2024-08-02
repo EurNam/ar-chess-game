@@ -110,7 +110,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetWhitePlayer(bool whitePlayer)
         {
             this.whitePlayer = whitePlayer;
-            Debug.Log("Is white player: " + whitePlayer);
+            // Debug.Log("Is white player: " + whitePlayer);
         }
 
         public void SetRoomHost(bool roomHost)
@@ -126,21 +126,31 @@ namespace JKTechnologies.SeensioGo.ARChess
         public async void SetGameSettings()
         {
             // Retrieve setting from room
-            if ((m_gameSettings.side.white == "master") == isRoomMaster)
+            if (IGameRoomManager.Instance.IsMultiplayerRoom())
             {
-                if (!whitePlayer)
+                if ((m_gameSettings.side.white == "master") == isRoomMaster)
                 {
-                    whitePlayer = true;
-                    BoardRotator.Instance.RotateBoard();
-                    IGameRoomManager.Instance.TakeOwnerShip();
-                } 
-            }   
+                    if (!whitePlayer)
+                    {
+                        whitePlayer = true;
+                        BoardRotator.Instance.RotateBoard();
+                        IGameRoomManager.Instance.TakeOwnerShip();
+                    } 
+                }
+                 else
+                {
+                    if (whitePlayer)
+                    {
+                        whitePlayer = false;
+                        BoardRotator.Instance.RotateBoard();
+                    }
+                }
+            }
             else
             {
                 if (whitePlayer)
                 {
-                    whitePlayer = false;
-                    BoardRotator.Instance.RotateBoard();
+                    whitePlayer = true;
                 }
             }
         }
@@ -159,7 +169,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public void OnActionReceived(string actionName)
         {
-            Debug.Log("Action received: " + actionName);
+            // Debug.Log("Action received: " + actionName);
             Invoke(actionName, 0.1f);
         }
 

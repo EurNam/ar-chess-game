@@ -139,7 +139,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetWhiteTurn()
         {
             whiteTurn = !whiteTurn;
-            Debug.Log("White turn: " + whiteTurn);
+            // Debug.Log("White turn: " + whiteTurn);
         }
 
         public void SetInCheck(bool value)
@@ -301,6 +301,18 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             GenerateAllPossibleMoves();
             BoardManager.Instance.HideMoveGuides();
+        }
+
+        public void UpdatePieceInBoardState(int pieceIndex, Piece newPiece)
+        {
+            if (pieceIndex >= 0 && pieceIndex < boardStatePieces.Length)
+            {
+                boardStatePieces[pieceIndex] = newPiece;
+            }
+            else
+            {
+                Debug.LogError("Invalid piece index when updating board state: " + pieceIndex);
+            }
         }
         #endregion
 

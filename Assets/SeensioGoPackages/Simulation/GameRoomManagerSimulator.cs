@@ -168,7 +168,14 @@ namespace JKTechnologies.SeensioGo.GameEngine
         #region RPC
         public void RPC_RegisterToGameRoom(IGameRPC gameRPC)
         {
-            m_gameRPCActionTransfers.TryAdd(gameRPC.RPC_GetID(), gameRPC);
+            if(m_gameRPCActionTransfers.ContainsKey(gameRPC.RPC_GetID()))
+            {
+                m_gameRPCActionTransfers[gameRPC.RPC_GetID()] = gameRPC;
+            }
+            else
+            {
+                m_gameRPCActionTransfers.TryAdd(gameRPC.RPC_GetID(), gameRPC);
+            }
         }
         public void RPC_UnregisterToGameRoom(IGameRPC gameRPC)
         {

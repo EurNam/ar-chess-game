@@ -29,8 +29,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         private bool isKing = false;
         private List<Vector2Int> possibleMoves = new List<Vector2Int>();
         private Vector2Int initialBoardPosition;
-        private bool usingMouse = false;
-        private bool usingVirtualMouse = false;
+        protected bool usingMouse = false;
+        protected bool usingVirtualMouse = false;
         #endregion
 
         #region Unity Methods
@@ -275,10 +275,10 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
             else
             {
-                if (currentTile!=tempNearestTile)
-                {
-                    Debug.Log(this.name + " is moved to a new tile by the opponent.");
-                }
+                // if (currentTile!=tempNearestTile)
+                // {
+                //     Debug.Log(this.name + " is moved to a new tile by the opponent.");
+                // }
                 return tempNearestTile;
             }
         }
@@ -290,7 +290,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized() && GameManager.Instance.GetWhitePlayer() == this.colorWhite() && ARChessGameSettings.Instance.GetGameStarted()) 
             {
-                Debug.Log(this.name + " is being selected");
                 // Set the piece to be dragged
                 isDragging = true;
                 // Set the plane to be the piece
@@ -340,7 +339,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 }
                 newNearestTile.SetMoveGuideColor(Color.yellow);
                 nearestTile = newNearestTile;
-                Debug.Log("Nearest tile is " + nearestTile.GetBoardIndex());
+                // Debug.Log("Nearest tile is " + nearestTile.GetBoardIndex());
             }
         }
 
@@ -369,29 +368,29 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
-        private void HandleClickUp(){
+        protected async Task HandleClickUp(){
             if (ARChessGameSettings.Instance.GetBoardInitialized() && isDragging)
             {
                 isDragging = false;
-                SnapToNearestTile(true);
+                await SnapToNearestTile(true);
             }
         }
 
-        public virtual void OnPointerUp(PointerEventData eventData)
+        public async virtual void OnPointerUp(PointerEventData eventData)
         {
-            HandleClickUp();
+            await HandleClickUp();
             usingVirtualMouse = false;
         }
 
-        public virtual void OnMouseUp()
+        public async virtual void OnMouseUp()
         {
-            HandleClickUp();
+            await HandleClickUp();
             usingMouse = false;
         }
         #endregion
 
         #region Snap, Update Piece
-        public async void SnapToNearestTile(bool afterMove)
+        public async Task SnapToNearestTile(bool afterMove)
         {
             Tile tempCurrentTile = currentTile;
             Tile tempNearestTile = nearestTile;
@@ -401,6 +400,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 // If it does, destroy the piece and set the tile to be empty
                 Piece capturedPiece = nearestTile.GetPiece();
+                Debug.Log("Captured piece: " + capturedPiece.name);
                 try
                 {
                     IGameRoomManager.Instance.RPC_ScatterActionToRoom(capturedPiece, "Captured"); 
@@ -434,9 +434,10 @@ namespace JKTechnologies.SeensioGo.ARChess
                 transform.position = convertPoint.transform.position;
             }
 
-                currentTile.SetOccupied(false);
-                currentTile = nearestTile;
-                currentTile.SetOccupied(true, this);
+            currentTile.SetOccupied(false);
+            currentTile = nearestTile;
+            currentTile.SetOccupied(true, this);
+            Debug.Log(this.name + " is moved to " + currentTile.name);
 
             // Update the board state after move
             if (tempNearestTile != tempCurrentTile){
@@ -450,6 +451,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                     BoardManager.Instance.HideMoveGuides();
                 }
                 await Task.Delay(100);
+                Debug.Log("Wait");
                 try
                 {
                     IGameRoomManager.Instance.RPC_ScatterActionToRoom(this, "Moved");
@@ -465,7 +467,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         } 
 
-        public void UpdatePiecePositionInfo()
+        public void UpdatePiecePositionInfo(bool afterMove)
         {
             Tile tempCurrentTile = currentTile;
             Tile tempNearestTile = nearestTile;
@@ -477,7 +479,11 @@ namespace JKTechnologies.SeensioGo.ARChess
                 currentTile.SetOccupied(true, this);
                 this.SetFirstMove(false);
 
-                BoardManager.Instance.IncrementMoveCount();
+                if (afterMove)
+                {
+                    BoardManager.Instance.IncrementMoveCount();
+                }
+
                 BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this, true);
                 BoardManager.Instance.CheckForCheckmate(!this.colorWhite());
                 Debug.Log("Move count: " + BoardManager.Instance.GetMoveCount());
@@ -485,15 +491,19 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     BoardManager.Instance.HideMoveGuides();
                 }
-                Debug.Log(this.name + " is moved from " + tempCurrentTile.GetBoardIndex() + " to " + tempNearestTile.GetBoardIndex() + " by opponent.");
+                // Debug.Log(this.name + " is moved from " + tempCurrentTile.GetBoardIndex() + " to " + tempNearestTile.GetBoardIndex() + " by opponent.");
             } 
         }
 
         public void Moved()
         {
-            Debug.Log(this.name + " is moved by opponent.");
+            currentTile.SetOccupied(false);
+            currentTile = nearestTile;
+            currentTile.SetOccupied(true, this);
+            Debug.Log(this.name + " is moved to " + currentTile.name);
             this.SetNearestTile(this.FindNearestTile(false));
-            this.UpdatePiecePositionInfo();
+            Debug.Log(this.name + " new nearest tile is " + this.nearestTile.name);
+            this.UpdatePiecePositionInfo(true);
             BoardManager.Instance.PlaySnapSound();
         }
 
@@ -614,6 +624,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             // Copy data from the current piece to the new piece
             Piece newPieceComponent = newPiece.GetComponent<Piece>();
+            newPieceComponent.pieceIndex = this.pieceIndex;
             newPieceComponent.gameObject.name = this.gameObject.name;
             newPieceComponent.SetCurrentTile(this.currentTile);
             newPieceComponent.SetNearestTile(this.nearestTile);
@@ -662,7 +673,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         #region Multiplayer
         public void RPC_OnActionReceived(string actionName)
         {
-            Debug.Log("Action received: " + actionName);
+            // Debug.Log("Action received: " + actionName);
             Invoke(actionName, 0.1f);
         }
 

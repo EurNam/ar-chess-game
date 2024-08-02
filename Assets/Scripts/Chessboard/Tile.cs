@@ -42,7 +42,17 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Update is called once per frame
         void Update()
         {
-            
+            if (this.name == "g8")
+            {
+                if (piece != null)
+                {
+                    Debug.Log("This tile is now occupied: " + piece.name);
+                } 
+                else
+                {
+                    Debug.Log("This tile is now empty");
+                }
+            }
         }
 
         public Vector2Int GetBoardIndex()

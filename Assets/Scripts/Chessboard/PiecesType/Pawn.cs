@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using JKTechnologies.SeensioGo.GameEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
@@ -118,15 +119,17 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.SetPossibleMoves(possibleMoves);
         }
 
-        public override void OnMouseUp()
+        public override async void OnMouseUp()
         {
-            base.OnMouseUp();
+            await HandleClickUp();
+            usingMouse = false;
             CheckPromotion();
         }
 
-        public override void OnPointerUp(PointerEventData eventData)
+        public override async void OnPointerUp(PointerEventData eventData)
         {
-            base.OnPointerUp(eventData);
+            await HandleClickUp();
+            usingVirtualMouse = false;
             CheckPromotion();
         }
 
@@ -135,12 +138,14 @@ namespace JKTechnologies.SeensioGo.ARChess
             int promotionRow = this.colorWhite() ? 8 : 1;
             if (this.GetCurrentTile().GetBoardIndex().y == promotionRow)
             {
-                PromoteToQueen();
+                Debug.Log("Pawn promotion check");
+                IGameRoomManager.Instance?.RPC_ScatterActionToRoom(this, "PromoteToQueen");
             }
         }
 
         private void PromoteToQueen()
         {
+            Debug.Log("Promoting pawn to queen");
             // Instantiate a new queen at the pawn's position
             GameObject queenPrefab = ARChessGameSettings.Instance.GetBoardAppearanceIndex() == 0 ? BoardManager.Instance.defaultQueenPrefab : BoardManager.Instance.desertQueenPrefab;
             GameObject newQueen = Instantiate(queenPrefab, this.transform.position, Quaternion.identity, this.transform.parent);
@@ -151,24 +156,40 @@ namespace JKTechnologies.SeensioGo.ARChess
                 newQueen.name = this.name + ": Queen Promotion";
             }
             Queen queenComponent = newQueen.GetComponent<Queen>();
+
+            // Transfer properties
             queenComponent.SetCurrentTile(this.GetCurrentTile());
+            queenComponent.SetNearestTile(this.GetNearestTile());
             queenComponent.SetFirstMove(false);
             queenComponent.SetWhite(this.colorWhite());
 
-            queenComponent.SetNearestTile(this.GetNearestTile());
             queenComponent.SetKing(this.isKingPiece());
             queenComponent.SetInitialBoardPosition(this.GetInitialBoardPosition());
             queenComponent.boardParent = this.boardParent;
             queenComponent.SetTiles(this.GetTiles());
             queenComponent.SetPieceMaterial(this.colorWhite() ? 0 : 1);
             queenComponent.SetPieceIndex(this.GetPieceIndex());
-            BoardManager.Instance.UpdateBoardStatePieces();
+
+            // Update the tile to be occupied by the new queen
+            Tile currentTile = this.GetCurrentTile();
+            currentTile.SetOccupied(false); // Clear the pawn
+            currentTile.SetOccupied(true, queenComponent); // Set the new queen
 
             // Set the current tile to be occupied by the new queen
-            this.GetCurrentTile().SetOccupied(true, queenComponent);
+            BoardManager.Instance.UpdateBoardState(currentTile.GetBoardIndex(), currentTile.GetBoardIndex(), queenComponent, true);
+
+            // Explicitly update the BoardManager's piece array
+            BoardManager.Instance.UpdatePieceInBoardState(this.GetPieceIndex(), queenComponent);
+
+            // Generate possible moves for new queen
+            queenComponent.GeneratePossibleMovesForBoard(currentTile.GetBoardIndex());
 
             // Deactivate the pawn
             this.gameObject.SetActive(false);
+
+            Debug.Log("Pawn promoted to queen");
+            BoardManager.Instance.GenerateAllPossibleMoves();
+            BoardManager.Instance.CheckForCheckmate(!this.colorWhite());
         }
     }
 }
