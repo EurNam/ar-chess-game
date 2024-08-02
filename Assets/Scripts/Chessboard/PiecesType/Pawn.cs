@@ -161,6 +161,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             queenComponent.boardParent = this.boardParent;
             queenComponent.SetTiles(this.GetTiles());
             queenComponent.SetPieceMaterial(this.colorWhite() ? 0 : 1);
+            queenComponent.SetPieceIndex(this.GetPieceIndex());
             BoardManager.Instance.UpdateBoardStatePieces();
 
             // Set the current tile to be occupied by the new queen

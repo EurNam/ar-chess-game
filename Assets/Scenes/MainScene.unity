@@ -385,6 +385,7 @@ MonoBehaviour:
   toggleButton: {fileID: 36890021}
   skinButton: 0
   SwitchSidesButton: 1
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 0
 --- !u!4 &48301130 stripped
 Transform:
@@ -670,6 +671,7 @@ MonoBehaviour:
   toggleButton: {fileID: 155582969}
   skinButton: 0
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 0
 --- !u!114 &155582969
 MonoBehaviour:
@@ -1127,6 +1129,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -1201,6 +1207,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -1261,6 +1271,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1222131148}
     m_Modifications:
+    - target: {fileID: -1046882074092002201, guid: 059a74a3b4b144034a932629c7d2c2df, type: 3}
+      propertyPath: pieceIndex
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: -1046882074092002201, guid: 059a74a3b4b144034a932629c7d2c2df, type: 3}
       propertyPath: boardParent
       value: 
@@ -1522,6 +1536,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1950307212}
     m_Modifications:
+    - target: {fileID: -6683834024530431664, guid: c8c1f8d7c5dcc4c518395c3bb5436be4, type: 3}
+      propertyPath: pieceIndex
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: -6683834024530431664, guid: c8c1f8d7c5dcc4c518395c3bb5436be4, type: 3}
       propertyPath: boardParent
       value: 
@@ -1792,6 +1810,10 @@ PrefabInstance:
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: isWhite
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
@@ -2354,6 +2376,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: -1477422918691189637, guid: e7312cb55e47243d9b1219a549ccb672, type: 3}
+      propertyPath: pieceIndex
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: -1477422918691189637, guid: e7312cb55e47243d9b1219a549ccb672, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -2774,6 +2800,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9056602555077399068, guid: 0d1084487cbd24481b9b9cee6ef747c5, type: 3}
   m_PrefabInstance: {fileID: 1550401562}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &492300612 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5537977181549229928, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+  m_PrefabInstance: {fileID: 744647116}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &496834899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3028,6 +3059,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -3149,6 +3184,7 @@ MonoBehaviour:
   toggleButton: {fileID: 569625038}
   skinButton: 0
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 0
 --- !u!114 &569625038
 MonoBehaviour:
@@ -3366,6 +3402,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -3475,6 +3515,7 @@ MonoBehaviour:
   toggleButton: {fileID: 597461809}
   skinButton: 1
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 1
 --- !u!114 &597461809
 MonoBehaviour:
@@ -3811,6 +3852,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2615449247381047701, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
   m_PrefabInstance: {fileID: 744647116}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &630000711
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492300612}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 721d333ab2fdd42d0b6163ed9e46440f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &643837297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9056602555077399068, guid: 0d1084487cbd24481b9b9cee6ef747c5, type: 3}
@@ -4163,6 +4225,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -4247,6 +4313,10 @@ PrefabInstance:
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: isWhite
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
@@ -4739,6 +4809,7 @@ MonoBehaviour:
   toggleButton: {fileID: 808665276}
   skinButton: 0
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 0
 --- !u!114 &808665276
 MonoBehaviour:
@@ -5137,6 +5208,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -5436,6 +5511,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -5590,6 +5669,10 @@ PrefabInstance:
     - target: {fileID: -6683834024530431664, guid: c8c1f8d7c5dcc4c518395c3bb5436be4, type: 3}
       propertyPath: isWhite
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6683834024530431664, guid: c8c1f8d7c5dcc4c518395c3bb5436be4, type: 3}
+      propertyPath: pieceIndex
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -6683834024530431664, guid: c8c1f8d7c5dcc4c518395c3bb5436be4, type: 3}
       propertyPath: boardParent
@@ -5773,6 +5856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 937240784}
   - component: {fileID: 937240785}
+  - component: {fileID: 937240786}
   m_Layer: 0
   m_Name: ARChess
   m_TagString: Untagged
@@ -5811,6 +5895,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameID: XWVSJ2yCtyLlez9F47tu
+--- !u!114 &937240786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937240783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1865433e3394edf9cdcae25d84ce08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &937640003
 GameObject:
   m_ObjectHideFlags: 0
@@ -6015,6 +6111,10 @@ PrefabInstance:
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: piece
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
@@ -6331,6 +6431,10 @@ PrefabInstance:
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: isWhite
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
@@ -7042,6 +7146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fc28ca16c0c41089d5b84bb4c8a158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieceIndex: 23
   piece: {fileID: 0}
   isWhite: 0
   boardParent: {fileID: 937240783}
@@ -7714,6 +7819,7 @@ MonoBehaviour:
   toggleButton: {fileID: 1220415996}
   skinButton: 0
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 0
 --- !u!114 &1220415996
 MonoBehaviour:
@@ -8548,6 +8654,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -8770,6 +8880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fc28ca16c0c41089d5b84bb4c8a158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieceIndex: 8
   piece: {fileID: 0}
   isWhite: 1
   boardParent: {fileID: 937240783}
@@ -8829,6 +8940,10 @@ PrefabInstance:
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: piece
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
@@ -9569,6 +9684,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: -2421561045584307141, guid: 4df16bfe0e5234a9fa4d11f5c9fa0e12, type: 3}
+      propertyPath: pieceIndex
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: -2421561045584307141, guid: 4df16bfe0e5234a9fa4d11f5c9fa0e12, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -9647,6 +9766,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -9722,6 +9845,10 @@ PrefabInstance:
     - target: {fileID: -2421561045584307141, guid: 4df16bfe0e5234a9fa4d11f5c9fa0e12, type: 3}
       propertyPath: piece
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: -2421561045584307141, guid: 4df16bfe0e5234a9fa4d11f5c9fa0e12, type: 3}
+      propertyPath: pieceIndex
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: -2421561045584307141, guid: 4df16bfe0e5234a9fa4d11f5c9fa0e12, type: 3}
       propertyPath: boardParent
@@ -10394,6 +10521,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1950307212}
     m_Modifications:
     - target: {fileID: -6683834024530431664, guid: c8c1f8d7c5dcc4c518395c3bb5436be4, type: 3}
+      propertyPath: pieceIndex
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: -6683834024530431664, guid: c8c1f8d7c5dcc4c518395c3bb5436be4, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -10548,6 +10679,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
+      propertyPath: pieceIndex
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049127466872967633, guid: 8859cc9bc21d84fed990503313f2a7fb, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -10674,6 +10809,7 @@ MonoBehaviour:
   toggleButton: {fileID: 1641523289}
   skinButton: 0
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 0
 --- !u!114 &1641523289
 MonoBehaviour:
@@ -11163,6 +11299,7 @@ MonoBehaviour:
   toggleButton: {fileID: 1678299295}
   skinButton: 0
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 0
 --- !u!114 &1678299295
 MonoBehaviour:
@@ -11955,6 +12092,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2421561045584307141, guid: 4df16bfe0e5234a9fa4d11f5c9fa0e12, type: 3}
+      propertyPath: pieceIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2421561045584307141, guid: 4df16bfe0e5234a9fa4d11f5c9fa0e12, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -12596,6 +12737,7 @@ MonoBehaviour:
   toggleButton: {fileID: 1856033435}
   skinButton: 1
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 0
 --- !u!114 &1856033435
 MonoBehaviour:
@@ -13102,6 +13244,7 @@ MonoBehaviour:
   toggleButton: {fileID: 1990009888}
   skinButton: 0
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 0
 --- !u!114 &1990009888
 MonoBehaviour:
@@ -13241,6 +13384,7 @@ MonoBehaviour:
   toggleButton: {fileID: 1993545142}
   skinButton: 0
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 0
   tileAppearanceIndex: 0
 --- !u!114 &1993545142
 MonoBehaviour:
@@ -13351,6 +13495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fc28ca16c0c41089d5b84bb4c8a158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieceIndex: 24
   piece: {fileID: 0}
   isWhite: 0
   boardParent: {fileID: 937240783}
@@ -14351,6 +14496,7 @@ MonoBehaviour:
   toggleButton: {fileID: 2142969840}
   skinButton: 0
   SwitchSidesButton: 0
+  SwitchBoardSkinButton: 1
   tileAppearanceIndex: 0
 --- !u!1001 &200271244168168250
 PrefabInstance:
@@ -14362,6 +14508,10 @@ PrefabInstance:
     - target: {fileID: 2209146672363040093, guid: fc874657b759c422ca71060a1523ba37, type: 3}
       propertyPath: isWhite
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209146672363040093, guid: fc874657b759c422ca71060a1523ba37, type: 3}
+      propertyPath: pieceIndex
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2209146672363040093, guid: fc874657b759c422ca71060a1523ba37, type: 3}
       propertyPath: boardParent
@@ -14477,6 +14627,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7106450232425122363, guid: 467c13eb1f7cb43de9f76e40806230b9, type: 3}
+      propertyPath: pieceIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7106450232425122363, guid: 467c13eb1f7cb43de9f76e40806230b9, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -14489,6 +14643,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1297256582}
     m_Modifications:
+    - target: {fileID: 1552327753955848868, guid: c294a5089672949018d9ce1fa8766f55, type: 3}
+      propertyPath: pieceIndex
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1552327753955848868, guid: c294a5089672949018d9ce1fa8766f55, type: 3}
       propertyPath: boardParent
       value: 
@@ -14613,6 +14771,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8411340470533485139, guid: 4d36f2ca5243c4ade8936a9fad4e9048, type: 3}
+      propertyPath: pieceIndex
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8411340470533485139, guid: 4d36f2ca5243c4ade8936a9fad4e9048, type: 3}
       propertyPath: boardParent
       value: 
       objectReference: {fileID: 937240783}
@@ -14628,6 +14790,10 @@ PrefabInstance:
     - target: {fileID: 1651527591014945776, guid: a01957c0e8a1f427d872695e68c28971, type: 3}
       propertyPath: isWhite
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651527591014945776, guid: a01957c0e8a1f427d872695e68c28971, type: 3}
+      propertyPath: pieceIndex
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1651527591014945776, guid: a01957c0e8a1f427d872695e68c28971, type: 3}
       propertyPath: boardParent
@@ -14740,6 +14906,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6368501836690657949, guid: aa586b81009664286b5649f968a8a59f, type: 3}
       propertyPath: isWhite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368501836690657949, guid: aa586b81009664286b5649f968a8a59f, type: 3}
+      propertyPath: pieceIndex
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6368501836690657949, guid: aa586b81009664286b5649f968a8a59f, type: 3}

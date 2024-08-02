@@ -49,42 +49,52 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private async void Start()
         {
-            #if SEENSIOGO
-                IGameRoomManager.Instance.SetGameInstance(this,gameID);
-                IGameRoomManager.Instance.RegisterGameActionListener(this);
-                isRoomMaster = IGameRoomManager.Instance.IsRoomMaster();
-                if (!isRoomMaster)
-                {
-                    TileAppearanceButton.Instance.HideButton();
-                }
-                m_gameSettings = await IGameRoomManager.Instance.GetGameRoomSettings<GameSettings>();
-                this.SetGameSettings();
+            IGameRoomManager.Instance.SetGameInstance(this,gameID);
+            IGameRoomManager.Instance.RegisterGameActionListener(this);
+            isRoomMaster = IGameRoomManager.Instance.IsRoomMaster();
+            if (!isRoomMaster)
+            {
+                TileAppearanceButton.Instance.HideButton();
+            }
+            m_gameSettings = await IGameRoomManager.Instance.GetGameRoomSettings<GameSettings>();
+            this.SetGameSettings();
 
-                BufferData bufferData = await IGameRoomManager.Instance.GetBufferDataToRoom<BufferData>();
-                if (bufferData == null)
-                {
-                    bufferData = GameManagerBufferData.Instance.GetBufferData();
-                    IGameRoomManager.Instance.SetBufferRoomData(bufferData);
-                }
-                else 
-                {
-                    GameManagerBufferData.Instance.SetBufferData(bufferData);
-                    ARChessGameSettings.Instance.SetBoardSkin(bufferData.boardAppearanceIndex);
-                    BoardManager.Instance.UpdatePieceCaptureState(bufferData.boardPieceState);
-                }
+            BufferData bufferData = null;
+            if (isRoomMaster)
+            {
+                bufferData = GameManagerBufferData.Instance.GetDefaultBufferData();
+                await IGameRoomManager.Instance.SetBufferRoomData(bufferData);
+            }
+            else
+            {
+                bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
+            }
 
-            #else
-                // m_playerID = "White";
-                // m_gameSettings[0] = m_playerID;
-                // if (m_gameSettings[0] != null)
-                // {
-                //     whitePlayer = true;
-                // }
-                // else 
-                // {
-                //     whitePlayer = false;
-                // }
-            #endif
+            if (bufferData != null)
+            {
+                GameManagerBufferData.Instance.SetBufferData(bufferData);
+            }
+            else
+            {
+                Debug.LogError("Buffer data is null");
+                return;
+            }
+
+            ARChessGameSettings.Instance.SetBoardSkin(bufferData.boardAppearanceIndex);
+            BoardManager.Instance.UpdatePieceCaptureState(bufferData.boardPieceState);
+
+            // if (isRoomMaster || !IGameRoomManager.Instance.IsMultiplayerRoom())
+            // {
+            //     BufferData bufferData = GameManagerBufferData.Instance.GetBufferData();
+            //     await IGameRoomManager.Instance.SetBufferRoomData(bufferData);
+            // }
+            // else 
+            // {
+            //     BufferData bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
+            //     GameManagerBufferData.Instance.SetBufferData(bufferData);
+            //     ARChessGameSettings.Instance.SetBoardSkin(bufferData.boardAppearanceIndex);
+            //     BoardManager.Instance.UpdatePieceCaptureState(bufferData.boardPieceState);
+            // }
         }
 
         public bool GetWhitePlayer()
@@ -138,22 +148,13 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Switch room turn
         public void SwitchRoomTurn()
         {
-            #if SEENSIOGO
-                IGameRoomManager.Instance.ScatterActionToRoom("SwitchTurn");
-            #else
-                this.SwitchTurn();
-            #endif
-            
+            IGameRoomManager.Instance.ScatterActionToRoom("SwitchTurn");
         }
 
-        public void ChangeRoomBoardSkin()
+        public async void ChangeRoomBoardSkin()
         {
-            #if SEENSIOGO
-                IGameRoomManager.Instance.SetBufferRoomData(GameManagerBufferData.Instance.GetBufferData());
-                IGameRoomManager.Instance.ScatterActionToRoom("ChangeBoardSkin");
-            #else
-                this.ChangeBoardSkin();
-            #endif
+            await IGameRoomManager.Instance.SetBufferRoomData(GameManagerBufferData.Instance.GetBufferData());
+            IGameRoomManager.Instance.ScatterActionToRoom("ChangeBoardSkin");
         }
 
         public void OnActionReceived(string actionName)
@@ -167,14 +168,17 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             BoardManager.Instance.SetWhiteTurn();
 
-            #if !SEENSIOGO
+            if (!IGameRoomManager.Instance.IsMultiplayerRoom())
+            {
                 this.SetWhitePlayer(!this.whitePlayer);
-            #else
+            } 
+            else
+            { 
                 if (this.IsMyTurn())
                 {
                     IGameRoomManager.Instance.TakeOwnerShip();
                 }
-            #endif
+            }
         }
 
         public async void ChangeBoardSkin()

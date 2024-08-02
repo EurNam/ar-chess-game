@@ -12,6 +12,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
         #endregion
         
         #region COMMONs
+        public bool IsMultiplayerRoom();
         public bool IsRoomMaster();
         public string GetDisplayName();
         public void TakeOwnerShip();

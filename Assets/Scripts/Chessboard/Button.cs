@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using JKTechnologies.SeensioGo.GameEngine;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
@@ -89,8 +90,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 BoardRotator.Instance.RotateBoard();
             }
 
-            #if !SEENSIOGO
-            if (isWhitePlayer)
+            if (!IGameRoomManager.Instance.IsMultiplayerRoom())
             {
                 GameManager.Instance.SetWhitePlayer(true);
             }
@@ -98,7 +98,6 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 GameManager.Instance.SetWhitePlayer(false);
             }
-            #endif
         }
 
         public void OnPointerDown(PointerEventData eventData)

@@ -8,6 +8,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
     // Simulator: -> 2 room
     public class GameRoomManagerSimulator : MonoBehaviour, IGameRoomManager
     {
+        public bool IsMultiplayer = false;
         public GameObject messagePopup;
         public TextMeshProUGUI messagePopupText;
         private IGameInstance m_gameInstance;
@@ -28,6 +29,11 @@ namespace JKTechnologies.SeensioGo.GameEngine
             }
         }  
         #region COMMONs
+        public bool IsMultiplayerRoom()
+        {
+            return IsMultiplayer;
+        }
+
         public bool IsRoomMaster()
         {
             return true;

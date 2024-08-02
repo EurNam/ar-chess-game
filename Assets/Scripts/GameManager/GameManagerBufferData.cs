@@ -14,12 +14,24 @@ namespace JKTechnologies.SeensioGo.ARChess
         private void Awake()
         {
             Instance = this;
-            bufferData.boardAppearanceIndex = 0;
-            bufferData.boardPieceState = new string[32];
+            // bufferData.boardAppearanceIndex = 0;
+            // bufferData.boardPieceState = new string[32];
+            // for (int i = 0; i < 32; i++)
+            // {
+            //     bufferData.boardPieceState[i] = i.ToString();
+            // }
+        }
+
+        public BufferData GetDefaultBufferData()
+        {
+            BufferData defaultBufferData = new BufferData();
+            defaultBufferData.boardAppearanceIndex = 0;
+            defaultBufferData.boardPieceState = new string[32];
             for (int i = 0; i < 32; i++)
             {
-                bufferData.boardPieceState[i] = i.ToString();
+                defaultBufferData.boardPieceState[i] = (i + 1).ToString();
             }
+            return defaultBufferData;
         }
 
         public void SetBufferData(BufferData bufferData)

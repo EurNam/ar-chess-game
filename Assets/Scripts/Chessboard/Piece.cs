@@ -38,17 +38,12 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             piece = this;
             this.SetFirstMove(true);
-            // boardParent = this.gameObject.GetComponentInParent<GameObject>();
         }
 
         // Start is called before the first frame update
         protected virtual void Start()
         {
-            #if SEENSIOGO
-                IGameRoomManager.Instance.RegisterRPCToGameRoom(this);
-            #endif
-            // FindCurrentTile();
-            // this.SetFirstMove(true);
+            IGameRoomManager.Instance.RPC_RegisterToGameRoom(this);
         }
 
         // Update is called once per frame
@@ -109,6 +104,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             return tiles;
         }
 
+        public int GetPieceIndex()
+        {
+            return pieceIndex;
+        }
+
         public void SetPossibleMoves(List<Vector2Int> moves)
         {
             possibleMoves = moves;
@@ -147,6 +147,11 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetTiles(Tile[] tiles)
         {
             this.tiles = tiles;
+        }
+
+        public void SetPieceIndex(int index)
+        {
+            pieceIndex = index;
         }
 
         public void SetPieceMaterial(int materialIndex)
