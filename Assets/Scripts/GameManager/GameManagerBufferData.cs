@@ -54,6 +54,26 @@ namespace JKTechnologies.SeensioGo.ARChess
             return bufferData.boardAppearanceIndex;
         }
 
+        public void SetMasterName(string masterName)
+        {
+            bufferData.masterName = masterName;
+        }
+
+        public string GetMasterName()
+        {
+            return bufferData.masterName;
+        }
+
+        public void SetGuestName(string guestName)
+        {
+            bufferData.guestName = guestName;
+        }
+
+        public string GetGuestName()
+        {
+            return bufferData.guestName;
+        }
+
         public void SetBufferPiecesData(string[] boardPieceState)
         {
             bufferData.boardPieceState = boardPieceState;

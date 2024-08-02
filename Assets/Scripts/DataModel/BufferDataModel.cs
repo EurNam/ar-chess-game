@@ -8,5 +8,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         public int boardAppearanceIndex;
 
         public string[] boardPieceState;
+
+        public string masterName;
+        public string guestName;
     }
 }

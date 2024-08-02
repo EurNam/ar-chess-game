@@ -63,12 +63,19 @@ namespace JKTechnologies.SeensioGo.ARChess
             if (isRoomMaster)
             {
                 bufferData = GameManagerBufferData.Instance.GetDefaultBufferData();
+                string masterName = IGameRoomManager.Instance.GetDisplayName();
+                bufferData.masterName = masterName;
+                bufferData.guestName = "";
                 await IGameRoomManager.Instance.SetBufferRoomData(bufferData);
             }
             else
             {
                 bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
+                string guestName = IGameRoomManager.Instance.GetDisplayName();
+                bufferData.guestName = guestName;
+                await IGameRoomManager.Instance.SetBufferRoomData(bufferData);
             }
+            IGameRoomManager.Instance.ScatterActionToRoom("UpdateNameTags");
 
             if (bufferData != null)
             {
@@ -82,6 +89,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             ARChessGameSettings.Instance.SetBoardSkin(bufferData.boardAppearanceIndex);
             BoardManager.Instance.UpdatePieceCaptureState(bufferData.boardPieceState);
+
 
             // if (isRoomMaster || !IGameRoomManager.Instance.IsMultiplayerRoom())
             // {
@@ -171,6 +179,17 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             // Debug.Log("Action received: " + actionName);
             Invoke(actionName, 0.1f);
+        }
+
+        // 
+        public async void UpdateNameTags()
+        {
+            BufferData bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
+            GameManagerBufferData.Instance.SetBufferData(bufferData);
+            Debug.Log("Master name: " + bufferData.masterName);
+            Debug.Log("Guest name: " + bufferData.guestName);
+            NameTag.Instance.SetMasterName(bufferData.masterName);
+            NameTag.Instance.SetGuestName(bufferData.guestName);
         }
 
         // Update local turn and board state pieces position

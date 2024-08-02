@@ -462,11 +462,11 @@ namespace JKTechnologies.SeensioGo.ARChess
                         {
                             if (nameTag.isUser)
                             {
-                                nameTag.SetName("White Won!");
+                                nameTag.SetMasterName("White Won!");
                             }
                             else
                             {
-                                nameTag.SetName("Black Lost!");
+                                nameTag.SetGuestName("Black Lost!");
                             }
                         }
                     }
@@ -477,11 +477,11 @@ namespace JKTechnologies.SeensioGo.ARChess
                         {
                             if (nameTag.isUser)
                             {
-                                nameTag.SetName("White Lost!");
+                                nameTag.SetMasterName("White Lost!");
                             }
                             else
                             {
-                                nameTag.SetName("Black Won!");
+                                nameTag.SetGuestName("Black Won!");
                             }
                         }
                     }
