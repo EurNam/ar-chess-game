@@ -52,6 +52,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             IGameRoomManager.Instance.SetGameInstance(this,gameID);
             IGameRoomManager.Instance.RegisterGameActionListener(this);
             isRoomMaster = IGameRoomManager.Instance.IsRoomMaster();
+            roomHost = isRoomMaster;
             if (!isRoomMaster)
             {
                 TileAppearanceButton.Instance.HideButton();
@@ -186,10 +187,16 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             BufferData bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
             GameManagerBufferData.Instance.SetBufferData(bufferData);
-            Debug.Log("Master name: " + bufferData.masterName);
-            Debug.Log("Guest name: " + bufferData.guestName);
-            NameTag.Instance.SetMasterName(bufferData.masterName);
-            NameTag.Instance.SetGuestName(bufferData.guestName);
+            if (roomHost)
+            {
+                NameTag.Instance.SetMasterName(bufferData.masterName);
+                NameTag.Instance.SetGuestName(bufferData.guestName);
+            } 
+            else
+            {
+                NameTag.Instance.SetMasterName(bufferData.guestName);
+                NameTag.Instance.SetGuestName(bufferData.masterName);
+            }
         }
 
         // Update local turn and board state pieces position
