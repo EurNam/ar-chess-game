@@ -225,25 +225,52 @@ namespace JKTechnologies.SeensioGo.ARChess
 
                 foreach (int col in rookCol)
                 {
-                    if (col == 1){
-                        right = -1;
-                    } else {
-                        right = 1;
+                    int direction = (col == 8) ? 1 : -1; // 1 for kingside, -1 for queenside
+                    bool isQueenside = (col == 1);
+
+                    // Check if the tiles between the king and rook are empty
+                    bool pathClear = true;
+                    for (int i = 1; i <= (isQueenside ? 3 : 2); i++)
+                    {
+                        if (BoardManager.Instance.GetTile(new Vector2Int(kingPosition.x + i * direction, kingPosition.y)).GetPiece() != null)
+                        {
+                            pathClear = false;
+                            break;
+                        }
                     }
 
-                    // Check if the tile next to the king is empty
-                    if (BoardManager.Instance.GetTile(new Vector2Int(kingPosition.x+right, kingPosition.y)).GetPiece() == null){
+                // foreach (int col in rookCol)
+                // {
+                //     if (col == 1){
+                //         right = -1;
+                //     } else {
+                //         right = 1;
+                //     }
 
-                        // Check if the tile two tiles next to the king is empty
-                        if (BoardManager.Instance.GetTile(new Vector2Int(kingPosition.x+2*right, kingPosition.y)).GetPiece() == null){
+                //     bool pathClear = true;
+                //     for (int i = 1; i <= (isQueenside ? 3 : 2); i++)
+                //     {
+                //         if (BoardManager.Instance.GetTile(new Vector2Int(kingPosition.x + i * direction, kingPosition.y)).GetPiece() != null)
+                //         {
+                //             pathClear = false;
+                //             break;
+                //         }
+                //     }
+                //   // Check if the tile next to the king is empty
+                //   if (BoardManager.Instance.GetTile(new Vector2Int(kingPosition.x+right, kingPosition.y)).GetPiece() == null){
 
-                            // Check if the rook hasn't moved
-                            Tile rookTile = BoardManager.Instance.GetTile(new Vector2Int(col, kingPosition.y));
-                            if (rookTile.GetPiece() is Rook rook && this.colorWhite() == rook.colorWhite() && rook.isFirstMove()){
-                                BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(new Vector2Int(kingPosition.x+2*right, kingPosition.y), this);
-                                possibleMoves.Add(new Vector2Int(kingPosition.x+2*right, kingPosition.y));
-                                BoardManager.Instance.ShowMoveGuides(new Vector2Int(kingPosition.x+2*right, kingPosition.y), moveType);
-                            }
+                //       // Check if the tile two tiles next to the king is empty
+                //       if (BoardManager.Instance.GetTile(new Vector2Int(kingPosition.x+2*right, kingPosition.y)).GetPiece() == null){
+
+                    if (pathClear)
+                    {
+                        // Check if the rook hasn't moved
+                        Tile rookTile = BoardManager.Instance.GetTile(new Vector2Int(col, kingPosition.y));
+                        if (rookTile.GetPiece() is Rook rook && this.colorWhite() == rook.colorWhite() && rook.isFirstMove())
+                        {
+                            BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(new Vector2Int(kingPosition.x+2*direction, kingPosition.y), this);
+                            possibleMoves.Add(new Vector2Int(kingPosition.x+2*direction, kingPosition.y));
+                            BoardManager.Instance.ShowMoveGuides(new Vector2Int(kingPosition.x+2*direction, kingPosition.y), moveType);
                         }
                     }
                 }
