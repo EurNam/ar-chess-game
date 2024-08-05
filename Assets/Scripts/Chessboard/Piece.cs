@@ -512,9 +512,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             Debug.Log(this.name + " is captured by opponent.");
             this.GetCurrentTile().SetOccupied(false);
             BoardManager.Instance.PlayCaptureSound();
+            this.gameObject.SetActive(false);
             int index = this.RPC_GetID()-1;
             GameManagerBufferData.Instance.SetBufferPieceData(null, index);
-            this.gameObject.SetActive(false);
         }
         #endregion
 
