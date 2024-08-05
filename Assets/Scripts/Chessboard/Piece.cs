@@ -177,7 +177,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.GeneratePossibleMoves(currentBoardPosition);
         }
 
-        private void FilterMovesToAvoidCheck()
+        private void FilterMovesToAvoidCheck(bool afterMove)
         {
             List<Vector2Int> validMoves = new List<Vector2Int>();
 
@@ -201,16 +201,20 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             possibleMoves = validMoves;
-            foreach (Vector2Int move in possibleMoves)
+
+            if (afterMove)
             {
-                if (BoardManager.Instance.GetTile(move).GetPiece() != null)
+                foreach (Vector2Int move in possibleMoves)
                 {
-                    BoardManager.Instance.ShowMoveGuides(move, BoardManager.MoveType.Capture);
-                } else {
-                    BoardManager.Instance.ShowMoveGuides(move, BoardManager.MoveType.Allowed);
+                    if (BoardManager.Instance.GetTile(move).GetPiece() != null)
+                    {
+                        BoardManager.Instance.ShowMoveGuides(move, BoardManager.MoveType.Capture);
+                    } else {
+                        BoardManager.Instance.ShowMoveGuides(move, BoardManager.MoveType.Allowed);
+                    }
                 }
+                BoardManager.Instance.ShowMoveGuides(this.GetCurrentTile().GetBoardIndex(), BoardManager.MoveType.Stay);
             }
-            BoardManager.Instance.ShowMoveGuides(this.GetCurrentTile().GetBoardIndex(), BoardManager.MoveType.Stay);
         }
         #endregion
 
@@ -298,7 +302,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
                 // Generate the possible moves for the piece
                 GeneratePossibleMoves(currentTile.GetBoardIndex());
-                FilterMovesToAvoidCheck();
+                FilterMovesToAvoidCheck(true);
             }
         }
 
@@ -400,7 +404,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 // If it does, destroy the piece and set the tile to be empty
                 Piece capturedPiece = nearestTile.GetPiece();
-                Debug.Log("Captured piece: " + capturedPiece.name);
+                //Debug.Log("Captured piece: " + capturedPiece.name);
                 try
                 {
                     IGameRoomManager.Instance.RPC_ScatterActionToRoom(capturedPiece, "Captured"); 
@@ -437,7 +441,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             currentTile.SetOccupied(false);
             currentTile = nearestTile;
             currentTile.SetOccupied(true, this);
-            Debug.Log(this.name + " is moved to " + currentTile.name);
+            //Debug.Log(this.name + " is moved to " + currentTile.name);
 
             // Update the board state after move
             if (tempNearestTile != tempCurrentTile){
@@ -451,7 +455,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                     BoardManager.Instance.HideMoveGuides();
                 }
                 await Task.Delay(100);
-                Debug.Log("Wait");
+                //Debug.Log("Wait");
                 try
                 {
                     IGameRoomManager.Instance.RPC_ScatterActionToRoom(this, "Moved");
@@ -486,7 +490,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
                 BoardManager.Instance.UpdateBoardState(tempCurrentTile.GetBoardIndex(), tempNearestTile.GetBoardIndex(), this, true);
                 BoardManager.Instance.CheckForCheckmate(!this.colorWhite());
-                Debug.Log("Move count: " + BoardManager.Instance.GetMoveCount());
+                //Debug.Log("Move count: " + BoardManager.Instance.GetMoveCount());
                 if (BoardManager.Instance.GetMoveCount() == 0)
                 {
                     BoardManager.Instance.HideMoveGuides();
@@ -500,16 +504,16 @@ namespace JKTechnologies.SeensioGo.ARChess
             currentTile.SetOccupied(false);
             currentTile = nearestTile;
             currentTile.SetOccupied(true, this);
-            Debug.Log(this.name + " is moved to " + currentTile.name);
+            //Debug.Log(this.name + " is moved to " + currentTile.name);
             this.SetNearestTile(this.FindNearestTile(false));
-            Debug.Log(this.name + " new nearest tile is " + this.nearestTile.name);
+            //Debug.Log(this.name + " new nearest tile is " + this.nearestTile.name);
             this.UpdatePiecePositionInfo(true);
             BoardManager.Instance.PlaySnapSound();
         }
 
         public void Captured()
         {
-            Debug.Log(this.name + " is captured by opponent.");
+            //Debug.Log(this.name + " is captured by opponent.");
             this.GetCurrentTile().SetOccupied(false);
             BoardManager.Instance.PlayCaptureSound();
             this.gameObject.SetActive(false);

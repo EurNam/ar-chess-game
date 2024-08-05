@@ -497,9 +497,110 @@ namespace JKTechnologies.SeensioGo.ARChess
                     boardState[GetBlackKingPosition().x, GetBlackKingPosition().y].SetMoveGuideShown(true);
                     boardState[GetBlackKingPosition().x, GetBlackKingPosition().y].SetMoveGuideColor(MoveType.Check);
                 }
+            } 
+            else 
+            {
+                if (CheckForStalemate(whiteKing))
+                {
+                    NameTag[] nameTags = FindObjectsOfType<NameTag>();
+                    Debug.Log("Stalemate");
+                    foreach (NameTag nameTag in nameTags)
+                    {
+                        if (nameTag.isUser)
+                        {
+                            nameTag.SetMasterName("Stalemate!");
+                        }
+
+                        if (!nameTag.isUser)
+                        {
+                            nameTag.SetGuestName("Stalemate!");
+                        }
+                    }
+                }
             }
         }
 
+        #endregion
+
+        #region Stalemate
+        // public bool CheckForStalemate(bool isWhite)
+        // {
+        //     int piecesLeft = 0;
+        //     int possibleMoves = 0;
+        //     foreach (Piece piece in boardStatePieces)
+        //     {
+        //         if (piece.gameObject.activeSelf)
+        //         {
+        //             if (piece.colorWhite() == isWhite)
+        //             {
+        //                 piecesLeft++;
+        //                 possibleMoves += piece.GetPossibleMoves().Count;
+        //             }
+        //         }
+        //     }
+
+        //     possibleMoves -= piecesLeft;
+
+        //     Debug.Log(isWhite + " has the amount of pieces of: " + piecesLeft);
+        //     Debug.Log(isWhite + " has the amount of moves of: " + possibleMoves);
+
+        //     return possibleMoves <= 0;
+        // }
+
+        public bool CheckForStalemate(bool isWhite)
+        {
+            int piecesLeft = 0;
+            int possibleMoves = 0;
+
+            foreach (Piece piece in boardStatePieces)
+            {
+                if (piece.gameObject.activeSelf && piece.colorWhite() == isWhite)
+                {
+                    piecesLeft++;
+                    List<Vector2Int> legalMoves = GetLegalMovesForPiece(piece);
+                    possibleMoves += legalMoves.Count;
+                }
+            }
+
+            possibleMoves -= piecesLeft;
+
+            //Debug.Log(isWhite ? "White" : "Black" + " has " + piecesLeft + " pieces left.");
+            //Debug.Log(isWhite ? "White" : "Black" + " has " + possibleMoves + " legal moves.");
+
+            return piecesLeft > 0 && possibleMoves == 0;
+        }
+
+        private List<Vector2Int> GetLegalMovesForPiece(Piece piece)
+        {
+            Vector2Int currentPosition = piece.GetCurrentTile().GetBoardIndex();
+            piece.GeneratePossibleMovesForBoard(currentPosition);
+            List<Vector2Int> allMoves = new List<Vector2Int>(piece.GetPossibleMoves());
+            List<Vector2Int> legalMoves = new List<Vector2Int>();
+
+            foreach (Vector2Int move in allMoves)
+            {
+                Tile targetTile = GetTile(move);
+                Piece originalPiece = targetTile.GetPiece();
+                Tile originalTile = piece.GetCurrentTile();
+
+                // Simulate the move
+                targetTile.SetOccupied(true, piece);
+                originalTile.SetOccupied(false);
+                UpdateBoardState(currentPosition, move, piece, false);
+
+                if (!IsKingChecked(piece.colorWhite()))
+                {
+                    legalMoves.Add(move);
+                }
+
+                // Revert the move
+                targetTile.SetOccupied(originalPiece != null, originalPiece);
+                originalTile.SetOccupied(true, piece);
+                UpdateBoardState(move, currentPosition, piece, false);
+            }
+
+            return legalMoves;
+        }
         #endregion
 
         #region Play Sound

@@ -186,7 +186,6 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             // Deactivate the pawn
             this.gameObject.SetActive(false);
-            Destroy(this.gameObject);
 
             Debug.Log("Pawn promoted to queen");
             BoardManager.Instance.GenerateAllPossibleMoves();
