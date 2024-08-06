@@ -19,7 +19,9 @@ namespace JKTechnologies.SeensioGo.ARChess
         private GameObject tilePrefab;
         private Renderer moveGuideRenderer;
         private Transform moveGuideTransform;
-        
+        private Transform bloodTransform;
+        private Transform deathTransform;
+        private Vector3 originalDeathPosition;
 
         void Awake()
         {
@@ -37,6 +39,21 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             SetMoveGuideShown(false);
+
+            Transform bloodTransform = transform.Find("Blood");
+            if (bloodTransform != null)
+            {
+                this.bloodTransform = bloodTransform;
+                SetBloodShown(false);
+            }
+
+            Transform deathTransform = transform.Find("Death");
+            if (deathTransform != null)
+            {
+                this.deathTransform = deathTransform;
+                originalDeathPosition = deathTransform.localPosition;
+                SetDeathShown(false);
+            }
         }
 
         // Update is called once per frame
@@ -129,6 +146,93 @@ namespace JKTechnologies.SeensioGo.ARChess
             if (moveGuideRenderer != null)
             {
                 moveGuideRenderer.material.color = color;
+            }
+        }
+
+        public void SetBloodShown(bool shown)
+        {
+            if (bloodTransform != null)
+            {
+                bloodTransform.gameObject.SetActive(shown);
+            }
+        }
+
+        public void ShowBloodTemporarily()
+        {
+            StartCoroutine(ShowBloodCoroutine());
+        }
+
+        private IEnumerator ShowBloodCoroutine()
+        {
+            SetBloodShown(true);
+            yield return new WaitForSeconds(3f);
+            SetBloodShown(false);
+        }
+
+        public void SetDeathShown(bool shown)
+        {
+            if (deathTransform != null)
+            {
+                deathTransform.gameObject.SetActive(shown);
+            }
+        }
+
+        public void ShowDeathTemporarily()
+        {
+            StartCoroutine(ShowDeathCoroutine());
+        }
+
+        private IEnumerator ShowDeathCoroutine()
+        {
+            SetDeathShown(true);
+            Vector3 targetPosition = originalDeathPosition + Vector3.up * 4f;
+            float duration = 2f;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                float t = elapsedTime / duration;
+                deathTransform.localPosition = Vector3.Lerp(originalDeathPosition, targetPosition, t);
+                
+                // Fade out effect
+                CanvasGroup canvasGroup = deathTransform.GetComponent<CanvasGroup>();
+                if (canvasGroup != null)
+                {
+                    canvasGroup.alpha = 1 - t;
+                }
+                else
+                {
+                    Renderer renderer = deathTransform.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        Color color = renderer.material.color;
+                        color.a = 1 - t;
+                        renderer.material.color = color;
+                    }
+                }
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            SetDeathShown(false);
+            deathTransform.localPosition = originalDeathPosition;
+            
+            // Reset alpha
+            CanvasGroup cg = deathTransform.GetComponent<CanvasGroup>();
+            if (cg != null)
+            {
+                cg.alpha = 1;
+            }
+            else
+            {
+                Renderer r = deathTransform.GetComponent<Renderer>();
+                if (r != null)
+                {
+                    Color c = r.material.color;
+                    c.a = 1;
+                    r.material.color = c;
+                }
             }
         }
 

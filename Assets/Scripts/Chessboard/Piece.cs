@@ -515,6 +515,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             //Debug.Log(this.name + " is captured by opponent.");
             this.GetCurrentTile().SetOccupied(false);
+            this.GetCurrentTile().ShowBloodTemporarily();
+            this.GetCurrentTile().ShowDeathTemporarily();
             BoardManager.Instance.PlayCaptureSound();
             this.gameObject.SetActive(false);
             int index = this.RPC_GetID()-1;

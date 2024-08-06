@@ -10,12 +10,16 @@ namespace JKTechnologies.SeensioGo.ARChess
         public static NameTag Instance;
         public bool isUser;
         private string playerName;
+        public TextMeshPro playerWins;
+        public TextMeshPro playerLosses;
         private TextMeshPro text;
         void Awake()
         {
             Instance = this;
             text = this.gameObject.GetComponent<TextMeshPro>();
             text.text = playerName ?? "Player";
+            playerWins.text = $"W:{Random.Range(0, 100)}";
+            playerLosses.text = $"L:{Random.Range(0, 100)}";
             Debug.Log("NameTag: " + text.text);
         }
 
@@ -25,6 +29,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 playerName = name;
                 text.text = playerName;
+                playerWins.text = $"W:{Random.Range(0, 100)}";
+                playerLosses.text = $"L:{Random.Range(0, 100)}";
             }
         }
 
@@ -34,6 +40,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 playerName = name;
                 text.text = playerName;
+                playerWins.text = $"W:{Random.Range(0, 100)}";
+                playerLosses.text = $"L:{Random.Range(0, 100)}";
             }
         }
     }

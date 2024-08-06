@@ -14,6 +14,8 @@ namespace JKTechnologies.SeensioGo.ARCheess
         public bool invitePlayerButton;
         public bool exitRoomButton;
 
+        public bool leaderboardButton;
+
         private void Awake()
         {
             Instance = this;
@@ -36,6 +38,11 @@ namespace JKTechnologies.SeensioGo.ARCheess
             {
                 Debug.Log("Exit Room");
                 ISeensioGoSceneUtilities.Instance?.ExitRoom();
+            }
+
+            if (leaderboardButton)
+            {
+                Debug.Log("Show leaderboard");
             }
         }
 
