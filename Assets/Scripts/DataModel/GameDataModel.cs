@@ -4,17 +4,17 @@ namespace JKTechnologies.SeensioGo.ARChess.DataModel
 {
     public class PersistentData
     {
-        public UserGameData[] leaderBoard;
-        public UserGameData currentUser;
+        public UserPointData[] leaderBoard;
+        public UserPointData currentUser;
     }
 
-    public class UserGameData
+    [Serializable]
+    public class UserPointData
     {
-        // public string displayName;
-        public int numberOfWins;
-        public int numberOfLosses;
-        //public int numberOfDraws;
-        //public int playerRanking;
+        public long totalPoints;
+        public string userId;
+        public string displayName;
+        public string photoUrl;
     }
 
     // public class UserGameDTO

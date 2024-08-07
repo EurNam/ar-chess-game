@@ -37,8 +37,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         private bool isRoomMaster = true;
         private GameSettings m_gameSettings = new GameSettings();
 
-
-
         void Awake()
         {
             if (Instance == null)
@@ -94,7 +92,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             BoardManager.Instance.UpdatePieceCaptureState(bufferData.boardPieceState);
 
             // Persistant Data
-            object persistantData = IGameRoomManager.Instance.GetPersistentData<object>();
+            UserPointData[] leaderboard = await IGameRoomManager.Instance.GetLeaderBoard();
+            UserPointData userPointData = await IGameRoomManager.Instance.GetCurrentUserPoints();
+            Leaderboard.Instance.SetLeaderboardData(leaderboard, userPointData);
 
             // if (isRoomMaster || !IGameRoomManager.Instance.IsMultiplayerRoom())
             // {

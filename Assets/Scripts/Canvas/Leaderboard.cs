@@ -6,15 +6,12 @@ using TMPro;
 using JKTechnologies.SeensioGo.GameEngine;
 using JKTechnologies.SeensioGo.Scene;
 
-namespace JKTechnologies.SeensioGo.ARCheess
+namespace JKTechnologies.SeensioGo.ARChess
 {
     public class Leaderboard: MonoBehaviour
     {
         public static Leaderboard Instance;
         public GameObject[] ranks;
-        private Image rank1Image;
-        private Text rank1Name;
-        private Text rank1Wins;
         public GameObject userInfo;
 
         private void Awake()
@@ -24,14 +21,15 @@ namespace JKTechnologies.SeensioGo.ARCheess
 
         private void Start()
         {
-            Initialization();
+
         }
 
-        private void Initialization()
+        public void SetLeaderboardData(UserPointData[] leaderboardData, UserPointData userPointData)
         {
             for (int i = 0; i < ranks.Length; i++)
             {
                 GameObject rank = ranks[i];
+                UserPointData playerData = leaderboardData[i];
                 
                 Image rankImage = GetChildComponentByName<Image>(rank.transform, "Image");
                 TextMeshProUGUI nameText = GetChildComponentByName<TextMeshProUGUI>(rank.transform, "Name");
@@ -44,12 +42,12 @@ namespace JKTechnologies.SeensioGo.ARCheess
 
                 if (nameText != null)
                 {
-                    nameText.text = $"Player {i + 1}";
+                    nameText.text = playerData.displayName;
                 }
 
                 if (winsText != null)
                 {
-                    winsText.text = $"{Random.Range(0, 100)}";
+                    winsText.text = playerData.totalPoints.ToString();
                 }
             }
 
@@ -71,12 +69,12 @@ namespace JKTechnologies.SeensioGo.ARCheess
 
             if (userName != null)
             {
-                userName.text = "Bendinh";
+                userName.text = userPointData.displayName;
             }
 
             if (userWins != null)
             {
-                userWins.text = $"{Random.Range(0, 100)}";
+                userWins.text = userPointData.totalPoints.ToString();
             }
         }
 

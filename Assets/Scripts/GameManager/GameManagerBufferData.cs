@@ -10,6 +10,8 @@ namespace JKTechnologies.SeensioGo.ARChess
     {
         public static GameManagerBufferData Instance;
         private BufferData bufferData = new BufferData();
+        private UserPointData[] leaderboard;
+        private UserPointData userPointData;
 
         private void Awake()
         {
@@ -22,6 +24,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             // }
         }
 
+
+        #region Buffer Data
         public BufferData GetDefaultBufferData()
         {
             BufferData defaultBufferData = new BufferData();
@@ -95,5 +99,28 @@ namespace JKTechnologies.SeensioGo.ARChess
                 bufferData.boardPieceState[index] = piece.name;
             }
         }
+        #endregion
+
+        #region Persistent Data
+        public void SetLeaderboardData(UserPointData[] leaderboard)
+        {
+            this.leaderboard = leaderboard;
+        }
+
+        public UserPointData[] GetLeaderboardData()
+        {
+            return this.leaderboard;
+        }
+
+        public void SetUserPointData(UserPointData userPointData)
+        {
+            this.userPointData = userPointData;
+        }
+
+        public UserPointData GetUserPointData()
+        {
+            return this.userPointData;
+        }
+        #endregion
     }
 }
