@@ -8,10 +8,13 @@ namespace JKTechnologies.SeensioGo.ARChess
 {
     public class StartButton : MonoBehaviour
     {
+        public static StartButton Instance;
         public UnityEngine.UI.Button toggleButton;
 
-        public bool isStart;
-        public int points;
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         void Start()
         {
@@ -20,18 +23,13 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public async void StartGame()
         {   
-            if (isStart)
-            {
-                ARChessGameSettings.Instance.SetGameStarted(true);
-                // GameRoomManager.Instance.StartGameRoom();
-            } 
-            else
-            {
-                await IGameRoomManager.Instance.UpdateUserPoints(points);
-                UserPointData[] leaderboard = await IGameRoomManager.Instance.GetLeaderBoard();
-                UserPointData userPointData = await IGameRoomManager.Instance.GetCurrentUserPoints();
-                Leaderboard.Instance.SetLeaderboardData(leaderboard, userPointData);
-            }
+            ARChessGameSettings.Instance.SetGameStarted(true);
+            // GameRoomManager.Instance.StartGameRoom();
+        }
+
+        public void HideButton()
+        {
+            this.gameObject.SetActive(false);
         }
     }
 }

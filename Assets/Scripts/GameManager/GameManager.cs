@@ -73,9 +73,16 @@ namespace JKTechnologies.SeensioGo.ARChess
             else
             {
                 bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
-                string guestName = IGameRoomManager.Instance.GetDisplayName();
-                bufferData.guestName = guestName;
-                await IGameRoomManager.Instance.SetBufferRoomData(bufferData);
+                if (bufferData.guestName != "")
+                {
+                    StartButton.Instance.HideButton();
+                }
+                else
+                {
+                    string guestName = IGameRoomManager.Instance.GetDisplayName();
+                    bufferData.guestName = guestName;
+                    await IGameRoomManager.Instance.SetBufferRoomData(bufferData);
+                }
             }
             IGameRoomManager.Instance.ScatterActionToRoom("UpdateNameTags");
 
@@ -220,7 +227,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             } 
             else
             { 
-                if (this.IsMyTurn())
+                if (this.IsMyTurn() && ARChessGameSettings.Instance.GetGameStarted())
                 {
                     IGameRoomManager.Instance.TakeOwnerShip();
                 }
