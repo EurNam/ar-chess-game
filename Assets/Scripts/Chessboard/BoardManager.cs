@@ -454,37 +454,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 else
                 {
                     Debug.Log("Checkmate");
-                    NameTag[] nameTags = FindObjectsOfType<NameTag>();
-                    if (!whiteKing)
-                    {
-                        Debug.Log("White won");
-                        foreach (NameTag nameTag in nameTags)
-                        {
-                            if (nameTag.isUser)
-                            {
-                                nameTag.SetMasterName("White Won!");
-                            }
-                            else
-                            {
-                                nameTag.SetGuestName("Black Lost!");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("Black won");
-                        foreach (NameTag nameTag in nameTags)
-                        {
-                            if (nameTag.isUser)
-                            {
-                                nameTag.SetMasterName("White Lost!");
-                            }
-                            else
-                            {
-                                nameTag.SetGuestName("Black Won!");
-                            }
-                        }
-                    }
+                    this.HandleWin(whiteKing);
                     // ResetBoard();
                 }
                 if (whiteKing)
@@ -497,7 +467,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                     boardState[GetBlackKingPosition().x, GetBlackKingPosition().y].SetMoveGuideShown(true);
                     boardState[GetBlackKingPosition().x, GetBlackKingPosition().y].SetMoveGuideColor(MoveType.Check);
                 }
-            } 
+            }
             else 
             {
                 if (CheckForStalemate(whiteKing))
@@ -519,7 +489,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                 }
             }
         }
-
         #endregion
 
         #region Stalemate
@@ -600,6 +569,27 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             return legalMoves;
+        }
+        #endregion
+
+        #region Handle Win
+        private void HandleWin(bool whiteKing)
+        {
+            string winMessage = whiteKing ? "Black Won!" : "White Won!";
+            NameTag[] nameTags = FindObjectsOfType<NameTag>();
+            foreach (NameTag nameTag in nameTags)
+            {
+                if (nameTag.isUser)
+                {
+                    nameTag.SetMasterName(winMessage);
+                }
+                if (!nameTag.isUser)
+                {
+                    nameTag.SetGuestName(winMessage);
+                }
+            }
+
+            GameManager.Instance.EndRoomGame();
         }
         #endregion
 

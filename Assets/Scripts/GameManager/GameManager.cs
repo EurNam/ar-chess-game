@@ -49,6 +49,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private async void Start()
         {
+            // Room Settings
             IGameRoomManager.Instance.SetGameInstance(this,gameID);
             IGameRoomManager.Instance.RegisterGameActionListener(this);
             isRoomMaster = IGameRoomManager.Instance.IsRoomMaster();
@@ -60,6 +61,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             m_gameSettings = await IGameRoomManager.Instance.GetGameRoomSettings<GameSettings>();
             this.SetGameSettings();
 
+            // Buffer Data
             BufferData bufferData = null;
             if (isRoomMaster)
             {
@@ -91,6 +93,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             ARChessGameSettings.Instance.SetBoardSkin(bufferData.boardAppearanceIndex);
             BoardManager.Instance.UpdatePieceCaptureState(bufferData.boardPieceState);
 
+            // Persistant Data
+            object persistantData = IGameRoomManager.Instance.GetPersistentData<object>();
 
             // if (isRoomMaster || !IGameRoomManager.Instance.IsMultiplayerRoom())
             // {
@@ -170,6 +174,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             IGameRoomManager.Instance.ScatterActionToRoom("SwitchTurn");
         }
 
+        public void EndRoomGame()
+        {
+            IGameRoomManager.Instance.ScatterActionToRoom("EndGame");
+        }
+
         public async void ChangeRoomBoardSkin()
         {
             await IGameRoomManager.Instance.SetBufferRoomData(GameManagerBufferData.Instance.GetBufferData());
@@ -214,6 +223,23 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     IGameRoomManager.Instance.TakeOwnerShip();
                 }
+            }
+        }
+
+        public void EndGame()
+        {
+            ARChessGameSettings.Instance.SetGameStarted(false);
+            if (this.IsMyTurn())
+            {
+                Debug.Log("You Lost");
+                object updateUserInfo = -1;
+                IGameRoomManager.Instance.SetPersistentData<object>(updateUserInfo);
+            }
+            else
+            {
+                Debug.Log("You Won");
+                object updateUserInfo = 1;
+                IGameRoomManager.Instance.SetPersistentData<object>(updateUserInfo);
             }
         }
 
