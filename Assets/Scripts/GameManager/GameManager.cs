@@ -29,6 +29,7 @@ namespace JKTechnologies.SeensioGo.ARChess
     {
         public static GameManager Instance;
         public string gameID;
+        [SerializeField] private Leaderboard leaderboardManager;
         private string m_playerID;
         private string[] m_old_gameSettings = new string[4]{"","","",""}; // 1: White Side, 2: Black Side, 3: Room Host, 4: Tile Skin
         private bool whitePlayer = true;
@@ -94,7 +95,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             // Persistant Data
             UserPointData[] leaderboard = await IGameRoomManager.Instance.GetLeaderBoard();
             UserPointData userPointData = await IGameRoomManager.Instance.GetCurrentUserPoints();
-            Leaderboard.Instance.SetLeaderboardData(leaderboard, userPointData);
+            leaderboardManager.SetLeaderboardData(leaderboard, userPointData);
 
             // if (isRoomMaster || !IGameRoomManager.Instance.IsMultiplayerRoom())
             // {
