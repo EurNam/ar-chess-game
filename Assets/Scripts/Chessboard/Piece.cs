@@ -303,6 +303,10 @@ namespace JKTechnologies.SeensioGo.ARChess
                 // Generate the possible moves for the piece
                 GeneratePossibleMoves(currentTile.GetBoardIndex());
                 FilterMovesToAvoidCheck(true);
+                if (SystemInfo.supportsVibration)
+                {
+                    Handheld.Vibrate();
+                }
             }
         }
 

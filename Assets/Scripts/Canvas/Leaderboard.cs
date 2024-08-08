@@ -26,8 +26,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public void SetLeaderboardData(UserPointData[] leaderboardData, UserPointData userPointData)
         {
-            
-            for (int i = 0; i < ranks.Length; i++)
+            for (int i = 0; i < ranks.Length && i < leaderboardData.Length; i++)
             {
                 GameObject rank = ranks[i];
                 UserPointData playerData = leaderboardData[i];

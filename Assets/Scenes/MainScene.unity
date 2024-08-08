@@ -1508,7 +1508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 245}
+  m_AnchoredPosition: {x: 0, y: 286}
   m_SizeDelta: {x: 50.5791, y: 13.7523}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &199655571
@@ -5414,7 +5414,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 85, y: 287}
+  m_AnchoredPosition: {x: 85, y: 245}
   m_SizeDelta: {x: 107.176, y: 22.2621}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &597461808
@@ -9610,8 +9610,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleButton: {fileID: 1026781535}
-  isStart: 1
-  points: 0
 --- !u!1 &1031254850
 GameObject:
   m_ObjectHideFlags: 0
@@ -14895,7 +14893,7 @@ GameObject:
   - component: {fileID: 1594238578}
   - component: {fileID: 1594238577}
   - component: {fileID: 1594238576}
-  - component: {fileID: 1594238575}
+  - component: {fileID: 1594238579}
   m_Layer: 5
   m_Name: AddPoints
   m_TagString: Untagged
@@ -14924,21 +14922,6 @@ RectTransform:
   m_AnchoredPosition: {x: 115.7, y: 335}
   m_SizeDelta: {x: 28.8763, y: 28.1732}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1594238575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594238573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982389e08cd4d41e4b97c58195cbf522, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggleButton: {fileID: 1594238576}
-  isStart: 0
-  points: 1
 --- !u!114 &1594238576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15021,6 +15004,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594238573}
   m_CullTransparentMesh: 1
+--- !u!114 &1594238579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594238573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ba8059bb7e74f76afb3b65cbb18bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleButton: {fileID: 1594238576}
+  isToggle: 0
+  points: 1
 --- !u!1001 &1600448072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17208,7 +17206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -86, y: 287.00003}
+  m_AnchoredPosition: {x: -86, y: 245}
   m_SizeDelta: {x: 107.176, y: 22.2621}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1856033434
@@ -17358,7 +17356,7 @@ GameObject:
   - component: {fileID: 1860233034}
   - component: {fileID: 1860233033}
   - component: {fileID: 1860233032}
-  - component: {fileID: 1860233031}
+  - component: {fileID: 1860233035}
   m_Layer: 5
   m_Name: SubtractPoints
   m_TagString: Untagged
@@ -17387,21 +17385,6 @@ RectTransform:
   m_AnchoredPosition: {x: -115.9, y: 334.3}
   m_SizeDelta: {x: 28.8763, y: 28.1732}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1860233031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860233029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982389e08cd4d41e4b97c58195cbf522, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggleButton: {fileID: 1860233032}
-  isStart: 0
-  points: -1
 --- !u!114 &1860233032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17484,6 +17467,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860233029}
   m_CullTransparentMesh: 1
+--- !u!114 &1860233035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860233029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ba8059bb7e74f76afb3b65cbb18bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleButton: {fileID: 1860233032}
+  isToggle: 0
+  points: -1
 --- !u!4 &1865138076 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9056602555077399068, guid: 0d1084487cbd24481b9b9cee6ef747c5, type: 3}
@@ -19327,6 +19325,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleButton: {fileID: 2112050954}
+  isToggle: 1
+  points: 0
 --- !u!114 &2112050954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19624,7 +19624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 286.3}
+  m_AnchoredPosition: {x: 0, y: 245}
   m_SizeDelta: {x: 50.5791, y: 13.7523}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2142969840
