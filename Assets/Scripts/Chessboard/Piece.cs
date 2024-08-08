@@ -43,7 +43,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Start is called before the first frame update
         protected virtual void Start()
         {
-            IGameRoomManager.Instance.RPC_RegisterToGameRoom(this);
+            // IGameRoomManager.Instance.RPC_RegisterToGameRoom(this);
         }
 
         // Update is called once per frame
@@ -629,6 +629,8 @@ namespace JKTechnologies.SeensioGo.ARChess
                 Debug.LogError("Invalid prefab index");
                 return;
             }
+            // Unregister current piece from room
+            IGameRoomManager.Instance.RPC_UnregisterToGameRoom(this);
 
             // Instantiate the new prefab
             GameObject newPiece = Instantiate(piecePrefabs[prefabIndex], transform.position, transform.rotation, transform.parent);
@@ -645,6 +647,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             newPieceComponent.possibleMoves = this.possibleMoves;
             newPieceComponent.initialBoardPosition = this.initialBoardPosition;
             newPieceComponent.boardParent = this.boardParent;
+
+            // Register new piece to room
+            IGameRoomManager.Instance.RPC_RegisterToGameRoom(newPieceComponent);
 
             // if (this.piece != null)
             // {

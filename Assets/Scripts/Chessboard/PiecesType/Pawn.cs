@@ -185,6 +185,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             // Generate possible moves for new queen
             queenComponent.GeneratePossibleMovesForBoard(currentTile.GetBoardIndex());
 
+            // Register queen to room
+            IGameRoomManager.Instance.RPC_RegisterToGameRoom(queenComponent);
+
             // Deactivate the pawn
             this.gameObject.SetActive(false);
 

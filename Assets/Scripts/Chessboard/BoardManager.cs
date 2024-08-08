@@ -201,6 +201,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             foreach (Piece piece in boardStatePieces)
             {
                 piece.FindCurrentTile();
+                IGameRoomManager.Instance.RPC_RegisterToGameRoom(piece);
             }
 
             this.GenerateAllPossibleMoves();
