@@ -522,8 +522,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.GetCurrentTile().ShowBloodTemporarily();
             this.GetCurrentTile().ShowDeathTemporarily();
             BoardManager.Instance.PlayCaptureSound();
-            this.gameObject.SetActive(false);
             int index = this.RPC_GetID()-1;
+            IGameRoomManager.Instance.RPC_UnregisterToGameRoom(this);
+            this.gameObject.SetActive(false);
             GameManagerBufferData.Instance.SetBufferPieceData(null, index);
         }
         #endregion

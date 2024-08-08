@@ -28,6 +28,8 @@ namespace JKTechnologies.SeensioGo.ARChess
     public class GameManager : MonoBehaviour, IGameInstance, IGameActionListener
     {
         public static GameManager Instance;
+        public UnityEngine.UI.Button startButton;
+        public UnityEngine.UI.Button skinButton;
         public string gameID;
         [SerializeField] private Leaderboard leaderboardManager;
         private string m_playerID;
@@ -64,37 +66,40 @@ namespace JKTechnologies.SeensioGo.ARChess
             BufferData bufferData = null;
             if (isRoomMaster)
             {
+                startButton.gameObject.SetActive(true);
+                skinButton.gameObject.SetActive(true);
+
                 bufferData = GameManagerBufferData.Instance.GetDefaultBufferData();
                 string masterName = IGameRoomManager.Instance.GetDisplayName();
                 bufferData.masterName = masterName;
                 bufferData.guestName = "";
-                await IGameRoomManager.Instance.SetBufferRoomData(bufferData);
             }
             else
             {
                 bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
                 if (bufferData.guestName != "")
                 {
-                    StartButton.Instance.HideButton();
+                    Debug.Log("Viewer");
                 }
                 else
                 {
+                    startButton.gameObject.SetActive(true);
+                    skinButton.gameObject.SetActive(true);
                     string guestName = IGameRoomManager.Instance.GetDisplayName();
                     bufferData.guestName = guestName;
-                    await IGameRoomManager.Instance.SetBufferRoomData(bufferData);
                 }
             }
-            IGameRoomManager.Instance.ScatterActionToRoom("UpdateNameTags");
-
             if (bufferData != null)
             {
                 GameManagerBufferData.Instance.SetBufferData(bufferData);
+                await IGameRoomManager.Instance.SetBufferRoomData(bufferData);
             }
             else
             {
                 Debug.LogError("Buffer data is null");
                 return;
             }
+            IGameRoomManager.Instance.ScatterActionToRoom("UpdateNameTags");
 
             ARChessGameSettings.Instance.SetBoardSkin(bufferData.boardAppearanceIndex);
             BoardManager.Instance.UpdatePieceCaptureState(bufferData.boardPieceState);
@@ -182,8 +187,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             IGameRoomManager.Instance.ScatterActionToRoom("SwitchTurn");
         }
 
-        public void EndRoomGame()
+        public async void EndRoomGame()
         {
+            await IGameRoomManager.Instance.UpdateUserPoints(1);
             IGameRoomManager.Instance.ScatterActionToRoom("EndGame");
         }
 
@@ -203,7 +209,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         public async void UpdateNameTags()
         {
             BufferData bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
-            GameManagerBufferData.Instance.SetBufferData(bufferData);
             if (roomHost)
             {
                 NameTag.Instance.SetMasterName(bufferData.masterName);

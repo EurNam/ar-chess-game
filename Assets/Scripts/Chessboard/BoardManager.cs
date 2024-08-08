@@ -588,7 +588,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                     nameTag.SetGuestName(winMessage);
                 }
             }
-
             GameManager.Instance.EndRoomGame();
         }
         #endregion

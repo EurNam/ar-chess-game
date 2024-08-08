@@ -145,6 +145,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private void PromoteToQueen()
         {
+            IGameRoomManager.Instance.RPC_UnregisterToGameRoom(this);
             Debug.Log("Promoting pawn to queen");
             // Instantiate a new queen at the pawn's position
             GameObject queenPrefab = ARChessGameSettings.Instance.GetBoardAppearanceIndex() == 0 ? BoardManager.Instance.defaultQueenPrefab : BoardManager.Instance.desertQueenPrefab;
