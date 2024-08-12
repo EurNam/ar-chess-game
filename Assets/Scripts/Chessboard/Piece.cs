@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.iOS;
+using JKTechnologies.SeensioGo.Scene;
 
 using JKTechnologies.SeensioGo.GameEngine;
 
@@ -306,7 +306,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 FilterMovesToAvoidCheck(true);
                 if (SystemInfo.supportsVibration)
                 {
-                    Handheld.Vibrate();
+                    ISeensioGoSceneUtilities.Instance?.VibratePop();
                     //Vibration.Vibrate(100);
                 }
             }

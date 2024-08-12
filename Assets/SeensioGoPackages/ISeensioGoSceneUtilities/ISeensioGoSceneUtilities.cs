@@ -5,5 +5,6 @@ namespace JKTechnologies.SeensioGo.Scene
         public static ISeensioGoSceneUtilities Instance;
         public void InviteOtherUserToRoom();
         public void ExitRoom();
+        public void VibratePop();
     }
 }

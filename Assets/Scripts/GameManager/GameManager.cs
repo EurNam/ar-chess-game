@@ -109,6 +109,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             // Persistant Data
             UserPointData[] leaderboard = await IGameRoomManager.Instance.GetLeaderBoard();
             UserPointData userPointData = await IGameRoomManager.Instance.GetCurrentUserPoints();
+            myName.SetMasterName(userPointData.displayName);
+
             leaderboardManager.SetLeaderboardData(leaderboard, userPointData);
 
             // if (isRoomMaster || !IGameRoomManager.Instance.IsMultiplayerRoom())
@@ -215,12 +217,12 @@ namespace JKTechnologies.SeensioGo.ARChess
             BufferData bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
             if (roomHost)
             {
-                myName.SetMasterName(bufferData.masterName);
+                // myName.SetMasterName(bufferData.masterName);
                 opponentName.SetGuestName(bufferData.guestName);
             } 
             else
             {
-                myName.SetGuestName(bufferData.guestName);
+                // myName.SetGuestName(bufferData.guestName);
                 opponentName.SetMasterName(bufferData.masterName);
             }
         }
