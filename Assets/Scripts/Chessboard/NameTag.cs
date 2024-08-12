@@ -7,7 +7,6 @@ namespace JKTechnologies.SeensioGo.ARChess
 {
     public class NameTag : MonoBehaviour
     {
-        public static NameTag Instance;
         public bool isUser;
         private string playerName;
         public TextMeshPro playerWins;
@@ -15,7 +14,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         private TextMeshPro text;
         void Awake()
         {
-            Instance = this;
             text = this.gameObject.GetComponent<TextMeshPro>();
             text.text = playerName ?? "Player";
             playerWins.text = $"W:{Random.Range(0, 100)}";

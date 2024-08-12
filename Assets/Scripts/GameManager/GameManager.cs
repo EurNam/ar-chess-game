@@ -31,6 +31,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         public UnityEngine.UI.Button startButton;
         public UnityEngine.UI.Button skinButton;
         public string gameID;
+        public NameTag myName;
+        public NameTag opponentName;
         [SerializeField] private Leaderboard leaderboardManager;
         private string m_playerID;
         private string[] m_old_gameSettings = new string[4]{"","","",""}; // 1: White Side, 2: Black Side, 3: Room Host, 4: Tile Skin
@@ -195,7 +197,9 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public async void ChangeRoomBoardSkin()
         {
+            #if SEENSIOGO
             await IGameRoomManager.Instance.SetBufferRoomData(GameManagerBufferData.Instance.GetBufferData());
+            #endif
             IGameRoomManager.Instance.ScatterActionToRoom("ChangeBoardSkin");
         }
 
@@ -211,13 +215,13 @@ namespace JKTechnologies.SeensioGo.ARChess
             BufferData bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
             if (roomHost)
             {
-                NameTag.Instance.SetMasterName(bufferData.masterName);
-                NameTag.Instance.SetGuestName(bufferData.guestName);
+                myName.SetMasterName(bufferData.masterName);
+                opponentName.SetGuestName(bufferData.guestName);
             } 
             else
             {
-                NameTag.Instance.SetMasterName(bufferData.guestName);
-                NameTag.Instance.SetGuestName(bufferData.masterName);
+                myName.SetGuestName(bufferData.guestName);
+                opponentName.SetMasterName(bufferData.masterName);
             }
         }
 
@@ -257,10 +261,14 @@ namespace JKTechnologies.SeensioGo.ARChess
         }
 
         public async void ChangeBoardSkin()
-        {
+        {   
+            #if SEENSIOGO
             BufferData bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
             GameManagerBufferData.Instance.SetBufferSkinData(bufferData.boardAppearanceIndex);
             ARChessGameSettings.Instance.SetBoardAppearanceIndex(bufferData.boardAppearanceIndex);
+            #else
+            ARChessGameSettings.Instance.SetBoardAppearanceIndex(1);
+            #endif
             BoardManager.Instance.SetBoardSkin();
         }
 

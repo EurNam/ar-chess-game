@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edb95d9a0ad74c4386bac4ca7506cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieceIndex: 0
   piece: {fileID: 0}
   isWhite: 0
   boardParent: {fileID: 0}

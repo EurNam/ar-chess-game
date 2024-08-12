@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.iOS;
 
 using JKTechnologies.SeensioGo.GameEngine;
 
@@ -306,6 +307,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 if (SystemInfo.supportsVibration)
                 {
                     Handheld.Vibrate();
+                    //Vibration.Vibrate(100);
                 }
             }
         }
@@ -560,6 +562,11 @@ namespace JKTechnologies.SeensioGo.ARChess
 
                 rook.transform.position = convertPoint.transform.position;
 
+                rookTile.SetOccupied(false);
+                newRookTile.SetOccupied(true, rook);
+                rook.SetCurrentTile(newRookTile);
+                rook.SetNearestTile(newRookTile);
+
                 try
                 {
                     IGameRoomManager.Instance.RPC_ScatterActionToRoom(rook, "Moved");
@@ -568,10 +575,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     rook.Moved();
                 }
-                // rookTile.SetOccupied(false);
-                // newRookTile.SetOccupied(true, rook);
-                // rook.SetCurrentTile(newRookTile);
-                // rook.SetNearestTile(newRookTile);
             }
         }
 
