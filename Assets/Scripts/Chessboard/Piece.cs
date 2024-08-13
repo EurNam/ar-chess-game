@@ -437,7 +437,10 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             // Handle En Passant
-            handleEnPassant(nearestTile);
+            if (this.GetType() == typeof(Pawn) && !this.isPromoted())
+            {
+                handleEnPassant(nearestTile);
+            }
 
             // Handle Rook in castling
             if (this.isKingPiece() && this.isFirstMove() && this.isCastle(nearestTile))
@@ -591,6 +594,11 @@ namespace JKTechnologies.SeensioGo.ARChess
                     rook.Moved();
                 }
             }
+        }
+
+        protected virtual bool isPromoted()
+        {
+            return false;
         }
 
         private void handleEnPassant(Tile nearestTile)

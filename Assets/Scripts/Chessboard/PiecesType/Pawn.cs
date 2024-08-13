@@ -22,6 +22,11 @@ namespace JKTechnologies.SeensioGo.ARChess
             base.Update();
         }
 
+        protected override bool isPromoted()
+        {
+            return promoted;
+        }
+
         protected override void GeneratePossibleMoves(Vector2Int currentBoardPosition)
         {
             if (promoted)
