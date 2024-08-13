@@ -269,7 +269,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             GameManagerBufferData.Instance.SetBufferSkinData(bufferData.boardAppearanceIndex);
             ARChessGameSettings.Instance.SetBoardAppearanceIndex(bufferData.boardAppearanceIndex);
             #else
-            ARChessGameSettings.Instance.SetBoardAppearanceIndex(1);
+            ARChessGameSettings.Instance.SetBoardAppearanceIndex(this.skinIndex);
             #endif
             BoardManager.Instance.SetBoardSkin();
         }

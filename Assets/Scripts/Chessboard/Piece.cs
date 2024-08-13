@@ -17,6 +17,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public Piece piece;
         public bool isWhite;
         public GameObject boardParent;
+        public GameObject currentSkin;
         public GameObject[] piecePrefabs;
         public Material[] pieceMaterials;
         private Tile currentTile;
@@ -45,6 +46,19 @@ namespace JKTechnologies.SeensioGo.ARChess
         protected virtual void Start()
         {
             // IGameRoomManager.Instance.RPC_RegisterToGameRoom(this);
+            currentSkin = Instantiate(piecePrefabs[0], transform);
+            currentSkin.transform.localPosition = Vector3.zero;
+            currentSkin.transform.localRotation = Quaternion.identity;
+            currentSkin.transform.localScale = Vector3.one;
+
+            if (this.colorWhite())
+            {
+                this.SetPieceMaterial(0);
+            }
+            else
+            {
+                this.SetPieceMaterial(1);
+            }
         }
 
         // Update is called once per frame
@@ -158,7 +172,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetPieceMaterial(int materialIndex)
         {
             Material newMaterial = pieceMaterials[materialIndex];
-            Renderer[] renderers = GetComponentsInChildren<Renderer>();
+            Renderer[] renderers = currentSkin.GetComponentsInChildren<Renderer>();
 
             foreach (Renderer renderer in renderers)
             {
@@ -293,6 +307,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         #region User Interaction
         private void HandleClickDown()
         {
+            Debug.Log(ARChessGameSettings.Instance.GetBoardInitialized());
             if (BoardManager.Instance.GetWhiteTurn() == this.colorWhite() && ARChessGameSettings.Instance.GetBoardInitialized() && GameManager.Instance.GetWhitePlayer() == this.colorWhite() && ARChessGameSettings.Instance.GetGameStarted()) 
             {
                 // Set the piece to be dragged
@@ -632,47 +647,36 @@ namespace JKTechnologies.SeensioGo.ARChess
                 Debug.LogError("Invalid prefab index");
                 return;
             }
-            // Unregister current piece from room
-            IGameRoomManager.Instance.RPC_UnregisterToGameRoom(this);
+            // Destroy current prefab
+            if (currentSkin != null)
+            {
+                Destroy(currentSkin);
+            }
 
             // Instantiate the new prefab
-            GameObject newPiece = Instantiate(piecePrefabs[prefabIndex], transform.position, transform.rotation, transform.parent);
+            currentSkin = Instantiate(piecePrefabs[prefabIndex], transform);
+            currentSkin.transform.localPosition = Vector3.zero;
+            currentSkin.transform.localRotation = Quaternion.identity;
+            currentSkin.transform.localScale = Vector3.one;
 
-            // Copy data from the current piece to the new piece
-            Piece newPieceComponent = newPiece.GetComponent<Piece>();
-            newPieceComponent.pieceIndex = this.pieceIndex;
-            newPieceComponent.gameObject.name = this.gameObject.name;
-            newPieceComponent.SetCurrentTile(this.currentTile);
-            newPieceComponent.SetNearestTile(this.nearestTile);
-            newPieceComponent.SetFirstMove(this.isFirstMove());
-            newPieceComponent.SetWhite(this.colorWhite());
-            newPieceComponent.isKing = this.isKingPiece();
-            newPieceComponent.possibleMoves = this.possibleMoves;
-            newPieceComponent.initialBoardPosition = this.initialBoardPosition;
-            newPieceComponent.boardParent = this.boardParent;
+            // Set side colors accordingly to new prefabs
+            int whiteColor = 0;
+            int blackColor = 1;
+            if (prefabIndex == 1)
+            {
+                whiteColor = 2;
+                blackColor = 3;
+            }
 
-            // Register new piece to room
-            IGameRoomManager.Instance.RPC_RegisterToGameRoom(newPieceComponent);
-
-            // if (this.piece != null)
-            // {
-            //     this.piece.FindCurrentTile();
-            // }
-
+            // Set color for white and black pieces
             if (this.colorWhite())
             {
-                newPieceComponent.SetPieceMaterial(0);
+                this.SetPieceMaterial(whiteColor);
             }
             else
             {
-                newPieceComponent.SetPieceMaterial(1);
+                this.SetPieceMaterial(blackColor);
             }
-
-
-
-            // Destroy the current piece
-            this.gameObject.SetActive(false);
-            Destroy(this.gameObject);
         }
         #endregion
 

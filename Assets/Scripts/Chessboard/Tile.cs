@@ -9,6 +9,7 @@ namespace JKTechnologies.SeensioGo.ARChess
     public class Tile : MonoBehaviour
     {
         public Vector2Int boardIndex;
+        public GameObject currentSkin;
         public GameObject[] tilePrefabs;
         public Material[] tileMaterials;
         private int tileAppearanceIndex = 0;
@@ -48,6 +49,55 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             Transform deathTransform = transform.Find("Death");
+            if (deathTransform != null)
+            {
+                this.deathTransform = deathTransform;
+                originalDeathPosition = deathTransform.localPosition;
+                SetDeathShown(false);
+            }
+        }
+
+        void Start()
+        {
+            if (tilePrefabs.Length == 0)
+            {
+                return;
+            }
+
+            // Create tile
+            currentSkin = Instantiate(tilePrefabs[0], transform);
+            currentSkin.transform.localPosition = Vector3.zero;
+            currentSkin.transform.localRotation = Quaternion.identity;
+            currentSkin.transform.localScale = Vector3.one;
+
+            // Set color for tile
+            if ((boardIndex.x + boardIndex.y) % 2 == 0)
+            {
+                this.SetTileMaterial(0);
+            }
+            else
+            {
+                this.SetTileMaterial(1);
+            }
+
+            // Find the move guide using the MoveGuide script
+            MoveGuide moveGuide = currentSkin.GetComponentInChildren<MoveGuide>();
+            if (moveGuide != null)
+            {
+                moveGuideRenderer = moveGuide.GetComponent<Renderer>();
+                moveGuideTransform = moveGuide.transform;
+                moveGuideTransform.localScale = new Vector3(0.5f, moveGuideTransform.localScale.y, 0.5f);
+            }
+            SetMoveGuideShown(false);
+
+            // Find components for animation
+            Transform bloodTransform = currentSkin.transform.Find("Blood");
+            if (bloodTransform != null)
+            {
+                this.bloodTransform = bloodTransform;
+                SetBloodShown(false);
+            }
+            Transform deathTransform = currentSkin.transform.Find("Death");
             if (deathTransform != null)
             {
                 this.deathTransform = deathTransform;
@@ -100,7 +150,10 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public void SetTileMaterial(int materialIndex)
         {
-            tileRenderer.material = tileMaterials[materialIndex];
+            Material newMaterial = tileMaterials[materialIndex];
+            Renderer renderer = currentSkin.GetComponent<Renderer>();
+
+            renderer.material = newMaterial;
         }
 
         public void SetMoveGuideShown(bool shown)
@@ -251,32 +304,61 @@ namespace JKTechnologies.SeensioGo.ARChess
                 return;
             }
 
-            // Instantiate the new prefab
-            GameObject newTile = Instantiate(tilePrefabs[prefabIndex], transform.position, transform.rotation, transform.parent);
-
-            // Copy data from the current tile to the new tile
-            Tile newTileComponent = newTile.GetComponent<Tile>();
-            newTileComponent.gameObject.name = this.gameObject.name;
-            newTileComponent.boardIndex = this.boardIndex;
-            newTileComponent.tileAppearanceIndex = prefabIndex;
-
-            // if (this.piece != null)
-            // {
-            //     this.piece.FindCurrentTile();
-            // }
-
-            if ((this.GetBoardIndex().x+this.GetBoardIndex().y)%2 == 0)
+            // Destroy current skin
+            if (currentSkin != null)
             {
-                newTileComponent.SetTileMaterial(0);
+                Destroy(currentSkin);
+            }
+
+            // Instantiate the new skin
+            currentSkin = Instantiate(tilePrefabs[prefabIndex], transform);
+            currentSkin.transform.localPosition = Vector3.zero;
+            currentSkin.transform.localRotation = Quaternion.identity;
+            currentSkin.transform.localScale = Vector3.one;
+
+            // Set tile colors accordingly to new skins
+            int blackColor = 0;
+            int whiteColor = 1;
+            if (prefabIndex == 1)
+            {
+                blackColor = 2;
+                whiteColor = 3;
+            }
+
+            // Set color for tile
+            if ((boardIndex.x + boardIndex.y) % 2 == 0)
+            {
+                this.SetTileMaterial(blackColor);
             }
             else
             {
-                newTileComponent.SetTileMaterial(1);
+                this.SetTileMaterial(whiteColor);
             }
 
-            //  the current tile
-            this.gameObject.SetActive(false);
-            Destroy(this.gameObject);
+            // Find the move guide using the MoveGuide script
+            MoveGuide moveGuide = currentSkin.GetComponentInChildren<MoveGuide>();
+            if (moveGuide != null)
+            {
+                moveGuideRenderer = moveGuide.GetComponent<Renderer>();
+                moveGuideTransform = moveGuide.transform;
+                moveGuideTransform.localScale = new Vector3(0.5f, moveGuideTransform.localScale.y, 0.5f);
+            }
+            SetMoveGuideShown(false);
+
+            // Find components for animation
+            Transform bloodTransform = currentSkin.transform.Find("Blood");
+            if (bloodTransform != null)
+            {
+                this.bloodTransform = bloodTransform;
+                SetBloodShown(false);
+            }
+            Transform deathTransform = currentSkin.transform.Find("Death");
+            if (deathTransform != null)
+            {
+                this.deathTransform = deathTransform;
+                originalDeathPosition = deathTransform.localPosition;
+                SetDeathShown(false);
+            }
         }
     }
 }

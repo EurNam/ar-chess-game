@@ -22,8 +22,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         private Vector2Int whiteKingPosition = new Vector2Int(5, 1);
         private Vector2Int blackKingPosition = new Vector2Int(5, 8);
         private int moveCount = 0;
-        private int whiteAvailableMoves = 0;
-        private int blackAvailableMoves = 0;
         private bool inCheck = false;
         public AudioClip snapSound; 
         public AudioClip captureSound;
@@ -54,14 +52,14 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Update is called once per frame
         void Update()
         {
-            if (ARChessGameSettings.Instance.GetChangeTileSkin())
-            {
-                InitializeBoardState();
-                GenerateAllPossibleMoves();
-                HideMoveGuides();
-                Debug.Log("New board initialized");
-                ARChessGameSettings.Instance.SetChangeTileSkin(false);
-            }
+            // if (ARChessGameSettings.Instance.GetChangeTileSkin())
+            // {
+            //     InitializeBoardState();
+            //     GenerateAllPossibleMoves();
+            //     HideMoveGuides();
+            //     Debug.Log("New board initialized");
+            //     ARChessGameSettings.Instance.SetChangeTileSkin(false);
+            // }
         }
         #endregion
 
@@ -111,16 +109,6 @@ namespace JKTechnologies.SeensioGo.ARChess
             return inCheck;
         }
 
-        public int GetWhiteAvailableMoves()
-        {
-            return whiteAvailableMoves;
-        }
-
-        public int GetBlackAvailableMoves()
-        {
-            return blackAvailableMoves;
-        }
-
         public void SetBoardIndexBeforeLastMove(Vector2Int boardIndex)
         {
             boardIndexBeforeLastMove = boardIndex;
@@ -160,16 +148,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void IncrementMoveCount()
         {
             moveCount++;
-        }
-
-        public void SetWhiteAvailableMoves(int moves)
-        {
-            whiteAvailableMoves = moves;
-        }
-
-        public void SetBlackAvailableMoves(int moves)
-        {
-            blackAvailableMoves = moves;
         }
 
         public void UpdateBoardStatePieces()
@@ -220,15 +198,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                     }
                 }
             }
-
-            if (whiteTurn && whiteAvailableMoves == 0)
-            {
-                // Debug.Log("Stalemate");
-            }
-            else if (!whiteTurn && blackAvailableMoves == 0)
-            {
-                // Debug.Log("Stalemate");
-            }
         }
 
         public void SetBoardSkin()
@@ -244,8 +213,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                     }
                 }
             }
-            
-            this.InitializeBoardState();
+            ARChessGameSettings.Instance.SetBoardInitialized(true);
         }
 
         public void SetTileMaterial(int tileColorIndex, int player)
@@ -296,9 +264,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                     BoardManager.Instance.SetBlackKingPosition(moveAfter);
                 }
             }
-
-            this.SetWhiteAvailableMoves(0);
-            this.SetBlackAvailableMoves(0);
 
             GenerateAllPossibleMoves();
             BoardManager.Instance.HideMoveGuides();

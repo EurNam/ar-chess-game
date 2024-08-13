@@ -8,6 +8,8 @@ namespace JKTechnologies.SeensioGo.ARChess
 {
     public class Pawn : Piece
     {
+        private bool promoted = false;
+
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -21,6 +23,18 @@ namespace JKTechnologies.SeensioGo.ARChess
         }
 
         protected override void GeneratePossibleMoves(Vector2Int currentBoardPosition)
+        {
+            if (promoted)
+            {
+                GeneratePossibleMovesForQueen(currentBoardPosition);
+            }
+            else
+            {
+                GeneratePossibleMovesForPawn(currentBoardPosition);
+            }
+        }
+
+        private void GeneratePossibleMovesForPawn(Vector2Int currentBoardPosition)
         {
             List<Vector2Int> possibleMoves = new List<Vector2Int>();
             Vector2Int newBoardPosition;
@@ -119,6 +133,206 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.SetPossibleMoves(possibleMoves);
         }
 
+        private void GeneratePossibleMovesForQueen(Vector2Int currentBoardPosition)
+        {
+            List<Vector2Int> possibleMoves = new List<Vector2Int>();
+            Vector2Int newBoardPosition;
+
+            // Find possible moves: Diagonal up right
+            for (int x = 0; x <= 8; x++)
+            {
+                newBoardPosition = new Vector2Int(currentBoardPosition.x+x, currentBoardPosition.y+x);
+                if (newBoardPosition.x<=8 && newBoardPosition.y<=8){
+                    BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
+                    if (moveType != BoardManager.MoveType.Invalid)
+                    {
+                        if (!possibleMoves.Contains(newBoardPosition)){
+                            possibleMoves.Add(newBoardPosition);
+                            BoardManager.Instance.ShowMoveGuides(newBoardPosition, moveType);
+                            if (moveType == BoardManager.MoveType.Capture)
+                            {
+                                break;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            // Find possible moves: Diagonal up left
+            for (int x = 0; x <= 8; x++)
+            {
+                newBoardPosition = new Vector2Int(currentBoardPosition.x-x, currentBoardPosition.y+x);
+                if (newBoardPosition.x>=1 && newBoardPosition.y<=8){
+                    BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
+                    if (moveType != BoardManager.MoveType.Invalid)
+                    {
+                        if (!possibleMoves.Contains(newBoardPosition)){
+                            possibleMoves.Add(newBoardPosition);
+                            BoardManager.Instance.ShowMoveGuides(newBoardPosition, moveType);
+                            if (moveType == BoardManager.MoveType.Capture)
+                            {
+                                break;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            // Find possible moves: Diagonal down right
+            for (int y = 0; y <= 8; y++)
+            {
+                newBoardPosition = new Vector2Int(currentBoardPosition.x+y, currentBoardPosition.y-y);
+                if (newBoardPosition.x<=8 && newBoardPosition.y>=1){
+                    BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
+                    if (moveType != BoardManager.MoveType.Invalid)
+                    {
+                        if (!possibleMoves.Contains(newBoardPosition)){
+                            possibleMoves.Add(newBoardPosition);
+                            BoardManager.Instance.ShowMoveGuides(newBoardPosition, moveType);
+                            if (moveType == BoardManager.MoveType.Capture)
+                            {
+                                break;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            // Find possible moves: Diagonal down left
+            for (int y = 0; y <= 8; y++)
+            {
+                newBoardPosition = new Vector2Int(currentBoardPosition.x-y, currentBoardPosition.y-y);
+                if (newBoardPosition.x>=1 && newBoardPosition.y>=1){
+                    BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
+                    if (moveType != BoardManager.MoveType.Invalid)
+                    {
+                        if (!possibleMoves.Contains(newBoardPosition)){
+                            possibleMoves.Add(newBoardPosition);
+                            BoardManager.Instance.ShowMoveGuides(newBoardPosition, moveType);
+                            if (moveType == BoardManager.MoveType.Capture)
+                            {
+                                break;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            // Find possible moves: Horizontal right
+            for (int x = 0; x <= 8; x++)
+            {
+                newBoardPosition = new Vector2Int(currentBoardPosition.x+x, currentBoardPosition.y);
+                if (newBoardPosition.x<=8){
+                    BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
+                    if (moveType != BoardManager.MoveType.Invalid)
+                    {
+                        if (!possibleMoves.Contains(newBoardPosition)){
+                            possibleMoves.Add(newBoardPosition);
+                            BoardManager.Instance.ShowMoveGuides(newBoardPosition, moveType);
+                            if (moveType == BoardManager.MoveType.Capture)
+                            {
+                                break;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            // Find possible moves: Horizontal left
+            for (int x = 0; x <= 8; x++)
+            {
+                newBoardPosition = new Vector2Int(currentBoardPosition.x-x, currentBoardPosition.y);
+                if (newBoardPosition.x>=1){
+                    BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
+                    if (moveType != BoardManager.MoveType.Invalid)
+                    {
+                        if (!possibleMoves.Contains(newBoardPosition)){
+                            possibleMoves.Add(newBoardPosition);
+                            BoardManager.Instance.ShowMoveGuides(newBoardPosition, moveType);
+                            if (moveType == BoardManager.MoveType.Capture)
+                            {
+                                break;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            // Find possible moves: Vertical up
+            for (int y = 0; y <= 8; y++)
+            {
+                newBoardPosition = new Vector2Int(currentBoardPosition.x, currentBoardPosition.y+y);
+                if (newBoardPosition.y<=8){
+                    BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
+                    if (moveType != BoardManager.MoveType.Invalid)
+                    {
+                        if (!possibleMoves.Contains(newBoardPosition)){
+                            possibleMoves.Add(newBoardPosition);
+                            BoardManager.Instance.ShowMoveGuides(newBoardPosition, moveType);
+                            if (moveType == BoardManager.MoveType.Capture)
+                            {
+                                break;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            // Find possible moves: Vertical down
+            for (int y = 0; y <= 8; y++)
+            {
+                newBoardPosition = new Vector2Int(currentBoardPosition.x, currentBoardPosition.y-y);
+                if (newBoardPosition.y>=1){
+                    BoardManager.MoveType moveType = BoardManager.Instance.ValidMove(newBoardPosition, this);
+                    if (moveType != BoardManager.MoveType.Invalid)
+                    {
+                        if (!possibleMoves.Contains(newBoardPosition)){
+                            possibleMoves.Add(newBoardPosition);
+                            BoardManager.Instance.ShowMoveGuides(newBoardPosition, moveType);
+                            if (moveType == BoardManager.MoveType.Capture)
+                            {
+                                break;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+            
+            this.SetPossibleMoves(possibleMoves);
+        }
+
         public override async void OnMouseUp()
         {
             await HandleClickUp();
@@ -145,51 +359,40 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private void PromoteToQueen()
         {
-            IGameRoomManager.Instance.RPC_UnregisterToGameRoom(this);
             Debug.Log("Promoting pawn to queen");
-            // Instantiate a new queen at the pawn's position
-            GameObject queenPrefab = ARChessGameSettings.Instance.GetBoardAppearanceIndex() == 0 ? BoardManager.Instance.defaultQueenPrefab : BoardManager.Instance.desertQueenPrefab;
-            GameObject newQueen = Instantiate(queenPrefab, this.transform.position, this.transform.rotation, this.transform.parent);
-            if (this.colorWhite())
+            
+            // Set promoted to true
+            promoted = true;
+
+            // Change the pawn's skin to the queen's skin
+            int prefabIndex = ARChessGameSettings.Instance.GetBoardAppearanceIndex();
+            GameObject queenPrefab = prefabIndex == 0 ? BoardManager.Instance.defaultQueenPrefab : BoardManager.Instance.desertQueenPrefab;
+
+            // Destroy current skin
+            if (currentSkin != null)
             {
-                newQueen.name = this.name + ": Queen Promotion";
-            } else {
-                newQueen.name = this.name + ": Queen Promotion";
+                Destroy(currentSkin);
             }
-            Queen queenComponent = newQueen.GetComponent<Queen>();
 
-            // Transfer properties
-            queenComponent.SetCurrentTile(this.GetCurrentTile());
-            queenComponent.SetNearestTile(this.GetNearestTile());
-            queenComponent.SetFirstMove(false);
-            queenComponent.SetWhite(this.colorWhite());
+            // Instantiate the new queen skin
+            currentSkin = Instantiate(queenPrefab, transform);
+            currentSkin.transform.localPosition = Vector3.zero;
+            currentSkin.transform.localRotation = Quaternion.identity;
+            currentSkin.transform.localScale = Vector3.one;
 
-            queenComponent.SetKing(this.isKingPiece());
-            queenComponent.SetInitialBoardPosition(this.GetInitialBoardPosition());
-            queenComponent.boardParent = this.boardParent;
-            queenComponent.SetTiles(this.GetTiles());
-            queenComponent.SetPieceMaterial(this.colorWhite() ? 0 : 1);
-            queenComponent.SetPieceIndex(this.GetPieceIndex());
+            // Set the material for the new queen skin
+            int materialIndex = this.colorWhite() ? 0 : 1;
+            if (prefabIndex == 1)
+            {
+                materialIndex = this.colorWhite() ? 2 : 3;
+            }
+            SetPieceMaterial(materialIndex);
 
-            // Update the tile to be occupied by the new queen
-            Tile currentTile = this.GetCurrentTile();
-            currentTile.SetOccupied(false); // Clear the pawn
-            currentTile.SetOccupied(true, queenComponent); // Set the new queen
+            // Update the board state
+            BoardManager.Instance.UpdatePieceInBoardState(this.GetPieceIndex(), this);
 
-            // Set the current tile to be occupied by the new queen
-            BoardManager.Instance.UpdateBoardState(currentTile.GetBoardIndex(), currentTile.GetBoardIndex(), queenComponent, true);
-
-            // Explicitly update the BoardManager's piece array
-            BoardManager.Instance.UpdatePieceInBoardState(this.GetPieceIndex(), queenComponent);
-
-            // Generate possible moves for new queen
-            queenComponent.GeneratePossibleMovesForBoard(currentTile.GetBoardIndex());
-
-            // Register queen to room
-            IGameRoomManager.Instance.RPC_RegisterToGameRoom(queenComponent);
-
-            // Deactivate the pawn
-            this.gameObject.SetActive(false);
+            // Generate possible moves for the new queen
+            GeneratePossibleMovesForBoard(this.GetCurrentTile().GetBoardIndex());
 
             Debug.Log("Pawn promoted to queen");
             BoardManager.Instance.GenerateAllPossibleMoves();

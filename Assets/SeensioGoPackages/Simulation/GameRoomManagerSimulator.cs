@@ -16,7 +16,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
         private IGameActionListener m_gameActionListener;
         private ConcurrentDictionary<int, IGameRPC> m_gameRPCActionTransfers = new ConcurrentDictionary<int, IGameRPC>();
         private string m_gameId;
-
+        private object m_bufferData;
         private void Awake()
         {
             if(IGameRoomManager.Instance == null)
@@ -81,20 +81,20 @@ namespace JKTechnologies.SeensioGo.GameEngine
         public async Task<UserPointData[]> GetLeaderBoard()
         {
             await Task.Yield();
-            return default;
+            return new UserPointData[0];
         }
 
 
         public async Task<UserPointData> GetCurrentUserPoints()
         {
             await Task.Yield();
-            return default;
+            return new UserPointData();
         }
 
         public async Task<bool> UpdateUserPoints(int points)
         {
             await Task.Yield();
-            return default;
+            return true;
         }
         #endregion
 
@@ -115,18 +115,20 @@ namespace JKTechnologies.SeensioGo.GameEngine
         public async Task<T> GetBufferRoomData<T>()
         {
             await Task.Yield();
-            return default; 
+            return (T)m_bufferData; 
         }
         public async Task<bool> SetBufferRoomData<T>(T bufferData)
         {
+            m_bufferData = bufferData;
             await Task.Yield();
-            return default;
+            return true;
         }
 
         public async Task<bool> DeleteBufferRoomData()
         {
             await Task.Yield();
-            return default;
+            m_bufferData = null;
+            return true;
         }
         #endregion
 
