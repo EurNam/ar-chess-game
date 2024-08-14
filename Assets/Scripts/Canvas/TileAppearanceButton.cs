@@ -22,10 +22,10 @@ namespace JKTechnologies.SeensioGo.ARChess
         void Start()
         {
             toggleButton.onClick.AddListener(buttonFunction);
-            if (this.skinButton)
-            {
-                this.gameObject.SetActive(false);
-            }
+            // if (this.skinButton)
+            // {
+            //     this.gameObject.SetActive(false);
+            // }
         }
         public void buttonFunction()
         {   

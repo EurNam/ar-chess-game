@@ -15,7 +15,9 @@ namespace JKTechnologies.SeensioGo.ARChess
         private int tileAppearanceIndex = 0;
         private Vector3 position3D;
         private bool isOccupied = false;
-        private Piece piece = null;
+        private Piece occupyingPiece = null;
+        private bool isOccupiedByStone = false;
+        private Stone occupyingStone = null;
         private Renderer tileRenderer;
         private GameObject tilePrefab;
         private Renderer moveGuideRenderer;
@@ -129,7 +131,17 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public Piece GetPiece()
         {
-            return piece;
+            return occupyingPiece;
+        }
+
+        public bool GetOccupiedByStoneState()
+        {
+            return isOccupiedByStone;
+        }
+
+        public Stone GetStone()
+        {
+            return occupyingStone;
         }
 
         public void SetBoardIndex(Vector2Int boardIndex)
@@ -145,7 +157,13 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetOccupied(bool occupied, Piece piece = null)
         {
             isOccupied = occupied;
-            this.piece = piece;
+            occupyingPiece = piece;
+        }
+
+        public void SetOccupiedByStone(bool occupied, Stone stone = null)
+        {
+            isOccupiedByStone = occupied;
+            occupyingStone = stone;
         }
 
         public void SetTileMaterial(int materialIndex)
@@ -183,6 +201,32 @@ namespace JKTechnologies.SeensioGo.ARChess
                         moveGuideTransform.localScale = new Vector3(1f, moveGuideTransform.localScale.y, 1f);
                         break;
                     case BoardManager.MoveType.Stay:
+                        moveGuideRenderer.material.color = Color.yellow;
+                        moveGuideTransform.localScale = new Vector3(0.5f, moveGuideTransform.localScale.y, 0.5f);
+                        break;
+                    default:
+                        moveGuideRenderer.material.color = Color.clear;
+                        moveGuideTransform.localScale = new Vector3(0.5f, moveGuideTransform.localScale.y, 0.5f);
+                        break;
+                }
+            }
+        }
+
+        public void SetCheckersMoveGuideColor(CheckersBoardManager.CheckersMoveType moveType)
+        {
+            if (moveGuideRenderer != null)
+            {
+                switch (moveType)
+                {
+                    case CheckersBoardManager.CheckersMoveType.Allowed:
+                        moveGuideRenderer.material.color = Color.green;
+                        moveGuideTransform.localScale = new Vector3(0.5f, moveGuideTransform.localScale.y, 0.5f);
+                        break;
+                    case CheckersBoardManager.CheckersMoveType.Capture:
+                        moveGuideRenderer.material.color = Color.green;
+                        moveGuideTransform.localScale = new Vector3(0.8f, moveGuideTransform.localScale.y, 0.8f);
+                        break;
+                    case CheckersBoardManager.CheckersMoveType.Stay:
                         moveGuideRenderer.material.color = Color.yellow;
                         moveGuideTransform.localScale = new Vector3(0.5f, moveGuideTransform.localScale.y, 0.5f);
                         break;
@@ -292,6 +336,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void ResetTile()
         {
             SetOccupied(false, null);
+            SetOccupiedByStone(false, null);
             SetMoveGuideShown(false);
         }
 

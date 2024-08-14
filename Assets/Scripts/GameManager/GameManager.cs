@@ -34,6 +34,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public NameTag myName;
         public NameTag opponentName;
         [SerializeField] private Leaderboard leaderboardManager;
+        public GameObject[] gameTypes;
         private string m_playerID;
         private string[] m_old_gameSettings = new string[4]{"","","",""}; // 1: White Side, 2: Black Side, 3: Room Host, 4: Tile Skin
         private bool whitePlayer = true;

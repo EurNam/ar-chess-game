@@ -40,7 +40,10 @@ namespace JKTechnologies.SeensioGo.ARChess
         #region Unity Methods
         void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
         }
 
         // Start is called before the first frame update
@@ -52,14 +55,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Update is called once per frame
         void Update()
         {
-            // if (ARChessGameSettings.Instance.GetChangeTileSkin())
-            // {
-            //     InitializeBoardState();
-            //     GenerateAllPossibleMoves();
-            //     HideMoveGuides();
-            //     Debug.Log("New board initialized");
-            //     ARChessGameSettings.Instance.SetChangeTileSkin(false);
-            // }
+
         }
         #endregion
 
@@ -257,16 +253,16 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 if (piece.colorWhite())
                 {
-                    BoardManager.Instance.SetWhiteKingPosition(moveAfter);
+                    SetWhiteKingPosition(moveAfter);
                 }
                 else
                 {
-                    BoardManager.Instance.SetBlackKingPosition(moveAfter);
+                    SetBlackKingPosition(moveAfter);
                 }
             }
 
             GenerateAllPossibleMoves();
-            BoardManager.Instance.HideMoveGuides();
+            HideMoveGuides();
         }
 
         public void UpdatePieceInBoardState(int pieceIndex, Piece newPiece)
