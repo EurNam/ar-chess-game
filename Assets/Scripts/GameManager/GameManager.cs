@@ -273,6 +273,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             ARChessGameSettings.Instance.SetBoardAppearanceIndex(this.skinIndex);
             #endif
             BoardManager.Instance.SetBoardSkin();
+            CheckersBoardManager.Instance.SetBoardSkin();
         }
 
         public bool IsMyTurn()
