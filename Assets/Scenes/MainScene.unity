@@ -249,7 +249,6 @@ GameObject:
   - component: {fileID: 39826390}
   - component: {fileID: 39826391}
   - component: {fileID: 39826392}
-  - component: {fileID: 39826393}
   m_Layer: 0
   m_Name: Red12
   m_TagString: Untagged
@@ -292,10 +291,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &39826392
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -310,19 +309,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &39826393
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 39826389}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &48606539
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +463,6 @@ GameObject:
   - component: {fileID: 54347864}
   - component: {fileID: 54347865}
   - component: {fileID: 54347866}
-  - component: {fileID: 54347867}
   m_Layer: 0
   m_Name: Red2
   m_TagString: Untagged
@@ -520,10 +505,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &54347866
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -538,19 +523,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &54347867
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54347863}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &72063753
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,10 +2111,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &265588680
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2600,10 +2572,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &305656324
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3323,6 +3295,7 @@ GameObject:
   - component: {fileID: 368952753}
   - component: {fileID: 368952752}
   - component: {fileID: 368952751}
+  - component: {fileID: 368952754}
   m_Layer: 5
   m_Name: Checkers
   m_TagString: Untagged
@@ -3493,6 +3466,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 368952748}
   m_CullTransparentMesh: 1
+--- !u!114 &368952754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368952748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef5d5e4f9a0240afabf74377d5b2bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleButton: {fileID: 368952751}
+  chessGame: 0
+  checkersGame: 1
 --- !u!1 &382958527
 GameObject:
   m_ObjectHideFlags: 0
@@ -4244,7 +4232,6 @@ GameObject:
   - component: {fileID: 430715485}
   - component: {fileID: 430715486}
   - component: {fileID: 430715487}
-  - component: {fileID: 430715488}
   m_Layer: 0
   m_Name: Red7
   m_TagString: Untagged
@@ -4287,10 +4274,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &430715487
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4305,19 +4292,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &430715488
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 430715484}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &431479625
 GameObject:
   m_ObjectHideFlags: 0
@@ -6337,10 +6311,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &638824507
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6367,6 +6341,7 @@ GameObject:
   - component: {fileID: 642356516}
   - component: {fileID: 642356515}
   - component: {fileID: 642356514}
+  - component: {fileID: 642356518}
   m_Layer: 5
   m_Name: Chess
   m_TagString: Untagged
@@ -6537,6 +6512,21 @@ RectTransform:
   m_AnchoredPosition: {x: -86, y: 286}
   m_SizeDelta: {x: 107.176, y: 22.2621}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &642356518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642356512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef5d5e4f9a0240afabf74377d5b2bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleButton: {fileID: 642356514}
+  chessGame: 1
+  checkersGame: 0
 --- !u!1 &657541537
 GameObject:
   m_ObjectHideFlags: 0
@@ -6680,79 +6670,6 @@ CapsuleCollider:
   m_Height: 3.206388
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0.603194, z: -0.00000011920929}
---- !u!1001 &663109983
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146800, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909062877146803, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_Name
-      value: GameRoomManagerSimulator
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909064709643584, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20909064709643596, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 20909064709643596, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 20909064709643596, guid: 242120bee64d640618300d1e28519e09, type: 3}
-      propertyPath: m_ActiveFontFeatures.Array.data[0]
-      value: 1801810542
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 242120bee64d640618300d1e28519e09, type: 3}
 --- !u!1 &706087591
 GameObject:
   m_ObjectHideFlags: 0
@@ -6764,7 +6681,6 @@ GameObject:
   - component: {fileID: 706087592}
   - component: {fileID: 706087593}
   - component: {fileID: 706087594}
-  - component: {fileID: 706087595}
   m_Layer: 0
   m_Name: Red5
   m_TagString: Untagged
@@ -6807,10 +6723,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &706087594
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6825,19 +6741,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &706087595
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 706087591}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &723988384
 GameObject:
   m_ObjectHideFlags: 0
@@ -7606,10 +7509,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &778708000
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7769,6 +7672,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 782628376}
+  - component: {fileID: 782628377}
   m_Layer: 0
   m_Name: Common
   m_TagString: Untagged
@@ -7791,6 +7695,19 @@ Transform:
   m_Father: {fileID: 1409981583}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &782628377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782628375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a15ada5681554463815700a28b54ec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
 --- !u!1 &798045338
 GameObject:
   m_ObjectHideFlags: 0
@@ -9194,10 +9111,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &895617593
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9280,67 +9197,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 2c2af182d18c2427fb0d12a51a7adbd9, type: 2}
   - {fileID: 2100000, guid: cb3a570fba21c4935ab14be596cc4c16, type: 2}
   - {fileID: 2100000, guid: e4f4fb7d05aef4533a14fd3587c98b2a, type: 2}
---- !u!1001 &916019492
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1691763652903345061, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5719647150002596109, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 951399427}
-    - target: {fileID: 7453217418895193399, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
-      propertyPath: m_Name
-      value: BASE
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6349157f53e43416a968dbe11b988ee7, type: 3}
 --- !u!1 &918408488
 GameObject:
   m_ObjectHideFlags: 0
@@ -9915,10 +9771,15 @@ MonoBehaviour:
   gameID: XWVSJ2yCtyLlez9F47tu
   myName: {fileID: 434533478}
   opponentName: {fileID: 1580166062}
+  portalController: {fileID: 782628377}
   leaderboardManager: {fileID: 8905168632119444816}
   gameTypes:
   - {fileID: 1191669915}
   - {fileID: 1041435439}
+  boardInitialized: 0
+  OnBoardInitialized:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &937240786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10636,7 +10497,6 @@ GameObject:
   - component: {fileID: 975441649}
   - component: {fileID: 975441650}
   - component: {fileID: 975441651}
-  - component: {fileID: 975441652}
   m_Layer: 0
   m_Name: Red4
   m_TagString: Untagged
@@ -10679,10 +10539,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &975441651
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10697,19 +10557,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &975441652
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975441648}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &984219434
 GameObject:
   m_ObjectHideFlags: 0
@@ -10902,10 +10749,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &994624503
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12065,10 +11912,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1101918879
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13403,7 +13250,6 @@ GameObject:
   - component: {fileID: 1193776554}
   - component: {fileID: 1193776555}
   - component: {fileID: 1193776556}
-  - component: {fileID: 1193776557}
   m_Layer: 0
   m_Name: Red10
   m_TagString: Untagged
@@ -13446,10 +13292,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1193776556
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13464,19 +13310,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &1193776557
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193776553}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1214368128
 GameObject:
   m_ObjectHideFlags: 0
@@ -13693,7 +13526,6 @@ GameObject:
   - component: {fileID: 1218350353}
   - component: {fileID: 1218350354}
   - component: {fileID: 1218350355}
-  - component: {fileID: 1218350356}
   m_Layer: 0
   m_Name: Red11
   m_TagString: Untagged
@@ -13736,10 +13568,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1218350355
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13754,19 +13586,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &1218350356
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218350352}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1220415993
 GameObject:
   m_ObjectHideFlags: 0
@@ -15748,10 +15567,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1371628606
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -16436,10 +16255,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1452327714
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18658,7 +18477,6 @@ GameObject:
   - component: {fileID: 1746822432}
   - component: {fileID: 1746822433}
   - component: {fileID: 1746822434}
-  - component: {fileID: 1746822435}
   m_Layer: 0
   m_Name: Red6
   m_TagString: Untagged
@@ -18701,10 +18519,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1746822434
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18719,19 +18537,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &1746822435
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1746822431}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1763434322
 GameObject:
   m_ObjectHideFlags: 0
@@ -20523,10 +20328,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1879660509
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20688,7 +20493,6 @@ GameObject:
   - component: {fileID: 1913845055}
   - component: {fileID: 1913845056}
   - component: {fileID: 1913845057}
-  - component: {fileID: 1913845058}
   m_Layer: 0
   m_Name: Red8
   m_TagString: Untagged
@@ -20731,10 +20535,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1913845057
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -20749,19 +20553,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &1913845058
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1913845054}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1914015776
 GameObject:
   m_ObjectHideFlags: 0
@@ -20891,10 +20682,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1918569113
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21542,7 +21333,6 @@ GameObject:
   - component: {fileID: 1964745423}
   - component: {fileID: 1964745424}
   - component: {fileID: 1964745425}
-  - component: {fileID: 1964745426}
   m_Layer: 0
   m_Name: Red3
   m_TagString: Untagged
@@ -21585,10 +21375,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1964745425
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21603,19 +21393,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &1964745426
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1964745422}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1965253246
 GameObject:
   m_ObjectHideFlags: 0
@@ -21888,10 +21665,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1973653209
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22197,7 +21974,6 @@ GameObject:
   - component: {fileID: 1988489058}
   - component: {fileID: 1988489059}
   - component: {fileID: 1988489060}
-  - component: {fileID: 1988489061}
   m_Layer: 0
   m_Name: Red1
   m_TagString: Untagged
@@ -22240,10 +22016,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &1988489060
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22258,19 +22034,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &1988489061
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988489057}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1990009885
 GameObject:
   m_ObjectHideFlags: 0
@@ -22736,7 +22499,6 @@ GameObject:
   - component: {fileID: 2076937748}
   - component: {fileID: 2076937749}
   - component: {fileID: 2076937750}
-  - component: {fileID: 2076937751}
   m_Layer: 0
   m_Name: Red9
   m_TagString: Untagged
@@ -22779,10 +22541,10 @@ MonoBehaviour:
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   - {fileID: 153992725485766982, guid: 6053a486f88f446599970b8b84c8d444, type: 3}
   stoneMaterials:
-  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: ac1a2f9a92df94f6eb0020ef15cb4e29, type: 2}
-  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
+  - {fileID: 2100000, guid: 890b5fdbfe960485c81353b7fd3eb7fd, type: 2}
   - {fileID: 2100000, guid: 125a2ad3b939148bda51d2b1f3eaaba6, type: 2}
+  - {fileID: 2100000, guid: e0002a4773af3486b9b99f700a547a67, type: 2}
 --- !u!136 &2076937750
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22797,19 +22559,6 @@ CapsuleCollider:
   m_Height: 17.63
   m_Direction: 1
   m_Center: {x: 0.000000066227386, y: -0.000008940697, z: -0.0042405394}
---- !u!65 &2076937751
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076937747}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2092878887
 GameObject:
   m_ObjectHideFlags: 0

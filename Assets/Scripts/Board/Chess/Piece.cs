@@ -702,7 +702,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         #endregion
 
         #region Multiplayer
-        public void RPC_OnActionReceived(string actionName)
+        public void RPC_OnActionReceived(string actionName, object[] args)
         {
             // Debug.Log("Action received: " + actionName);
             Invoke(actionName, 0.1f);

@@ -69,7 +69,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
     /// </summary>
     public interface IGameRPC 
     {
-        public void RPC_OnActionReceived(string actionName);
+        public void RPC_OnActionReceived(string actionName, object[] args);
         public int RPC_GetID();
     }
 }
