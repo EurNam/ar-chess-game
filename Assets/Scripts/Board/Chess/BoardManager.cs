@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using JKTechnologies.SeensioGo.GameEngine;
+using System.Linq;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
@@ -50,6 +51,20 @@ namespace JKTechnologies.SeensioGo.ARChess
         void Start()
         {
             InitializeBoardState();
+
+            if (GameManager.Instance.boardInitialized)
+            {
+                ApplyBufferData(GameManagerBufferData.Instance.GetBufferData());
+            }
+            else
+            {
+                GameManager.Instance.OnBoardInitialized.AddListener(OnBoardInitialized);
+            }
+        }
+
+        private void OnBoardInitialized()
+        {
+            ApplyBufferData(GameManagerBufferData.Instance.GetBufferData());
         }
 
         // Update is called once per frame
@@ -153,7 +168,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         #endregion
 
         #region Board Initialization
-        private void InitializeBoardState()
+        public void InitializeBoardState()
         {
             int boardSize = 9;
             boardState = new Tile[boardSize, boardSize];
@@ -625,14 +640,20 @@ namespace JKTechnologies.SeensioGo.ARChess
         #region Multiplayer
         public void UpdatePieceCaptureState(string[] boardPieceState)
         {
+            if (boardPieceState == null) return;
             foreach (Piece piece in boardStatePieces)
             {
-                int pieceId = piece.RPC_GetID();
-                if (boardPieceState[pieceId-1] == "")
+                string pieceIndex = piece.GetPieceIndex().ToString();
+                if (!boardPieceState.Contains(pieceIndex))
                 {
                     piece.gameObject.SetActive(false);
                 }
             }
+        }
+
+        public void ApplyBufferData(BufferData bufferData)
+        {
+            UpdatePieceCaptureState(bufferData.boardPieceState);
         }
         #endregion
     }

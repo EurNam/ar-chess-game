@@ -96,7 +96,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
             else
             {
-                bufferData.boardPieceState[index] = piece.name;
+                bufferData.boardPieceState[index] = piece.GetPieceIndex().ToString();
             }
         }
         #endregion

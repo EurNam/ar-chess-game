@@ -45,14 +45,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             currentSkin.transform.localRotation = Quaternion.identity;
             currentSkin.transform.localScale = Vector3.one;
 
-            if (this.isWhite)
-            {
-                this.SetStoneMaterial(0);
-            }
-            else
-            {
-                this.SetStoneMaterial(1);
-            }
+            SetStoneMaterial(isWhite ? 0 : 1);
         }
 
         protected virtual void Update()
@@ -148,6 +141,11 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             if (CheckersBoardManager.Instance.GetTile(to).GetOccupiedByStoneState())
                 return false;
+
+            if (Mathf.Abs(to.x - from.x) == 1 && CheckersBoardManager.Instance.GetForcedStone() != null)
+            {
+                return false;
+            }
 
             if (Mathf.Abs(to.x - from.x) == 2)
             {
@@ -247,12 +245,18 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private void HandleClickDown()
         {
-            Debug.Log(CheckersBoardManager.Instance.GetWhiteTurn());
+            Stone forcedStone = CheckersBoardManager.Instance.GetForcedStone();
+            if (forcedStone != null && forcedStone != this)
+            {
+                // Don't allow moving this stone if there's a forced move
+                return;
+            }
+
             if (CheckersBoardManager.Instance.GetWhiteTurn() == this.IsWhite() && ARChessGameSettings.Instance.GetBoardInitialized() && GameManager.Instance.GetWhitePlayer() == this.IsWhite() && ARChessGameSettings.Instance.GetGameStarted())
             {
                 isDragging = true;
                 dragPlane = new Plane(boardParent.transform.up, transform.position);
-                mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+                mousePosition = Input.mousePosition - GameManager.Instance.portalController.ARCamera.WorldToScreenPoint(transform.position);
                 GeneratePossibleMoves(currentTile.GetBoardIndex());
                 if (SystemInfo.supportsVibration)
                 {
@@ -264,7 +268,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         private void CustomDrag()
         {
             Vector3 cursorPosition = VirtualMouse.Instance.GetCursorPosition();
-            Ray ray = Camera.main.ScreenPointToRay(cursorPosition);
+            Ray ray = GameManager.Instance.portalController.ARCamera.ScreenPointToRay(cursorPosition);
             if (dragPlane.Raycast(ray, out float distance))
             {
                 new3DPosition = ray.GetPoint(distance);
@@ -285,7 +289,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private void DragStoneMouse()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = GameManager.Instance.portalController.ARCamera.ScreenPointToRay(Input.mousePosition);
             if (dragPlane.Raycast(ray, out float distance))
             {
                 new3DPosition = ray.GetPoint(distance);
@@ -331,6 +335,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             Tile tempCurrentTile = currentTile;
             Tile tempNearestTile = nearestTile;
+            bool isCaptureMove = false;
 
             if (nearestTile.GetOccupiedByStoneState() && nearestTile.GetStone() != this)
             {
@@ -348,6 +353,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 Stone capturedStone = capturedTile.GetStone();
                 if (capturedStone != null)
                 {
+                    capturedTile.SetOccupiedByStone(false, null);
                     try
                     {
                         IGameRoomManager.Instance.RPC_ScatterActionToRoom(capturedStone, "Captured");
@@ -357,6 +363,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                         capturedStone.Captured();
                     }
                 }
+                isCaptureMove = true;
             }
 
             if (afterMove)
@@ -382,7 +389,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                 CheckersBoardManager.Instance.IncrementMoveCount();
                 CheckersBoardManager.Instance.UpdateBoardState();
                 CheckersBoardManager.Instance.CheckForCheckersWin(!this.isWhite);
-                await Task.Delay(100);
                 try
                 {
                     IGameRoomManager.Instance.RPC_ScatterActionToRoom(this, "Moved");
@@ -391,12 +397,34 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     this.Moved();
                 }
-                GameManager.Instance.SwitchRoomTurn();
 
-                GeneratePossibleMoves(currentTile.GetBoardIndex());
-                if (possibleMoves.Count > 0 && possibleMoves.TrueForAll(move => Mathf.Abs(move.x - currentTile.GetBoardIndex().x) == 2))
+                // Check for additional captures
+                if (isCaptureMove)
                 {
+                    List<Vector2Int> additionalCaptures = CheckersBoardManager.Instance.GetAdditionalCaptures(this, this.isKing);
+
+                    foreach (Vector2Int capture in additionalCaptures)
+                    {
+                        Debug.Log("Additional capture: " + capture);
+                    }
+
+                    // If there are additional captures, make them, else switch turn
+                    if (additionalCaptures.Count > 0)
+                    {
+                        CheckersBoardManager.Instance.SetForcedStone(this);
+                    }
+                    else
+                    {
+                        CheckersBoardManager.Instance.SetForcedStone(null);
+                        GameManager.Instance.SwitchRoomTurn();
+                        Debug.Log("Switching room turn");
+                    }
+                }
+                else
+                {
+                    CheckersBoardManager.Instance.SetForcedStone(null);
                     GameManager.Instance.SwitchRoomTurn();
+                    Debug.Log("Switching room turn");
                 }
             }
             else
@@ -405,10 +433,10 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
-        public void PromoteToKing()
+        private void PromoteToKing()
         {
-            isKing = true;
-            SetStoneMaterial(isWhite ? 2 : 3);
+            this.isKing = true;
+            //SetStoneMaterial(isWhite ? 2 : 3);
         }
 
         public void Moved()
@@ -430,7 +458,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             int index = this.RPC_GetID() - 1;
             IGameRoomManager.Instance.RPC_UnregisterToGameRoom(this);
             this.gameObject.SetActive(false);
-            GameManagerBufferData.Instance.SetBufferPieceData(null, index);
+            //GameManagerBufferData.Instance.SetBufferPieceData(null, index);
         }
 
         public void UpdatePiecePositionInfo(bool afterMove)

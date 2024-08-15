@@ -315,7 +315,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 // Set the plane to be the piece
                 dragPlane = new Plane(boardParent.transform.up, transform.position);
                 // Set the mouse position to be the piece
-                mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+                mousePosition = Input.mousePosition - GameManager.Instance.portalController.ARCamera.WorldToScreenPoint(transform.position);
                 // Generate the possible moves for the piece
                 GeneratePossibleMoves(currentTile.GetBoardIndex());
                 FilterMovesToAvoidCheck(true);
@@ -343,7 +343,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         {
             Vector3 cursorPosition = VirtualMouse.Instance.GetCursorPosition();
 
-            Ray ray = Camera.main.ScreenPointToRay(cursorPosition);
+            Ray ray = GameManager.Instance.portalController.ARCamera.ScreenPointToRay(cursorPosition);
             float distance;
             // Allow the piece to be dragged on the board
             if (dragPlane.Raycast(ray, out distance))
@@ -370,7 +370,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private void DragPieceMouse()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = GameManager.Instance.portalController.ARCamera.ScreenPointToRay(Input.mousePosition);
             float distance;
             // Allow the piece to be dragged on the board
             if (dragPlane.Raycast(ray, out distance))

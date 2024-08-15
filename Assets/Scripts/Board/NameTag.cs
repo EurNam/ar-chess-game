@@ -21,6 +21,12 @@ namespace JKTechnologies.SeensioGo.ARChess
             Debug.Log("NameTag: " + text.text);
         }
 
+        public void SetNameTag(string name)
+        {
+            playerName = name;
+            text.text = name;
+        }
+
         public void SetMasterName(string name)
         {
             if (isUser)

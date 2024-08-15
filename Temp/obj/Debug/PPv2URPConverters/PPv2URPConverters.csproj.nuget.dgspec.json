@@ -1,0 +1,1101 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/macbook/Desktop/Summer/JK/ARChess/PPv2URPConverters.csproj": {}
+  },
+  "projects": {
+    "/Users/macbook/Desktop/Summer/JK/ARChess/PPv2URPConverters.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/PPv2URPConverters.csproj",
+        "projectName": "PPv2URPConverters",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/PPv2URPConverters.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/PPv2URPConverters/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Editor.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Editor.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Editor.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Editor.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Runtime.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Runtime.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.csproj",
+        "projectName": "Unity.Burst",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.Burst/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.Editor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.Editor.csproj",
+        "projectName": "Unity.Burst.Editor",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.Editor.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.Burst.Editor/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.InputSystem.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.InputSystem.csproj",
+        "projectName": "Unity.InputSystem",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.InputSystem.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.InputSystem/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.csproj",
+        "projectName": "Unity.Mathematics",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.Mathematics/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.Editor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.Editor.csproj",
+        "projectName": "Unity.Mathematics.Editor",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.Editor.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.Mathematics.Editor/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipeline.Universal.ShaderLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipeline.Universal.ShaderLibrary.csproj",
+        "projectName": "Unity.RenderPipeline.Universal.ShaderLibrary",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipeline.Universal.ShaderLibrary.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.RenderPipeline.Universal.ShaderLibrary/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Editor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Editor.csproj",
+        "projectName": "Unity.RenderPipelines.Core.Editor",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Editor.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.RenderPipelines.Core.Editor/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj",
+        "projectName": "Unity.RenderPipelines.Core.Runtime",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.RenderPipelines.Core.Runtime/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.InputSystem.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.InputSystem.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Editor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Editor.csproj",
+        "projectName": "Unity.RenderPipelines.Universal.Editor",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Editor.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.RenderPipelines.Universal.Editor/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.Editor.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.Editor.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.Editor.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.Editor.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Editor.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Editor.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Runtime.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Runtime.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.ShaderGraph.Editor.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.ShaderGraph.Editor.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Runtime.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Runtime.csproj",
+        "projectName": "Unity.RenderPipelines.Universal.Runtime",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Universal.Runtime.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.RenderPipelines.Universal.Runtime/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Burst.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Mathematics.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipeline.Universal.ShaderLibrary.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipeline.Universal.ShaderLibrary.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Searcher.Editor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Searcher.Editor.csproj",
+        "projectName": "Unity.Searcher.Editor",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Searcher.Editor.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.Searcher.Editor/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.ShaderGraph.Editor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.ShaderGraph.Editor.csproj",
+        "projectName": "Unity.ShaderGraph.Editor",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.ShaderGraph.Editor.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.ShaderGraph.Editor/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Editor.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Editor.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.RenderPipelines.Core.Runtime.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Searcher.Editor.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.Searcher.Editor.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.ShaderGraph.Utilities.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.ShaderGraph.Utilities.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.ShaderGraph.Utilities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.ShaderGraph.Utilities.csproj",
+        "projectName": "Unity.ShaderGraph.Utilities",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Unity.ShaderGraph.Utilities.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/Unity.ShaderGraph.Utilities/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj",
+        "projectName": "UnityEditor.TestRunner",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/UnityEditor.TestRunner/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj",
+        "projectName": "UnityEditor.UI",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.UI.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/UnityEditor.UI/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEditor.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj"
+              },
+              "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+                "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj",
+        "projectName": "UnityEngine.TestRunner",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.TestRunner.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/UnityEngine.TestRunner/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj",
+        "projectName": "UnityEngine.UI",
+        "projectPath": "/Users/macbook/Desktop/Summer/JK/ARChess/UnityEngine.UI.csproj",
+        "packagesPath": "/Users/macbook/.nuget/packages/",
+        "outputPath": "/Users/macbook/Desktop/Summer/JK/ARChess/Temp/obj/Debug/UnityEngine.UI/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/macbook/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

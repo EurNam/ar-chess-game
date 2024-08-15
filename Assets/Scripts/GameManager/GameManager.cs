@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using JKTechnologies.SeensioGo.GameEngine;
+using JKTechnologies.SeensioGo.ARPortal;
+using UnityEngine.Events;
+using Unity.VisualScripting;
 
 namespace JKTechnologies.SeensioGo.ARChess
 {
@@ -33,15 +36,20 @@ namespace JKTechnologies.SeensioGo.ARChess
         public string gameID;
         public NameTag myName;
         public NameTag opponentName;
+        public ARPortalController portalController;
         [SerializeField] private Leaderboard leaderboardManager;
         public GameObject[] gameTypes;
+        public bool boardInitialized = false;
+        public UnityEvent OnBoardInitialized = new UnityEvent();
         private string m_playerID;
         private string[] m_old_gameSettings = new string[4]{"","","",""}; // 1: White Side, 2: Black Side, 3: Room Host, 4: Tile Skin
         private bool whitePlayer = true;
         private bool roomHost = true;
         private int skinIndex = 0;
-        private bool isRoomMaster = true;
+        private bool isRoomMaster = true; 
         private GameSettings m_gameSettings = new GameSettings();
+        private bool chessGame = true;
+        private bool checkersGame = false; 
 
         void Awake()
         {
@@ -96,6 +104,8 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 GameManagerBufferData.Instance.SetBufferData(bufferData);
                 await IGameRoomManager.Instance.SetBufferRoomData(bufferData);
+                boardInitialized = true;
+                OnBoardInitialized.Invoke();
             }
             else
             {
@@ -138,6 +148,16 @@ namespace JKTechnologies.SeensioGo.ARChess
             return roomHost;
         }
 
+        public bool GetChessGame()
+        {
+            return chessGame;
+        }
+
+        public bool GetCheckersGame()
+        {
+            return checkersGame;
+        }
+
         public void SetWhitePlayer(bool whitePlayer)
         {
             this.whitePlayer = whitePlayer;
@@ -149,12 +169,22 @@ namespace JKTechnologies.SeensioGo.ARChess
             this.roomHost = roomHost;
         }
 
+        public void SetChessGame(bool chessGame)
+        {
+            this.chessGame = chessGame;
+        }
+
+        public void SetCheckersGame(bool checkersGame)
+        {
+            this.checkersGame = checkersGame;
+        }
+
         public void SetRoomSkin(int skinIndex)
         {
             this.skinIndex = skinIndex;
         }
 
-        public async void SetGameSettings()
+        public void SetGameSettings()
         {
             // Retrieve setting from room
             if (IGameRoomManager.Instance.IsMultiplayerRoom())
@@ -200,9 +230,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public async void ChangeRoomBoardSkin()
         {
-            #if SEENSIOGO
             await IGameRoomManager.Instance.SetBufferRoomData(GameManagerBufferData.Instance.GetBufferData());
-            #endif
             IGameRoomManager.Instance.ScatterActionToRoom("ChangeBoardSkin");
         }
 
@@ -219,19 +247,26 @@ namespace JKTechnologies.SeensioGo.ARChess
             if (roomHost)
             {
                 // myName.SetMasterName(bufferData.masterName);
-                opponentName.SetGuestName(bufferData.guestName);
+                opponentName.SetNameTag(bufferData.guestName);
             } 
             else
             {
                 // myName.SetGuestName(bufferData.guestName);
-                opponentName.SetMasterName(bufferData.masterName);
+                opponentName.SetNameTag(bufferData.masterName);
             }
         }
 
         // Update local turn and board state pieces position
         public void SwitchTurn()
         {
-            BoardManager.Instance.SetWhiteTurn();
+            if (chessGame)
+            {
+                BoardManager.Instance.SetWhiteTurn();
+            }
+            else if (checkersGame)
+            {
+                CheckersBoardManager.Instance.SetWhiteTurn();
+            }
 
             if (!IGameRoomManager.Instance.IsMultiplayerRoom())
             {
@@ -265,13 +300,16 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public async void ChangeBoardSkin()
         {   
-            #if SEENSIOGO
             BufferData bufferData = await IGameRoomManager.Instance.GetBufferRoomData<BufferData>();
-            GameManagerBufferData.Instance.SetBufferSkinData(bufferData.boardAppearanceIndex);
-            ARChessGameSettings.Instance.SetBoardAppearanceIndex(bufferData.boardAppearanceIndex);
-            #else
-            ARChessGameSettings.Instance.SetBoardAppearanceIndex(this.skinIndex);
-            #endif
+            if (bufferData != null)
+            {
+                GameManagerBufferData.Instance.SetBufferSkinData(bufferData.boardAppearanceIndex);
+                ARChessGameSettings.Instance.SetBoardAppearanceIndex(bufferData.boardAppearanceIndex);
+            }
+            else
+            {
+                ARChessGameSettings.Instance.SetBoardAppearanceIndex(this.skinIndex);
+            }
             BoardManager.Instance.SetBoardSkin();
             CheckersBoardManager.Instance.SetBoardSkin();
         }

@@ -21,10 +21,9 @@ namespace JKTechnologies.SeensioGo.ARChess
             toggleButton.onClick.AddListener(StartGame);
         }
 
-        public async void StartGame()
+        public  void StartGame()
         {   
             ARChessGameSettings.Instance.SetGameStarted(true);
-            // GameRoomManager.Instance.StartGameRoom();
         }
 
         public void HideButton()

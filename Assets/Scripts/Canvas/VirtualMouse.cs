@@ -3,6 +3,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+namespace JKTechnologies.SeensioGo.ARChess
+{
     public class VirtualMouse : MonoBehaviour
     {
         public static VirtualMouse Instance;
@@ -186,7 +188,7 @@ using System.Collections.Generic;
             if (isDragging) return;
 
             // Convert cursor position to a ray
-            Ray ray = Camera.main.ScreenPointToRay(cursor.position);
+            Ray ray = GameManager.Instance.portalController.ARCamera.ScreenPointToRay(cursor.position);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
@@ -248,3 +250,4 @@ using System.Collections.Generic;
             cursor.gameObject.SetActive(isEnabled);
         }
     }
+}

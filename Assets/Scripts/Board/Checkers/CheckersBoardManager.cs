@@ -16,6 +16,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         private Stone[] boardStateStones;
         private bool whiteTurn = true;
         private int moveCount = 0;
+        private Stone forcedStone;
         public AudioClip snapSound; 
         public AudioClip captureSound;
         public AudioSource audioSource;
@@ -160,6 +161,63 @@ namespace JKTechnologies.SeensioGo.ARChess
         #endregion
 
         #region Game Logic
+        public void SetForcedStone(Stone stone)
+        {
+            forcedStone = stone;
+        }
+
+        public Stone GetForcedStone()
+        {
+            return forcedStone;
+        }
+
+        public List<Vector2Int> GetAdditionalCaptures(Stone stone, bool isKing)
+        {
+            List<Vector2Int> captures = new List<Vector2Int>();
+            Vector2Int currentPos = stone.GetCurrentTile().GetBoardIndex();
+
+            // Check two diagonal directions for captures
+            CheckCapture(stone, currentPos, 2, 2, captures);
+            CheckCapture(stone, currentPos, -2, 2, captures);
+
+            // If the stone is a king, check the other two diagonal directions
+            if (isKing)
+            {
+                CheckCapture(stone, currentPos, 2, -2, captures);
+                CheckCapture(stone, currentPos, -2, -2, captures);
+            }
+
+            return captures;
+        }
+
+        private void CheckCapture(Stone stone, Vector2Int currentPos, int dx, int dy, List<Vector2Int> captures)
+        {
+            Vector2Int newPos = currentPos + new Vector2Int(dx, dy);
+            Vector2Int jumpedPos = currentPos + new Vector2Int(dx/2, dy/2);
+
+            if (IsValidPosition(newPos) && GetTile(newPos).GetStone() == null)
+            {
+                Stone jumpedStone = GetTile(jumpedPos).GetStone();
+                if (jumpedStone != null && jumpedStone.IsWhite() != stone.IsWhite())
+                {
+                    captures.Add(newPos);
+                    Debug.Log("Can capture " + jumpedStone.name + " at " + GetTile(jumpedPos).name + " index " + jumpedPos + " from " + stone.name + " at " + GetTile(currentPos).name + " index " + currentPos);
+                }
+            }
+        }
+
+        private bool IsValidPosition(Vector2Int pos)
+        {
+            return pos.x >= 1 && pos.x <= 8 && pos.y >= 1 && pos.y <= 8;
+        }
+
+        public void ShowMoveGuides(List<Vector2Int> positions, CheckersMoveType moveType)
+        {
+            foreach (Vector2Int pos in positions)
+            {
+                ShowMoveGuides(pos, moveType);
+            }
+        }
         public void CheckForCheckersWin(bool currentPlayerIsWhite)
         {
             bool opponentHasMovesLeft = false;
@@ -171,6 +229,7 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     opponentHasStonesLeft = true;
                     stone.GeneratePossibleMovesForBoard(stone.GetCurrentTile().GetBoardIndex());
+                    this.HideMoveGuides();
                     if (stone.GetPossibleMoves().Count > 0)
                     {
                         opponentHasMovesLeft = true;
@@ -214,7 +273,6 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void ShowMoveGuides(Vector2Int boardPosition, CheckersMoveType moveType)
         {
             boardState[boardPosition.x, boardPosition.y].SetMoveGuideShown(true);
-            Debug.Log("Showing move guide for " + boardPosition + " with move type " + moveType);
             boardState[boardPosition.x, boardPosition.y].SetCheckersMoveGuideColor(moveType);
         }
 
