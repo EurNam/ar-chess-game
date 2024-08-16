@@ -32,6 +32,7 @@ namespace JKTechnologies.SeensioGo.ARChess
     {
         public static GameManager Instance;
         public UnityEngine.UI.Button startButton;
+        public UnityEngine.UI.Button changeGameButton;
         public UnityEngine.UI.Button skinButton;
         public string gameID;
         public NameTag myName;
@@ -67,10 +68,6 @@ namespace JKTechnologies.SeensioGo.ARChess
             IGameRoomManager.Instance.RegisterGameActionListener(this);
             isRoomMaster = IGameRoomManager.Instance.IsRoomMaster();
             roomHost = isRoomMaster;
-            if (!isRoomMaster)
-            {
-                TileAppearanceButton.Instance.HideButton();
-            }
             m_gameSettings = await IGameRoomManager.Instance.GetGameRoomSettings<GameSettings>();
             this.SetGameSettings();
 
@@ -79,6 +76,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             if (isRoomMaster)
             {
                 startButton.gameObject.SetActive(true);
+                changeGameButton.gameObject.SetActive(true);
                 skinButton.gameObject.SetActive(true);
 
                 bufferData = GameManagerBufferData.Instance.GetDefaultBufferData();
@@ -96,7 +94,6 @@ namespace JKTechnologies.SeensioGo.ARChess
                 else
                 {
                     startButton.gameObject.SetActive(true);
-                    skinButton.gameObject.SetActive(true);
                     string guestName = IGameRoomManager.Instance.GetDisplayName();
                     bufferData.guestName = guestName;
                 }
@@ -357,7 +354,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public bool IsMyTurn()
         {
-            return whitePlayer == BoardManager.Instance.GetWhiteTurn();
+            return whitePlayer == BoardManager.Instance.GetWhiteTurn() || whitePlayer == CheckersBoardManager.Instance.GetWhiteTurn();
         }
     }
 }
