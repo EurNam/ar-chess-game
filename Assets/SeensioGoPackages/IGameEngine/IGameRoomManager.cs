@@ -47,7 +47,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
         #region RPC
         public void RPC_RegisterToGameRoom(IGameRPC gameRPC);
         public void RPC_UnregisterToGameRoom(IGameRPC gameRPC);
-        public void RPC_ScatterActionToRoom(IGameRPC gameRPC, string actionName); // IGameRPC will receive this
+        public void RPC_ScatterActionToRoom(IGameRPC gameRPC, string actionName, params object[] parameters); // IGameRPC will receive this
         #endregion
     }
 
@@ -69,7 +69,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
     /// </summary>
     public interface IGameRPC 
     {
-        public void RPC_OnActionReceived(string actionName, object[] args);
+        public void RPC_OnActionReceived(string actionName, object[] args = null);
         public int RPC_GetID();
     }
 }

@@ -109,6 +109,7 @@
     <Compile Include="Assets/Scripts/GameManager/GameManagerBufferData.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Core/RemoteGrabber.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Components/CollisionSound.cs" />
+    <Compile Include="Assets/00-SeensioGoPackages/ITrackingUserInfo/ITrackingUserInfo.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Core/Grabber.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Extras/Zipline.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Core/SnapZone.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Components/DestroyObjectWithDelay.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Helpers/ControllerOffsetHelper.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Extras/Flashlight.cs" />
+    <Compile Include="Assets/Scripts/Canvas/ChooseGameButton.cs" />
     <Compile Include="Assets/Scripts/Canvas/ToggleVirtualCursor.cs" />
     <Compile Include="Assets/Scripts/Board/Chess/PiecesType/Knight.cs" />
     <Compile Include="Assets/Scripts/Canvas/Leaderboard.cs" />
@@ -199,6 +201,7 @@
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Helpers/ScaleMaterialHelper.cs" />
     <Compile Include="Assets/Sample/TutorialInfo/Scripts/Readme.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Helpers/GrabberArea.cs" />
+    <Compile Include="Assets/01/ThirdParty/ARPortalController/ARPortalController.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Core/HeadCollisionMove.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/UI/UICanvasGroup.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Extras/Bow.cs" />
@@ -233,8 +236,6 @@
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Core/ArmSwingLocomotion.cs" />
     <Compile Include="Assets/ThirdParty/BNG Framework/Scripts/Components/GrabbableRingHelper.cs" />
     <Compile Include="Assets/SeensioGoPackages/Simulation/GameRoomManagerSimulator.cs" />
-    <Compile Include="Assets/SeensioGoPackages/ARPortalController/ARPortalController.cs" />
-    <Compile Include="Assets/Scripts/Canvas/ChooseGameButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/ThirdParty/BNG Framework/Integrations/PUN/Readme.txt" />

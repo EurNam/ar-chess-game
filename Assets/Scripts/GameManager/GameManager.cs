@@ -38,7 +38,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         public NameTag opponentName;
         public ARPortalController portalController;
         [SerializeField] private Leaderboard leaderboardManager;
-        public GameObject[] gameTypes;
+        public GameObject chessGame;
+        public GameObject checkersGame;
         public bool boardInitialized = false;
         public UnityEvent OnBoardInitialized = new UnityEvent();
         private string m_playerID;
@@ -48,8 +49,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         private int skinIndex = 0;
         private bool isRoomMaster = true; 
         private GameSettings m_gameSettings = new GameSettings();
-        private bool chessGame = true;
-        private bool checkersGame = false; 
+        private bool isChessGame = true;
+        private bool isCheckersGame = false; 
 
         void Awake()
         {
@@ -171,12 +172,12 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         public void SetChessGame(bool chessGame)
         {
-            this.chessGame = chessGame;
+            this.isChessGame = chessGame;
         }
 
         public void SetCheckersGame(bool checkersGame)
         {
-            this.checkersGame = checkersGame;
+            this.isCheckersGame = checkersGame;
         }
 
         public void SetRoomSkin(int skinIndex)
@@ -222,6 +223,16 @@ namespace JKTechnologies.SeensioGo.ARChess
             IGameRoomManager.Instance.ScatterActionToRoom("SwitchTurn");
         }
 
+        public void SwitchRoomGameChess()
+        {
+            IGameRoomManager.Instance.ScatterActionToRoom("SwitchGameChess");
+        }
+
+        public void SwitchRoomGameCheckers()
+        {
+            IGameRoomManager.Instance.ScatterActionToRoom("SwitchGameCheckers");
+        }
+
         public async void EndRoomGame()
         {
             await IGameRoomManager.Instance.UpdateUserPoints(1);
@@ -259,13 +270,15 @@ namespace JKTechnologies.SeensioGo.ARChess
         // Update local turn and board state pieces position
         public void SwitchTurn()
         {
-            if (chessGame)
+            if (isChessGame)
             {
                 BoardManager.Instance.SetWhiteTurn();
+                Debug.Log("Switching turn to white chess");
             }
-            else if (checkersGame)
+            else if (isCheckersGame)
             {
                 CheckersBoardManager.Instance.SetWhiteTurn();
+                Debug.Log("Switching turn to white checkers");
             }
 
             if (!IGameRoomManager.Instance.IsMultiplayerRoom())
@@ -279,6 +292,34 @@ namespace JKTechnologies.SeensioGo.ARChess
                     IGameRoomManager.Instance.TakeOwnerShip();
                 }
             }
+        }
+
+        public void SwitchGameChess()
+        {
+            if (isChessGame) return;
+
+            isChessGame = true;
+            if (isCheckersGame)
+            {
+                isCheckersGame = false;
+                checkersGame.SetActive(false);
+            }
+            chessGame.SetActive(true);
+            Debug.Log("Switching game to chess");
+        }
+
+        public void SwitchGameCheckers()
+        {
+            if (isCheckersGame) return;
+
+            isCheckersGame = true;
+            if (isChessGame)
+            {
+                isChessGame = false;
+                chessGame.SetActive(false);
+            }
+            checkersGame.SetActive(true);
+            Debug.Log("Switching game to checkers");
         }
 
         public void EndGame()

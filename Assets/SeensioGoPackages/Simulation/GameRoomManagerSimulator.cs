@@ -17,6 +17,7 @@ namespace JKTechnologies.SeensioGo.GameEngine
         private ConcurrentDictionary<int, IGameRPC> m_gameRPCActionTransfers = new ConcurrentDictionary<int, IGameRPC>();
         private string m_gameId;
         private object m_bufferData;
+
         private void Awake()
         {
             if(IGameRoomManager.Instance == null)
@@ -119,8 +120,8 @@ namespace JKTechnologies.SeensioGo.GameEngine
         }
         public async Task<bool> SetBufferRoomData<T>(T bufferData)
         {
-            m_bufferData = bufferData;
             await Task.Yield();
+            m_bufferData = bufferData;
             return true;
         }
 
@@ -170,20 +171,13 @@ namespace JKTechnologies.SeensioGo.GameEngine
         #region RPC
         public void RPC_RegisterToGameRoom(IGameRPC gameRPC)
         {
-            if(m_gameRPCActionTransfers.ContainsKey(gameRPC.RPC_GetID()))
-            {
-                m_gameRPCActionTransfers[gameRPC.RPC_GetID()] = gameRPC;
-            }
-            else
-            {
-                m_gameRPCActionTransfers.TryAdd(gameRPC.RPC_GetID(), gameRPC);
-            }
+            m_gameRPCActionTransfers.TryAdd(gameRPC.RPC_GetID(), gameRPC);
         }
         public void RPC_UnregisterToGameRoom(IGameRPC gameRPC)
         {
             m_gameRPCActionTransfers.TryRemove(gameRPC.RPC_GetID(), out _);
         }
-        public void RPC_ScatterActionToRoom(IGameRPC  gameRPC, string actionName)
+        public void RPC_ScatterActionToRoom(IGameRPC  gameRPC, string actionName, params object[] parameters)
         {
             if(m_gameRPCActionTransfers.ContainsKey(gameRPC.RPC_GetID()))
             {

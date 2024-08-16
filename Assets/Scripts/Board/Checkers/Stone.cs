@@ -18,6 +18,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public GameObject currentSkin;
         public GameObject[] stonePrefabs;
         public Material[] stoneMaterials;
+        private GameObject kingComponent;
         private Tile currentTile;
         private Tile nearestTile;
         private Vector3 mousePosition;
@@ -46,6 +47,12 @@ namespace JKTechnologies.SeensioGo.ARChess
             currentSkin.transform.localScale = Vector3.one;
 
             SetStoneMaterial(isWhite ? 0 : 1);
+
+            kingComponent = currentSkin.transform.Find("King")?.gameObject;
+            if (kingComponent != null)
+            {
+                kingComponent.SetActive(false);
+            }
         }
 
         protected virtual void Update()
@@ -77,7 +84,14 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetPossibleMoves(List<Vector2Int> moves) { possibleMoves = moves; }
         public void SetCurrentTile(Tile tile) { currentTile = tile; }
         public void SetNearestTile(Tile tile) { nearestTile = tile; }
-        public void SetKing(bool king) { isKing = king; }
+        public void SetKing(bool king)
+        {
+            isKing = king;
+            if (kingComponent != null)
+            {
+                kingComponent.SetActive(king);
+            }
+        }
         public void SetWhite(bool white) { isWhite = white; }
         public void SetInitialBoardPosition(Vector2Int position) { initialBoardPosition = position; }
         public void SetTiles(Tile[] tiles) { this.tiles = tiles; }
@@ -86,8 +100,7 @@ namespace JKTechnologies.SeensioGo.ARChess
         public void SetStoneMaterial(int materialIndex)
         {
             Material newMaterial = stoneMaterials[materialIndex];
-            Renderer[] renderers = currentSkin.GetComponentsInChildren<Renderer>();
-            foreach (Renderer renderer in renderers)
+            Renderer renderer = currentSkin.GetComponent<Renderer>();
             {
                 renderer.material = newMaterial;
             }
@@ -308,30 +321,30 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
         }
 
-        public async void OnPointerUp(PointerEventData eventData)
+        public void OnPointerUp(PointerEventData eventData)
         {
-            await HandleClickUp();
+            HandleClickUp();
             usingVirtualMouse = false;
         }
 
-        public async void OnMouseUp()
+        public void OnMouseUp()
         {
-            await HandleClickUp();
+            HandleClickUp();
             usingMouse = false;
         }
 
-        protected async Task HandleClickUp()
+        protected void HandleClickUp()
         {
             if (ARChessGameSettings.Instance.GetBoardInitialized() && isDragging)
             {
                 isDragging = false;
-                await SnapToNearestTile(true);
+                SnapToNearestTile(true);
             }
         }
         #endregion
 
         #region Snap, Update Stone
-        public async Task SnapToNearestTile(bool afterMove)
+        public void SnapToNearestTile(bool afterMove)
         {
             Tile tempCurrentTile = currentTile;
             Tile tempNearestTile = nearestTile;
@@ -388,7 +401,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             {
                 CheckersBoardManager.Instance.IncrementMoveCount();
                 CheckersBoardManager.Instance.UpdateBoardState();
-                CheckersBoardManager.Instance.CheckForCheckersWin(!this.isWhite);
+                // CheckersBoardManager.Instance.CheckForCheckersWin(this.isWhite);
                 try
                 {
                     IGameRoomManager.Instance.RPC_ScatterActionToRoom(this, "Moved");
@@ -397,16 +410,10 @@ namespace JKTechnologies.SeensioGo.ARChess
                 {
                     this.Moved();
                 }
-
                 // Check for additional captures
                 if (isCaptureMove)
                 {
-                    List<Vector2Int> additionalCaptures = CheckersBoardManager.Instance.GetAdditionalCaptures(this, this.isKing);
-
-                    foreach (Vector2Int capture in additionalCaptures)
-                    {
-                        Debug.Log("Additional capture: " + capture);
-                    }
+                    List<Vector2Int> additionalCaptures = CheckersBoardManager.Instance.GetAdditionalCaptures(this, this.isKing, this.isWhite);
 
                     // If there are additional captures, make them, else switch turn
                     if (additionalCaptures.Count > 0)
@@ -435,7 +442,7 @@ namespace JKTechnologies.SeensioGo.ARChess
 
         private void PromoteToKing()
         {
-            this.isKing = true;
+            SetKing(true);
             //SetStoneMaterial(isWhite ? 2 : 3);
         }
 
@@ -458,7 +465,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             int index = this.RPC_GetID() - 1;
             IGameRoomManager.Instance.RPC_UnregisterToGameRoom(this);
             this.gameObject.SetActive(false);
-            //GameManagerBufferData.Instance.SetBufferPieceData(null, index);
+            GameManagerBufferData.Instance.SetBufferStoneData(null, index);
         }
 
         public void UpdatePiecePositionInfo(bool afterMove)
@@ -514,6 +521,12 @@ namespace JKTechnologies.SeensioGo.ARChess
             }
 
             SetStoneMaterial(this.IsWhite() ? whiteColor : blackColor);
+
+            kingComponent = currentSkin.transform.Find("King")?.gameObject;
+            if (kingComponent != null)
+            {
+                kingComponent.SetActive(isKing);
+            }
         }
         #endregion
 
@@ -524,7 +537,7 @@ namespace JKTechnologies.SeensioGo.ARChess
             currentTile.SetOccupiedByStone(false, null);
             currentTile = CheckersBoardManager.Instance.GetTile(initialBoardPosition);
             currentTile.SetOccupiedByStone(true, this);
-            isKing = false;
+            SetKing(false);
             SetStoneMaterial(isWhite ? 0 : 1);
         }
         #endregion

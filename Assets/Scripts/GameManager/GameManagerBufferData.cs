@@ -31,9 +31,14 @@ namespace JKTechnologies.SeensioGo.ARChess
             BufferData defaultBufferData = new BufferData();
             defaultBufferData.boardAppearanceIndex = 0;
             defaultBufferData.boardPieceState = new string[32];
+            defaultBufferData.boardStoneState = new string[24];
             for (int i = 0; i < 32; i++)
             {
                 defaultBufferData.boardPieceState[i] = (i + 1).ToString();
+            }
+            for (int i = 0; i < 24; i++)
+            {
+                defaultBufferData.boardStoneState[i] = (i + 1).ToString();
             }
             return defaultBufferData;
         }
@@ -83,9 +88,19 @@ namespace JKTechnologies.SeensioGo.ARChess
             bufferData.boardPieceState = boardPieceState;
         }
 
+        public void SetBufferStonesData(string[] boardStoneState)
+        {
+            bufferData.boardStoneState = boardStoneState;
+        }
+
         public string[] GetBufferPiecesData()
         {
             return bufferData.boardPieceState;
+        }
+
+        public string[] GetBufferStonesData()
+        {
+            return bufferData.boardStoneState;
         }
 
         public void SetBufferPieceData(Piece piece, int index)
@@ -97,6 +112,19 @@ namespace JKTechnologies.SeensioGo.ARChess
             else
             {
                 bufferData.boardPieceState[index] = piece.GetPieceIndex().ToString();
+            }
+        }
+
+        public void SetBufferStoneData(Stone stone, int index)
+        {
+            int actualIndex = index - 39; // ID of the first stone is 40, -1 already done to index
+            if (stone == null)
+            {
+                bufferData.boardStoneState[actualIndex] = "";
+            }
+            else
+            {
+                bufferData.boardStoneState[actualIndex] = stone.GetStoneIndex().ToString();
             }
         }
         #endregion

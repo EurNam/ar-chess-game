@@ -21,17 +21,15 @@ namespace JKTechnologies.SeensioGo.ARChess
             toggleButton.onClick.AddListener(ChangeGame);
         }
 
-        public  void ChangeGame()
+        public void ChangeGame()
         {   
             if(chessGame)
             {
-                GameManager.Instance.SetChessGame(true);
-                GameManager.Instance.SetCheckersGame(false);
+                GameManager.Instance.SwitchRoomGameChess();
             }
             else
             {
-                GameManager.Instance.SetChessGame(false);
-                GameManager.Instance.SetCheckersGame(true);
+                GameManager.Instance.SwitchRoomGameCheckers();
             }
         }
     }

@@ -11,7 +11,9 @@ namespace JKTechnologies.SeensioGo.ARChess
         #region Variables
         public static CheckersBoardManager Instance;
         public GameObject board;
-        public GameObject kingPrefab;
+        public NameTag userNameTag;
+        public NameTag opponentNameTag;
+
         private Tile[,] boardState;
         private Stone[] boardStateStones;
         private bool whiteTurn = true;
@@ -171,20 +173,21 @@ namespace JKTechnologies.SeensioGo.ARChess
             return forcedStone;
         }
 
-        public List<Vector2Int> GetAdditionalCaptures(Stone stone, bool isKing)
+        public List<Vector2Int> GetAdditionalCaptures(Stone stone, bool isKing, bool side)
         {
             List<Vector2Int> captures = new List<Vector2Int>();
             Vector2Int currentPos = stone.GetCurrentTile().GetBoardIndex();
+            int direction = side ? 1 : -1;
 
             // Check two diagonal directions for captures
-            CheckCapture(stone, currentPos, 2, 2, captures);
-            CheckCapture(stone, currentPos, -2, 2, captures);
+            CheckCapture(stone, currentPos, 2*direction, 2*direction, captures);
+            CheckCapture(stone, currentPos, -2*direction, 2*direction, captures);
 
             // If the stone is a king, check the other two diagonal directions
             if (isKing)
             {
-                CheckCapture(stone, currentPos, 2, -2, captures);
-                CheckCapture(stone, currentPos, -2, -2, captures);
+                CheckCapture(stone, currentPos, 2*direction, -2*direction, captures);
+                CheckCapture(stone, currentPos, -2*direction, -2*direction, captures);
             }
 
             return captures;
@@ -225,11 +228,12 @@ namespace JKTechnologies.SeensioGo.ARChess
 
             foreach (Stone stone in boardStateStones)
             {
+                Debug.Log("Piece just move is type " + currentPlayerIsWhite + " and current stone "+stone.name+" is type " + stone.IsWhite());
+                Debug.Log((stone != null) +", "+ (stone.gameObject.activeSelf) +", "+ (stone.IsWhite() != currentPlayerIsWhite));
                 if (stone != null && stone.gameObject.activeSelf && stone.IsWhite() != currentPlayerIsWhite)
                 {
                     opponentHasStonesLeft = true;
-                    stone.GeneratePossibleMovesForBoard(stone.GetCurrentTile().GetBoardIndex());
-                    this.HideMoveGuides();
+                    Debug.Log("Possible moves for " + stone.name + ": " + stone.GetPossibleMoves().Count);
                     if (stone.GetPossibleMoves().Count > 0)
                     {
                         opponentHasMovesLeft = true;
@@ -243,11 +247,15 @@ namespace JKTechnologies.SeensioGo.ARChess
                 HandleWin(currentPlayerIsWhite);
             }
         }
+        #endregion
 
-        private void HandleWin(bool winnerIsWhite)
+        #region Handle Win
+        private void HandleWin(bool whiteKing)
         {
-            string winMessage = winnerIsWhite ? "White Won!" : "Black Won!";
-            Debug.Log(winMessage);
+            string winMessage = whiteKing ? "Light Won!" : "Dark Won!";
+            userNameTag.SetNameTag(winMessage);
+            opponentNameTag.SetNameTag(winMessage);
+            GameManager.Instance.EndRoomGame();
         }
         #endregion
 
@@ -301,17 +309,15 @@ namespace JKTechnologies.SeensioGo.ARChess
         }
         #endregion
 
-        #region Utility Methods
-
-
+        #region Play Sound
         public void PlaySnapSound()
         {
-            // Implement sound playing logic
+            audioSource.PlayOneShot(snapSound);
         }
 
         public void PlayCaptureSound()
         {
-            // Implement sound playing logic
+            audioSource.PlayOneShot(captureSound);
         }
         #endregion
     }

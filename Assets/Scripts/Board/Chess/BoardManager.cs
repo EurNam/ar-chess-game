@@ -14,6 +14,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         public GameObject board;
         public GameObject defaultQueenPrefab;
         public GameObject desertQueenPrefab;
+        public NameTag userNameTag;
+        public NameTag opponentNameTag;
         private Tile[,] boardState;
         private Piece[] boardStatePieces;
         private Vector2Int boardIndexBeforeLastMove;
@@ -553,18 +555,8 @@ namespace JKTechnologies.SeensioGo.ARChess
         private void HandleWin(bool whiteKing)
         {
             string winMessage = whiteKing ? "Black Won!" : "White Won!";
-            NameTag[] nameTags = FindObjectsOfType<NameTag>();
-            foreach (NameTag nameTag in nameTags)
-            {
-                if (nameTag.isUser)
-                {
-                    nameTag.SetMasterName(winMessage);
-                }
-                if (!nameTag.isUser)
-                {
-                    nameTag.SetGuestName(winMessage);
-                }
-            }
+            userNameTag.SetNameTag(winMessage);
+            opponentNameTag.SetNameTag(winMessage);
             GameManager.Instance.EndRoomGame();
         }
         #endregion

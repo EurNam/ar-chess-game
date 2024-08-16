@@ -6,5 +6,7 @@ namespace JKTechnologies.SeensioGo.Scene
         public void InviteOtherUserToRoom();
         public void ExitRoom();
         public void VibratePop();
+        public bool IsBuildingMode();
+        public void ReloadScene();
     }
 }
